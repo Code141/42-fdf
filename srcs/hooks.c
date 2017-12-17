@@ -4,16 +4,19 @@
 #include "ctx.h"
 #include "vector.h"
 #include "draw.h"
+#include "hud.h"
 
 int		key_hook(int keycode, void *ctx)
 {
 	ft_putstr("Key : ");
 	ft_putnbr(keycode);
 	ft_putstr("\n");
+	if (keycode == 53)
+		close_fdf();
 	return (1);	
 }
 
-int		mouse_hook(int button, int x, int y, void *ctx)
+int		mouse_hook(int button, int x, int y, t_ctx *ctx)
 {
 	ft_putstr("Mouse : ");
 	ft_putnbr(button);
@@ -22,6 +25,23 @@ int		mouse_hook(int button, int x, int y, void *ctx)
 	ft_putstr("\n  Y : ");
 	ft_putnbr(y);
 	ft_putstr("\n");
+
+	t_scene	*scene;
+	scene = ctx->scene;
+
+	t_geometry	*geometry;
+	t_material	*material;
+	t_object	*square;
+
+	geometry = new_square(10, 10, 10);
+	material = new_material(0xff0000);
+
+	square = new_object(geometry, material);
+	square->pos.x = x - ctx->width / 2;
+	square->pos.y = y - ctx->height / 2;
+
+	scene_add(ctx->scene, square);
+
 	return (1);
 }
 
@@ -31,10 +51,11 @@ int		expose_hook(void *ctx)
 	return (1);	
 }
 
-int		loop_hook(void *ctx)
+int		loop_hook(t_ctx *ctx)
 {
+	mlx_clear_window(ctx->mlx, ctx->win);
 	draw_all(ctx);
-//	ft_putstr("Loop_Hook\n");
+	hud(ctx);
 	return (1);	
 }
 

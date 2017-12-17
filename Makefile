@@ -10,10 +10,13 @@ INCS =	-I./lib/mlx/				\
 
 SRCS =	./srcs/main.c				\
 		./srcs/hooks.c				\
+		./srcs/pixel.c				\
 		./srcs/scene.c				\
+		./srcs/camera.c				\
 		./srcs/object.c				\
 		./srcs/geometry.c			\
 		./srcs/material.c			\
+		./srcs/hud.c				\
 		./srcs/draw.c
 
 FMWS =	-framework OpenGL			\
@@ -24,6 +27,7 @@ all: $(NAME)
 $(NAME) : $(SRCS)
 	gcc $(LIBS) $(INCS) $(FMWS) $(SRCS) -o $(NAME)
 
-debug :
+fsanitize :
 	gcc $(LIBS) $(INCS) $(FMWS) $(SRCS) -o $(NAME) -g -fsanitize=address
-
+g :
+	gcc $(LIBS) $(INCS) $(FMWS) $(SRCS) -o $(NAME) -g

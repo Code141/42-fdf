@@ -2,6 +2,14 @@
 # define CTX_H
 # include "scene.h"
 
+typedef	struct	s_img
+{
+	int		width;
+	int		height;
+	void	*id;
+	char	*data;
+}				t_img;
+
 typedef	struct	s_ctx
 {
 	void	*mlx;
@@ -9,6 +17,12 @@ typedef	struct	s_ctx
 	int		width;
 	int		height;
 	t_scene	*scene;
+	int		timestamp;
+	int		fps;
+	int		frame;
+	t_img	*canevas;
 }				t_ctx;
+
+int				close_fdf();
 
 #endif

@@ -9,9 +9,8 @@ t_object	*new_object(t_geometry *geometry, t_material *material)
 	object = (t_object*)malloc(sizeof(t_object));
 	object->geometry = geometry;
 	object->material = material;
-	object->pos = (t_vect*)malloc(sizeof(t_vect));
-	object->pos->x = 0;
-	object->pos->y = 0;
-	object->pos->z = 0;
+	object->pos.x = 0;
+	object->pos.y = 0;
+	object->pos.z = 0;
 	return (object);
 }
