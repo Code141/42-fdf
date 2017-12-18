@@ -2,6 +2,11 @@
 # define CTX_H
 # include "scene.h"
 
+typedef union	u_color
+{
+	unsigned int hex;
+}				t_color;
+
 typedef	struct	s_img
 {
 	int		width;

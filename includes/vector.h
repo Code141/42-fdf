@@ -1,18 +1,24 @@
 #ifndef VECTOR_H
 # define VECTOR_H
 
-typedef	struct	s_vector
+typedef	struct	s_vector2
 {
 	int	x;
 	int	y;
-	int	z;
-}				t_vector;
+}				t_vector2;
+
+typedef	struct	s_vector3
+{
+	float	x;
+	float	y;
+	float	z;
+}				t_vector3;
 
 typedef	struct	s_vertex
 {
-	int	x;
-	int	y;
-	int	z;
+	float	x;
+	float	y;
+	float	z;
 }				t_vertex;
 
 typedef	struct	s_edge

@@ -4,7 +4,7 @@
 
 typedef struct	s_camera
 {
-	t_vector	pos;
+	t_vector3	pos;
 }				t_camera;
 
 t_camera		*new_camera();

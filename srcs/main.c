@@ -49,12 +49,10 @@ int		main()
 	t_material	*material;
 	t_mesh		*square;
 
-	geometry = new_plane(10, 10);
+	geometry = new_plane(200, 200);
 	material = new_material(0xff0000);
 
 	square = new_mesh(geometry, material);
-	square->pos.x = 0;
-	square->pos.y = 0;
 	scene_add(ctx->scene, square);
 
 /*---IMG--------------------------------------------------------------------*/

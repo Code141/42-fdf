@@ -10,7 +10,6 @@ typedef struct	s_geometry
 	// INT NB vert / edge / faces
 }				t_geometry;
 
-t_geometry	*new_square(int x, int y, int z);
 t_geometry	*new_plane(int x, int y);
 
 #endif
