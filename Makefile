@@ -1,32 +1,53 @@
 
-NAME =	FdF
+NAME	=	FdF
 
-LIBS =	-L./lib/mlx -lmlx			\
-		-L./lib/libft -lft
+CC		=	gcc
+CFLAGS	=	#-Wall -Wextra -Werror
+CFLAGS	+=	$(INCS)
 
-INCS =	-I./lib/mlx/				\
-		-I./lib/libft/includes/		\
-		-I./includes/
+LIBS	=	-L./lib/mlx -lmlx			\
+			-L./lib/libft -lft
 
-SRCS =	./srcs/main.c				\
-		./srcs/hooks.c				\
-		./srcs/pixel.c				\
-		./srcs/scene.c				\
-		./srcs/camera.c				\
-		./srcs/object.c				\
-		./srcs/geometry.c			\
-		./srcs/material.c			\
-		./srcs/hud.c				\
-		./srcs/draw.c
+INCS	=	-I./lib/mlx/				\
+			-I./lib/libft/includes/		\
+			-I./includes/
 
-FMWS =	-framework OpenGL			\
-		-framework AppKit
+SRCS	=	./srcs/main.c				\
+			./srcs/hooks.c				\
+			./srcs/pixel.c				\
+			./srcs/vector.c				\
+			./srcs/scene.c				\
+			./srcs/camera.c				\
+			./srcs/mesh.c				\
+			./srcs/geometry.c			\
+			./srcs/material.c			\
+			./srcs/hud.c				\
+			./srcs/draw.c
 
-all: $(NAME)
+OBJS	=	$(SRCS:.c=.o)
 
-$(NAME) : $(SRCS)
-	gcc $(LIBS) $(INCS) $(FMWS) $(SRCS) -o $(NAME)
+FMWS	=	-framework OpenGL			\
+			-framework AppKit
 
+all		: $(NAME)
+
+$(NAME) : $(OBJS)
+	gcc $(LIBS) $(FMWS) $(OBJS) -o $(NAME)
+
+clean	:
+	rm -f $(OBJS)
+
+fclean:
+	rm -f $(NAME) $(OBJS)
+	cd ./lib/libft $(MAKE) fclean
+	cd ./lib/mlx $(MAKE) clean
+re:
+	$(MAKE) $(MFLAGS) fclean
+	$(MAKE) $(MFLAGS) all
+
+.PHONY: all clean fclean re
+
+########################################################################
 fsanitize :
 	gcc $(LIBS) $(INCS) $(FMWS) $(SRCS) -o $(NAME) -g -fsanitize=address
 g :

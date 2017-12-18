@@ -4,10 +4,13 @@
 
 typedef struct	s_geometry
 {
-	t_vect	size;
+	t_vertex	**vertices;
+	t_edge		**edges;
+	t_face		**faces;
+	// INT NB vert / edge / faces
 }				t_geometry;
 
-t_geometry	*new_geometry(int x, int y, int z);
 t_geometry	*new_square(int x, int y, int z);
+t_geometry	*new_plane(int x, int y);
 
 #endif

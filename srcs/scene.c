@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include "scene.h"
-#include "object.h"
+#include "mesh.h"
 
 t_scene		*new_scene()
 {
@@ -12,7 +12,7 @@ t_scene		*new_scene()
 	return (scene);
 }
 
-void		scene_add(t_scene *scene, t_object *object)
+void		scene_add(t_scene *scene, t_mesh *object)
 {
 	ft_lst_push_back(&scene->objects, ft_lst_new_link(object));
 }

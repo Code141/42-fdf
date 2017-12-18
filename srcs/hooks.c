@@ -31,12 +31,12 @@ int		mouse_hook(int button, int x, int y, t_ctx *ctx)
 
 	t_geometry	*geometry;
 	t_material	*material;
-	t_object	*square;
+	t_mesh		*square;
 
 	geometry = new_square(10, 10, 10);
 	material = new_material(0xff0000);
 
-	square = new_object(geometry, material);
+	square = new_mesh(geometry, material);
 	square->pos.x = x - ctx->width / 2;
 	square->pos.y = y - ctx->height / 2;
 

@@ -3,8 +3,9 @@
 #include "ctx.h"
 #include "pixel.h"
 
-void	draw_squar(t_ctx *ctx, t_object *object)
+void	draw_mesh(t_ctx *ctx, t_mesh *mesh)
 {
+/*
 	int	x;
 	int	y;
 
@@ -24,10 +25,10 @@ void	draw_squar(t_ctx *ctx, t_object *object)
 		}
 		y++;	
 	}
-	object->pos.x /= 1.01;
-	object->pos.y /= 1.01;
-
+*/
 }
+
+//	(ctx->width / 2) + object->pos.x + x - ctx->scene->camera->pos.x;
 
 void	draw_all(t_ctx *ctx)
 {
@@ -39,7 +40,7 @@ void	draw_all(t_ctx *ctx)
 	object = objects;
 	while (object)
 	{
-		draw_squar(ctx, object->content);
+		draw_mesh(ctx, object->content);
 		object = object->next;
 	}
 	mlx_put_image_to_window (ctx->mlx, ctx->win, ctx->canevas->id, 0, 0);	

@@ -7,7 +7,7 @@
 #include "vector.h"
 #include "draw.h"
 #include "scene.h"
-#include "object.h"
+#include "mesh.h"
 #include "geometry.h"
 #include "material.h"
 
@@ -47,12 +47,12 @@ int		main()
 
 	t_geometry	*geometry;
 	t_material	*material;
-	t_object	*square;
+	t_mesh		*square;
 
-	geometry = new_square(10, 10, 10);
+	geometry = new_plane(10, 10);
 	material = new_material(0xff0000);
 
-	square = new_object(geometry, material);
+	square = new_mesh(geometry, material);
 	square->pos.x = 0;
 	square->pos.y = 0;
 	scene_add(ctx->scene, square);
@@ -62,7 +62,6 @@ int		main()
 	int		bits_per_pixel;
 	int		size_line;
 	int		endian;
-	char	*img_start;
 
 	ctx->canevas = (t_img*)malloc(sizeof(t_img));
 	ctx->canevas->width = ctx->width;
