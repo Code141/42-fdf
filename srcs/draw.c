@@ -38,7 +38,6 @@ t_vector2	projection(t_ctx *ctx, t_vertex *v1, t_mesh *mesh)
 	angle.y = scalaire(v1->x, v1->z);
 	angle.z = scalaire(v1->x, v1->y);
 
-
 	if (v1->x < 0)
 		angle.z = -angle.z;
 
@@ -47,7 +46,6 @@ t_vector2	projection(t_ctx *ctx, t_vertex *v1, t_mesh *mesh)
 	v2.x = hypo * (cos(mesh->rot.z + angle.z) * cos(mesh->rot.x + angle.x));
 	v2.y = hypo * (sin(mesh->rot.z + angle.z) * sin(mesh->rot.x + angle.x));
 
-//	v.y += sin( mesh->rot.x * RAD + angle) * hypo;
 
 
 	mesh->rot.x += 0.05 * RAD;
