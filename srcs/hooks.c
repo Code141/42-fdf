@@ -41,8 +41,6 @@ int		mouse_hook(int button, int x, int y, t_ctx *ctx)
 	square->pos.y = y - ctx->height / 2;
 	scene_add(ctx->scene, square);
 
-
-
 	return (1);
 }
 

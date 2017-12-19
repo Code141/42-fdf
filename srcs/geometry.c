@@ -9,10 +9,20 @@ t_geometry	*new_plane(int x, int y)
 	geometry = (t_geometry*)malloc(sizeof(t_geometry));
 	
 	geometry->vertices = (t_vertex**)malloc(sizeof(t_vertex*) * 5);
+
 	geometry->vertices[0] = new_vertex(-x / 2, -y / 2, 0);
 	geometry->vertices[1] = new_vertex(-x / 2, y / 2, 0);
 	geometry->vertices[2] = new_vertex(x / 2, -y / 2, 0);
 	geometry->vertices[3] = new_vertex(x / 2, y / 2, 0);
+
+/*
+	geometry->vertices[0] = new_vertex(0, 0, 0);
+	geometry->vertices[1] = new_vertex(0, y, 0);
+	geometry->vertices[2] = new_vertex(x, 0, 0);
+	geometry->vertices[3] = new_vertex(x, y, 0);
+*/	
+
+
 	geometry->vertices[4] = NULL;
 
 	geometry->edges = (t_edge**)malloc(sizeof(t_edge*) * 6);

@@ -38,24 +38,35 @@ int		main()
 	ctx->scene = new_scene();
 
 
-/*---CAMERA-----------------------------------------------------------------*/
+/*---CAMERA-------------------------------------------------------------------*/
 
 	ctx->scene->camera->pos.x = 0;
 	ctx->scene->camera->pos.y = 0;
 	
-/*---GEOMETRY---------------------------------------------------------------*/
+/*---GEOMETRY-----------------------------------------------------------------*/
 
 	t_geometry	*geometry;
 	t_material	*material;
 	t_mesh		*square;
 
-	geometry = new_plane(200, 200);
+	geometry = new_plane(400, 100);
 	material = new_material(0xff0000);
-
 	square = new_mesh(geometry, material);
 	scene_add(ctx->scene, square);
 
-/*---IMG--------------------------------------------------------------------*/
+	geometry = new_plane(100, 400);
+	material = new_material(0x0000ff);
+	square = new_mesh(geometry, material);
+	scene_add(ctx->scene, square);
+
+	geometry = new_plane(100, 100);
+	material = new_material(0xffffff);
+	square = new_mesh(geometry, material);
+	square->pos.x = 100;
+	scene_add(ctx->scene, square);
+
+
+/*---IMG----------------------------------------------------------------------*/
 
 	int		bits_per_pixel;
 	int		size_line;

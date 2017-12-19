@@ -18,5 +18,4 @@ void	put_pixel(t_img *canevas, int x, int y, int color);
 void	draw_point(t_img *canevas, t_vector2 v, int size, int color);
 void	draw_line(t_img *canevas, t_vector2 v1, t_vector2 v2, int color);
 
-
 #endif
