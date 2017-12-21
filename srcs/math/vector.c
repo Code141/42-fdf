@@ -1,24 +1,24 @@
 #include <stdlib.h>
 #include "vector.h"
 
-t_vertex	*new_vertex(int x, int y, int z)
+t_vector3	*new_vector3(float x, float y, float z)
 {
-	t_vertex	*vertex;
+	t_vector3	*v;
 
-	vertex = (t_vertex*)malloc(sizeof(t_vertex));
-	vertex->x = x;
-	vertex->y = y;
-	vertex->z = z;
-	return (vertex);
+	v = (t_vector3*)malloc(sizeof(t_vector3));
+	v->x = x;
+	v->y = y;
+	v->z = z;
+	return (v);
 }
 
-t_edge		*new_edge(t_vertex *vertex1, t_vertex *vertex2)
+t_edge		*new_edge(t_vector3 *v1, t_vector3 *v2)
 {
 	t_edge	*edge;
 
 	edge = (t_edge*)malloc(sizeof(t_edge));
-	edge->vertices[0] = vertex1;
-	edge->vertices[1] = vertex2;
+	edge->vertices[0] = v1;
+	edge->vertices[1] = v2;
 	return (edge);
 }
 

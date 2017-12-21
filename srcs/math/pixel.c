@@ -1,14 +1,14 @@
+#include <math.h>
 #include "pixel.h"
 
-void	put_pixel(t_img *canevas, int x, int y, int color)
+void	put_pixel(t_img *canevas, int x, int y, t_color color)
 {
-	if ((y < 0 || y >= canevas->height)
-		|| (x < 0 || x >= canevas->width))
-	return ;
-	((unsigned int*)canevas->data)[(y * canevas->width) + x] = color;	// Alpha
+	if ((y < 0 || y >= canevas->height) || (x < 0 || x >= canevas->width))
+		return ;
+	((unsigned int*)canevas->data)[(y * canevas->width) + x] = color.hex;	// Alpha
 }
 
-void	draw_point(t_img *canevas, t_vector2 v, int size, int color)
+void	draw_point(t_img *canevas, t_vector2 v, int size, t_color color)
 {
 	int x;
 	int y;
@@ -26,10 +26,10 @@ void	draw_point(t_img *canevas, t_vector2 v, int size, int color)
 	}
 }
 
-void	draw_line(t_img *canevas, t_vector2 v1, t_vector2 v2, int color)
+void	draw_line(t_img *canevas, t_vector2 v1, t_vector2 v2, t_color color)
 {
-	int dx;
-	int dy;
+	float dx;
+	float dy;
 	int x;
 	int y;
 

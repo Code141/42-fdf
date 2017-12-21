@@ -4,7 +4,7 @@
 
 typedef struct	s_geometry
 {
-	t_vertex	**vertices;
+	t_vector3	**vertices;
 	t_edge		**edges;
 	t_face		**faces;
 	// INT NB vert / edge / faces

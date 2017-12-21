@@ -12,7 +12,6 @@ t_mesh	*new_mesh(t_geometry *geometry, t_material *material)
 	mesh->pos.x = 0;
 	mesh->pos.y = 0;
 	mesh->pos.z = 0;
-
 	mesh->rot.x = 0;
 	mesh->rot.y = 0;
 	mesh->rot.z = 0;

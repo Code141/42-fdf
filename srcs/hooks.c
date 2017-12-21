@@ -37,8 +37,8 @@ int		mouse_hook(int button, int x, int y, t_ctx *ctx)
 	material = new_material(0xffffff);
 
 	square = new_mesh(geometry, material);
-	square->pos.x = x - ctx->width / 2;
-	square->pos.y = y - ctx->height / 2;
+	square->pos.x = x - ctx->screen->width / 2;
+	square->pos.y = y - ctx->screen->height / 2;
 	scene_add(ctx->scene, square);
 
 	return (1);
@@ -52,7 +52,7 @@ int		expose_hook(void *ctx)
 
 int		loop_hook(t_ctx *ctx)
 {
-	mlx_clear_window(ctx->mlx, ctx->win);
+	mlx_clear_window(ctx->mlx, ctx->screen->win);
 	draw_all(ctx);
 	hud(ctx);
 	return (1);	
@@ -60,9 +60,9 @@ int		loop_hook(t_ctx *ctx)
 
 int		hooks(t_ctx *ctx)
 {
-	mlx_key_hook (ctx->win, &key_hook, ctx);
-	mlx_mouse_hook (ctx->win, &mouse_hook, ctx);
-	mlx_expose_hook (ctx->win, &expose_hook, ctx);
+	mlx_key_hook (ctx->screen->win, &key_hook, ctx);
+	mlx_mouse_hook (ctx->screen->win, &mouse_hook, ctx);
+	mlx_expose_hook (ctx->screen->win, &expose_hook, ctx);
 	mlx_loop_hook (ctx->mlx, &loop_hook, ctx);
 	return (1);
 }

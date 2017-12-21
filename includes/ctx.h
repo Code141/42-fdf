@@ -2,11 +2,6 @@
 # define CTX_H
 # include "scene.h"
 
-typedef union	u_color
-{
-	unsigned int hex;
-}				t_color;
-
 typedef	struct	s_img
 {
 	int		width;
@@ -15,17 +10,23 @@ typedef	struct	s_img
 	char	*data;
 }				t_img;
 
-typedef	struct	s_ctx
+typedef	struct	s_screen
 {
-	void	*mlx;
 	void	*win;
 	int		width;
 	int		height;
-	t_scene	*scene;
-	int		timestamp;
-	int		fps;
-	int		frame;
+	float	ar; //aspect ratio
 	t_img	*canevas;
+}				t_screen;
+
+typedef	struct	s_ctx
+{
+	void		*mlx;
+	t_screen	*screen;
+	t_scene		*scene;
+	int			timestamp;
+	int			fps;
+	int			frame;
 }				t_ctx;
 
 int				close_fdf();

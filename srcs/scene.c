@@ -8,7 +8,7 @@ t_scene		*new_scene()
 
 	scene = (t_scene*)malloc(sizeof(t_scene));
 	scene->objects = NULL;
-	scene->camera = new_camera();
+	scene->camera = NULL;
 	return (scene);
 }
 
