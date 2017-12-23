@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <math.h>
 #include "vector.h"
 
 t_vector3	*new_vector3(float x, float y, float z)
@@ -10,6 +11,35 @@ t_vector3	*new_vector3(float x, float y, float z)
 	v->y = y;
 	v->z = z;
 	return (v);
+}
+
+void	vector3_set(t_vector3 *v, float x, float y, float z)
+{
+	v->x = x;
+	v->y = y;
+	v->z = z;
+}
+
+
+void		vect4_normalise(t_vector4 *v)
+{
+	float	size;
+
+	size = sqrt((v->x * v->x) + (v->y * v->y) + (v->z * v->z) + (v->w * v->w));
+	v->x = v->x / size;
+	v->y = v->z / size;
+	v->z = v->z / size;
+	v->w = v->w / size;
+}
+
+void		vect3_normalise(t_vector3 *v)
+{
+	float	size;
+
+	size = sqrt((v->x * v->x) + (v->y * v->y) + (v->z * v->z));
+	v->x = v->x / size;
+	v->y = v->z / size;
+	v->z = v->z / size;
 }
 
 t_edge		*new_edge(t_vector3 *v1, t_vector3 *v2)

@@ -15,6 +15,7 @@ SRCS	=	./srcs/main.c				\
 			./srcs/hooks.c				\
 			./srcs/math/pixel.c			\
 			./srcs/math/vector.c		\
+			./srcs/math/matrice4.c		\
 			./srcs/scene.c				\
 			./srcs/camera.c				\
 			./srcs/mesh.c				\
@@ -48,6 +49,6 @@ re:
 
 ########################################################################
 fsanitize :
-	gcc $(LIBS) $(INCS) $(FMWS) $(SRCS) -o $(NAME) -g -fsanitize=address
+	gcc $(LIBS) $(CPPFLAGS) $(FMWS) $(SRCS) -o $(NAME) -g -fsanitize=address
 g :
 	gcc $(LIBS) $(INCS) $(FMWS) $(SRCS) -o $(NAME) -g

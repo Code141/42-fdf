@@ -18,6 +18,7 @@ float	scalaire(float x, float y)
 
 t_vector2	projection(t_ctx *ctx, t_vector3 *v1, t_mesh *mesh)
 {
+
 /*	float cpp;
 	t_vector2	v2;
 
@@ -28,18 +29,21 @@ t_vector2	projection(t_ctx *ctx, t_vector3 *v1, t_mesh *mesh)
 	t_vector2	v2;
 	float		hypo;
 	t_vector3	angle;
+
 	hypo = hypot(v1->x, v1->y);
 	hypo = hypot(hypo, v1->z);
+
 	angle.x = scalaire(v1->y, v1->z);
 	angle.y = scalaire(v1->x, v1->z);
 	angle.z = scalaire(v1->x, v1->y);
+
 	if (v1->x < 0)
 		angle.z = -angle.z;
-	v2.x = hypo * (cos(mesh->rot.z + angle.z) * cos(mesh->rot.x + angle.x));
+	v2.x = hypo * (cos(mesh->rot.z + angle.z)); //* cos(mesh->rot.x + angle.x));
 	v2.y = hypo * (sin(mesh->rot.z + angle.z));// * sin(mesh->rot.x + angle.x));
-	mesh->rot.x += 0.05 * RAD;
+//	mesh->rot.x += 0.05 * RAD;
 //	mesh->rot.y += 0.05 * RAD;
-	mesh->rot.z += 0.05 * RAD;
+//	mesh->rot.z += 0.05 * RAD;
 
 	v2.x += (ctx->screen->width / 2) + mesh->pos.x - ctx->scene->camera->pos.x;
 	v2.y += (ctx->screen->height / 2) + mesh->pos.y - ctx->scene->camera->pos.y;
@@ -50,15 +54,15 @@ t_vector2	projection(t_ctx *ctx, t_vector3 *v1, t_mesh *mesh)
 void	draw_vertices(t_ctx *ctx, t_mesh *mesh)
 {
 	int			i;
-	int			x;
-	int			y;
-	t_vector2	v;
+	t_vector3	v1;
+	t_vector2	v2;
 
 	i = 0;
 	while (mesh->geometry->vertices[i])
 	{
-		v = projection(ctx, mesh->geometry->vertices[i], mesh);
-		draw_point(ctx->screen->canevas, v, 5, mesh->material->color);
+		v1 = matrice_apply(mesh->geometry->vertices[i], mesh->matrice);
+		v2 = projection(ctx, &v1, mesh);
+		draw_point(ctx->screen->canevas, v2, 5, mesh->material->color);
 		i++;
 	}
 }
@@ -66,21 +70,43 @@ void	draw_vertices(t_ctx *ctx, t_mesh *mesh)
 void	draw_edges(t_ctx *ctx, t_mesh *mesh)
 {
 	int			i;
-	t_vector2 v1;
-	t_vector2 v2;
+	t_vector3	v1a;
+	t_vector3	v1b;
+	t_vector2	v2a;
+	t_vector2	v2b;
 	
 	i = 0;
 	while (mesh->geometry->edges[i])
 	{
-		v1 = projection(ctx, mesh->geometry->edges[i]->vertices[0], mesh);
-		v2 = projection(ctx, mesh->geometry->edges[i]->vertices[1], mesh);
-		draw_line(ctx->screen->canevas, v1, v2, mesh->material->color);
+		v1a = matrice_apply(mesh->geometry->edges[i]->vertices[0], mesh->matrice);
+		v1b = matrice_apply(mesh->geometry->edges[i]->vertices[1], mesh->matrice);
+		v2a = projection(ctx, &v1a, mesh);
+		v2b = projection(ctx, &v1b, mesh);
+		draw_line(ctx->screen->canevas, v2a, v2b, mesh->material->color);
 		i++;
 	}
 }
 
 void	draw_mesh(t_ctx *ctx, t_mesh *mesh)
 {
+	t_matrice4 *m;
+	t_vector3 v;
+
+	v.x = 0;
+	v.y = 0;
+	v.z = 0;
+
+	matrice_rotation_z(mesh->matrice, TO_RAD(mesh->rot.z));
+mesh->rot.z += 0.0001;
+	m = mesh->matrice;
+
+	printf("%f  %f  %f  %f\n%f  %f  %f  %f\n%f  %f  %f  %f\n%f  %f  %f  %f\n\n\n",
+		m->m[0], m->m[1], m->m[2], m->m[3], m->m[4], m->m[5], m->m[6], m->m[7],
+		m->m[8], m->m[9], m->m[10], m->m[11], m->m[12], m->m[13], m->m[14], m->m[15]);
+
+
+
+
 	draw_edges(ctx, mesh);
 	draw_vertices(ctx, mesh);
 }
@@ -91,6 +117,7 @@ void	draw_all(t_ctx *ctx)
 	t_list	*objects;
 	t_list	*object;
 	
+	printf("--- DRAW ALL -------------------------\n\n");
 	objects = ctx->scene->objects;
 	object = objects;
 	while (object)

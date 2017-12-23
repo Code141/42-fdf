@@ -5,6 +5,7 @@
 #include "ctx.h"
 #include "hooks.h"
 #include "vector.h"
+#include "matrice4.h"
 #include "draw.h"
 #include "scene.h"
 #include "camera.h"
@@ -60,12 +61,12 @@ int		main()
 	t_material	*material;
 	t_mesh		*square;
 
-	geometry = new_plane(400, 100);
+	geometry = new_plane(500, 100);
 	material = new_material(0xff0000);
 	square = new_mesh(geometry, material);
 	scene_add(ctx->scene, square);
 
-	geometry = new_plane(100, 400);
+	geometry = new_plane(100, 500);
 	material = new_material(0x0000ff);
 	square = new_mesh(geometry, material);
 	scene_add(ctx->scene, square);
@@ -73,8 +74,10 @@ int		main()
 	geometry = new_plane(100, 100);
 	material = new_material(0xffffff);
 	square = new_mesh(geometry, material);
-	scene_add(ctx->scene, square);
 
+	(square->matrice->m)[1] = 1;
+	(square->matrice->m)[4] = 1;
+	scene_add(ctx->scene, square);
 
 /*---IMG----------------------------------------------------------------------*/
 
