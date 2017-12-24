@@ -2,6 +2,11 @@
 # define CTX_H
 # include "scene.h"
 
+# define PI 3.14159265
+# define RAD PI / 180
+# define TO_RAD(x) ((x) * PI / 180.0)
+# define TO_DEG(x) ((x) * 180.0 / PI)
+
 typedef	struct	s_img
 {
 	int		width;

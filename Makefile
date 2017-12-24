@@ -51,4 +51,4 @@ re:
 fsanitize :
 	gcc $(LIBS) $(CPPFLAGS) $(FMWS) $(SRCS) -o $(NAME) -g -fsanitize=address
 g :
-	gcc $(LIBS) $(INCS) $(FMWS) $(SRCS) -o $(NAME) -g
+	gcc $(LIBS) $(CPPFLAGS) $(FMWS) $(SRCS) -o $(NAME) -g

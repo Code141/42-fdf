@@ -5,7 +5,7 @@ void	put_pixel(t_img *canevas, int x, int y, t_color color)
 {
 	if ((y < 0 || y >= canevas->height) || (x < 0 || x >= canevas->width))
 		return ;
-	((unsigned int*)canevas->data)[(y * canevas->width) + x] = color.hex;	// Alpha
+	((unsigned int*)canevas->data)[(y * canevas->width) + x] = color.hex;
 }
 
 void	draw_point(t_img *canevas, t_vector2 v, int size, t_color color)
@@ -32,6 +32,27 @@ void	draw_line(t_img *canevas, t_vector2 v1, t_vector2 v2, t_color color)
 	float dy;
 	int x;
 	int y;
+
+
+	t_vector2 v3;
+	if (v1.x > v2.x)
+	{
+	v3 = v1;
+	v1 = v2;
+	v2 = v3;	
+	}
+	if (v1.y > v2.y)
+	{
+	v3 = v1;
+	v1 = v2;
+	v2 = v3;	
+	
+	}
+
+
+
+
+
 
 	dx = v2.x - v1.x;
 	dy = v2.y - v1.y;

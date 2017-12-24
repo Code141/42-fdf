@@ -60,24 +60,48 @@ int		main()
 	t_geometry	*geometry;
 	t_material	*material;
 	t_mesh		*square;
-
-	geometry = new_plane(500, 100);
+/*
+	geometry = new_cube(500, 25, 25);
 	material = new_material(0xff0000);
 	square = new_mesh(geometry, material);
 	scene_add(ctx->scene, square);
 
-	geometry = new_plane(100, 500);
+	geometry = new_cube(25, 500, 25);
+	material = new_material(0x00ff00);
+	square = new_mesh(geometry, material);
+	scene_add(ctx->scene, square);
+
+	geometry = new_cube(25, 25, 500);
 	material = new_material(0x0000ff);
 	square = new_mesh(geometry, material);
 	scene_add(ctx->scene, square);
-
-	geometry = new_plane(100, 100);
+*/
+	geometry = new_cube(50, 50, 50);
 	material = new_material(0xffffff);
 	square = new_mesh(geometry, material);
-
-	(square->matrice->m)[1] = 1;
-	(square->matrice->m)[4] = 1;
 	scene_add(ctx->scene, square);
+
+
+
+	geometry = new_surface(200, 200, 2, 2);
+	material = new_material(0x0000ff);
+	square = new_mesh(geometry, material);
+	square->matrice = matrice_rotation_z(square->matrice, TO_RAD(90));
+	scene_add(ctx->scene, square);
+
+	geometry = new_surface(200, 200, 3, 3);
+	material = new_material(0xff0000);
+	square = new_mesh(geometry, material);
+	square->matrice = matrice_rotation_y(square->matrice, TO_RAD(90));
+	scene_add(ctx->scene, square);
+
+	geometry = new_surface(200, 200, 5, 5);
+	material = new_material(0x00ff00);
+	square = new_mesh(geometry, material);
+	square->matrice = matrice_rotation_x(square->matrice, TO_RAD(90));
+	scene_add(ctx->scene, square);
+
+	
 
 /*---IMG----------------------------------------------------------------------*/
 

@@ -2,14 +2,13 @@
 
 float	scalaire(float x, float y)
 {
-	int a;
-	int b;
+	int			a;
+	int			b;
+	t_vector2	v2;
+	float		angle;
 
-	t_vector2 v2;
-	float angle;
 	v2.x = 0;
 	v2.y = 1;
-
 	a =	(x * v2.x) + (y * v2.y);
 	b = ((x * x) + (y * y)) * ((v2.x * v2.x) + (v2.y * v2.y));
 	angle = acos(a / sqrt(b));
@@ -30,20 +29,8 @@ t_vector2	projection(t_ctx *ctx, t_vector3 *v1, t_mesh *mesh)
 	float		hypo;
 	t_vector3	angle;
 
-	hypo = hypot(v1->x, v1->y);
-	hypo = hypot(hypo, v1->z);
-
-	angle.x = scalaire(v1->y, v1->z);
-	angle.y = scalaire(v1->x, v1->z);
-	angle.z = scalaire(v1->x, v1->y);
-
-	if (v1->x < 0)
-		angle.z = -angle.z;
-	v2.x = hypo * (cos(mesh->rot.z + angle.z)); //* cos(mesh->rot.x + angle.x));
-	v2.y = hypo * (sin(mesh->rot.z + angle.z));// * sin(mesh->rot.x + angle.x));
-//	mesh->rot.x += 0.05 * RAD;
-//	mesh->rot.y += 0.05 * RAD;
-//	mesh->rot.z += 0.05 * RAD;
+	v2.x = v1->x;
+	v2.y = v1->y;
 
 	v2.x += (ctx->screen->width / 2) + mesh->pos.x - ctx->scene->camera->pos.x;
 	v2.y += (ctx->screen->height / 2) + mesh->pos.y - ctx->scene->camera->pos.y;
@@ -92,19 +79,23 @@ void	draw_mesh(t_ctx *ctx, t_mesh *mesh)
 	t_matrice4 *m;
 	t_vector3 v;
 
-	v.x = 0;
+	v.x = 1;
 	v.y = 0;
 	v.z = 0;
 
-	matrice_rotation_z(mesh->matrice, TO_RAD(mesh->rot.z));
-mesh->rot.z += 0.0001;
-	m = mesh->matrice;
 
-	printf("%f  %f  %f  %f\n%f  %f  %f  %f\n%f  %f  %f  %f\n%f  %f  %f  %f\n\n\n",
+	mesh->matrice = matrice_rotation_x(mesh->matrice, TO_RAD(0.5));
+	mesh->matrice = matrice_rotation_y(mesh->matrice, TO_RAD(0.1));
+	mesh->matrice = matrice_rotation_z(mesh->matrice, TO_RAD(0.1));
+
+//	mesh->matrice = matrice_translation(mesh->matrice, &v);
+/*	m = mesh->matrice;
+
+	printf("%f	%f	%f	%f\n%f	%f	%f	%f\n%f	%f	%f	%f\n%f	%f	%f	%f\n\n\n",
 		m->m[0], m->m[1], m->m[2], m->m[3], m->m[4], m->m[5], m->m[6], m->m[7],
 		m->m[8], m->m[9], m->m[10], m->m[11], m->m[12], m->m[13], m->m[14], m->m[15]);
 
-
+*/
 
 
 	draw_edges(ctx, mesh);
@@ -113,17 +104,23 @@ mesh->rot.z += 0.0001;
 
 void	draw_all(t_ctx *ctx)
 {
+	int i;
+	
 	ft_bzero(ctx->screen->canevas->data, ctx->screen->canevas->width * ctx->screen->canevas->height * 4);
 	t_list	*objects;
 	t_list	*object;
 	
-	printf("--- DRAW ALL -------------------------\n\n");
+//	printf("--- DRAW ALL -------------------------\n\n");
 	objects = ctx->scene->objects;
 	object = objects;
+
+	i = 0;
 	while (object)
 	{
+//		printf("- Mesh [%d] -\n", i);
 		draw_mesh(ctx, object->content);
 		object = object->next;
+		i++;
 	}
 	mlx_put_image_to_window (ctx->mlx, ctx->screen->win, ctx->screen->canevas->id, 0, 0);	
 }
