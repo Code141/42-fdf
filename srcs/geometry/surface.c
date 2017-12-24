@@ -13,7 +13,7 @@ static t_vector3	**surface_vertices(int x, int y, int subx, int suby)
 		j = 0;
 		while (j < subx + 1)
 		{
-			vertices[(i * (suby + 1)) + j] = new_vector3(x / subx * j, y / suby * i, 0);
+			vertices[(i * (suby + 1)) + j] = new_vector3(x / subx * j - x / 2, y / suby * i - y / 2, 0);
 			j++;
 		}
 		i++;
@@ -53,7 +53,7 @@ static t_edge		**surface_edges(t_vector3 **vertices, int subx, int suby)
 	return (edges);
 }
 
-static t_face		**surface_faces(t_edge **edges)
+static t_face		**surface_faces(t_edge **edges, int subx, int suby)
 {
 	t_face **faces; 
 
@@ -69,6 +69,6 @@ t_geometry	*new_surface(int x, int y, int subx, int suby)
 	geo = (t_geometry*)malloc(sizeof(t_geometry));
 	geo->vertices = surface_vertices(x, y, subx, suby);
 	geo->edges = surface_edges(geo->vertices, subx, suby);
-
-return (geo);
+	geo->faces = surface_faces(geo->edges, subx, suby);
+	return (geo);
 }

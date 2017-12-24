@@ -86,7 +86,7 @@ void	draw_mesh(t_ctx *ctx, t_mesh *mesh)
 
 	mesh->matrice = matrice_rotation_x(mesh->matrice, TO_RAD(0.5));
 	mesh->matrice = matrice_rotation_y(mesh->matrice, TO_RAD(0.1));
-	mesh->matrice = matrice_rotation_z(mesh->matrice, TO_RAD(0.1));
+//	mesh->matrice = matrice_rotation_z(mesh->matrice, TO_RAD(0.1));
 
 //	mesh->matrice = matrice_translation(mesh->matrice, &v);
 /*	m = mesh->matrice;
