@@ -6,6 +6,7 @@ CFLAGS	=	#-Wall -Wextra -Werror
 CPPFLAGS=	-I./lib/mlx/				\
 			-I./lib/libft/includes/		\
 			-I./includes/math/			\
+			-I./includes/geometry/		\
 			-I./includes/
 
 LIBS	=	-L./lib/mlx -lmlx			\
@@ -19,7 +20,10 @@ SRCS	=	./srcs/main.c				\
 			./srcs/scene.c				\
 			./srcs/camera.c				\
 			./srcs/mesh.c				\
-			./srcs/geometry.c			\
+			./srcs/geometry/geometry.c	\
+			./srcs/geometry/cube.c		\
+			./srcs/geometry/plane.c		\
+			./srcs/geometry/surface.c	\
 			./srcs/material.c			\
 			./srcs/hud.c				\
 			./srcs/draw.c

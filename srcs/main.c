@@ -11,6 +11,9 @@
 #include "camera.h"
 #include "mesh.h"
 #include "geometry.h"
+#include "plane.h"
+#include "cube.h"
+#include "surface.h"
 #include "material.h"
 
 int		close_fdf()
