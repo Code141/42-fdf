@@ -79,7 +79,7 @@ int		main()
 	square = new_mesh(geometry, material);
 	scene_add(ctx->scene, square);
 */
-	geometry = new_cube(50, 50, 50);
+	geometry = new_cube(400, 400, 400);
 	material = new_material(0xffffff);
 	square = new_mesh(geometry, material);
 	scene_add(ctx->scene, square);
