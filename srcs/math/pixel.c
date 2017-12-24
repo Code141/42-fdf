@@ -46,7 +46,6 @@ void	draw_line(t_img *canevas, t_vector2 v1, t_vector2 v2, t_color color)
 	v3 = v1;
 	v1 = v2;
 	v2 = v3;	
-	
 	}
 
 
