@@ -4,6 +4,7 @@
 # include "vector.h"
 # include "mesh.h"
 # include "camera.h"
+# include "object.h"
 
 typedef struct	s_scene
 {
@@ -12,6 +13,6 @@ typedef struct	s_scene
 }				t_scene;
 
 t_scene			*new_scene();
-void			scene_add(t_scene *scene, t_mesh *object);
+void			scene_add(t_scene *scene, t_object *object);
 
 #endif

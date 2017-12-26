@@ -4,6 +4,7 @@
 
 void	hud(t_ctx *ctx)
 {
+	char	*str;
 	ctx->frame++;
 	if (ctx->timestamp != (int)time(NULL))
 	{
@@ -11,5 +12,7 @@ void	hud(t_ctx *ctx)
 		ctx->fps = ctx->frame;
 		ctx->frame = 0;
 	}
-	mlx_string_put(ctx->mlx, ctx->screen->win, 10, 10, 0xff0000, ft_itoa(ctx->fps));
+	str = ft_itoa(ctx->fps);
+	mlx_string_put(ctx->mlx, ctx->screen->win, 10, 10, 0xff0000, str);
+	free(str);
 }

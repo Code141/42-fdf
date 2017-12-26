@@ -23,7 +23,7 @@ void	matrice4_init(t_matrice4 *m)
 	m->m[15] = 1;
 }
 
-t_vector3	matrice_apply(t_vector3 *p, t_matrice4 *m)
+t_vector3	matrice_apply(t_matrice4 *m, t_vector3 *p)
 {
 	t_vector3	p2;
 
@@ -34,22 +34,21 @@ t_vector3	matrice_apply(t_vector3 *p, t_matrice4 *m)
 	return (p2);
 }
 
-t_matrice4	*matrice_product(t_matrice4 *m1, t_matrice4 *m2)
+void	matrice_product(t_matrice4 *m1, t_matrice4 *m2, t_matrice4 *m3)
 {
 	int			i;
-	t_matrice4	*m3;
+	t_matrice4	m4;
 
-	m3 = (t_matrice4*)malloc(sizeof(t_matrice4));
 	i = 0;
 	while (i < 16)
 	{
-		m3->m[i] = (m1->m[(i / 4) * 4 + 0] * m2->m[i % 4 + 0])
+		m4.m[i] = (m1->m[(i / 4) * 4 + 0] * m2->m[i % 4 + 0])
 				+ (m1->m[(i / 4) * 4 + 1] * m2->m[i % 4 + 4])
 				+ (m1->m[(i / 4) * 4 + 2] * m2->m[i % 4 + 8])
 				+ (m1->m[(i / 4) * 4 + 3] * m2->m[i % 4 + 12]);
 		i++;
 	}
-	return (m3);
+	*m3 = m4;
 }
 
 void	matrice_multiply(t_matrice4 *m1, t_matrice4 *m2)
@@ -77,62 +76,50 @@ void	matrice_add(t_matrice4 *m1, t_matrice4 *m2)
 	}
 }
 
-t_matrice4	*matrice_translation(t_matrice4 *m1, t_vector3 *v)
+void	matrice_translation(t_matrice4 *m1, t_vector3 *v)
 {
 	t_matrice4	m2;
-	t_matrice4	*m3;
 	
 	matrice4_init(&m2);
 	m2.m[3] = v->x;
 	m2.m[7] = v->y;
 	m2.m[11] = v->z;
-	m3 = (t_matrice4*)malloc(sizeof(t_matrice4));
-	m3 = matrice_product(m1, &m2);
-	return (m3);
+	matrice_product(m1, &m2, m1);
 }
 
-t_matrice4	*matrice_rotation_x(t_matrice4 *m1, float angle)
+void	matrice_rotation_x(t_matrice4 *m1, float angle)
 {
 	t_matrice4 m2;
-	t_matrice4 *m3;
 
 	matrice4_init(&m2);
 	m2.m[5] = cos(angle);
 	m2.m[6] = -sin(angle);
 	m2.m[9] = sin(angle);
 	m2.m[10] = cos(angle);
-	m3 = (t_matrice4*)malloc(sizeof(t_matrice4));
-	m3 = matrice_product(m1, &m2);
-	return (m3);
+	matrice_product(m1, &m2, m1);
 }
 
-t_matrice4	*matrice_rotation_y(t_matrice4 *m1, float angle)
+void	matrice_rotation_y(t_matrice4 *m1, float angle)
 {
 	t_matrice4 m2;
-	t_matrice4 *m3;
 
 	matrice4_init(&m2);
 	m2.m[0] = cos(angle);
 	m2.m[2] = -sin(angle);
 	m2.m[8] = sin(angle);
 	m2.m[10] = cos(angle);
-	m3 = (t_matrice4*)malloc(sizeof(t_matrice4));
-	m3 = matrice_product(m1, &m2);
-	return (m3);
+	matrice_product(m1, &m2, m1);
 }
 
-t_matrice4	*matrice_rotation_z(t_matrice4 *m1, float angle)
+void	matrice_rotation_z(t_matrice4 *m1, float angle)
 {
 	t_matrice4 m2;
-	t_matrice4 *m3;
 
 	matrice4_init(&m2);
 	m2.m[0] = cos(angle);
 	m2.m[1] = -sin(angle);
 	m2.m[4] = sin(angle);
 	m2.m[5] = cos(angle);
-	m3 = (t_matrice4*)malloc(sizeof(t_matrice4));
-	m3 = matrice_product(m1, &m2);
-	return (m3);
+	matrice_product(m1, &m2, m1);
 }
 

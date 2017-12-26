@@ -43,7 +43,6 @@ t_geometry	*new_plane(int x, int y)
 	t_geometry	*geo;
 
 	geo = (t_geometry*)malloc(sizeof(t_geometry));
-
 	geo->vertices = plane_vertices(x, y);
 	geo->edges = plane_edges(geo->vertices);
 	geo->faces = plane_faces(geo->edges);

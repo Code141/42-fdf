@@ -12,7 +12,7 @@ typedef struct	s_mesh
 	t_material	*material;
 	t_vector3	pos;
 	t_vector3	rot;
-	t_matrice4	*matrice;
+	t_matrice4	matrice;
 }				t_mesh;
 
 t_mesh			*new_mesh(t_geometry *geometry, t_material *material);

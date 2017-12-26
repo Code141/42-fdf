@@ -7,6 +7,7 @@
 #include "vector.h"
 #include "matrice4.h"
 #include "draw.h"
+#include "object.h"
 #include "scene.h"
 #include "camera.h"
 #include "mesh.h"
@@ -32,7 +33,7 @@ int		main()
 
 	width = 1024;
 	height = 786;
-
+	
 	ctx = (t_ctx*)malloc(sizeof(t_ctx));
 	ctx->mlx = mlx_init();
 
@@ -40,15 +41,13 @@ int		main()
 	ctx->screen->width = width;
 	ctx->screen->height = height;
 	ctx->screen->ar = width / height;
-
 	ctx->screen->win = mlx_new_window(ctx->mlx, ctx->screen->width, ctx->screen->height, "FdF");
 
 	hooks(ctx);
 
+/*---SCENE / CAMERA-----------------------------------------------------------*/
+
 	ctx->scene = new_scene();
-
-
-/*---CAMERA-------------------------------------------------------------------*/
 
 	ctx->scene->camera = new_camera();
 	ctx->scene->camera->pos.x = 0;
@@ -62,49 +61,67 @@ int		main()
 
 	t_geometry	*geometry;
 	t_material	*material;
-	t_mesh		*square;
-/*
+	t_object	*square_obj;
+
 	geometry = new_cube(500, 25, 25);
 	material = new_material(0xff0000);
-	square = new_mesh(geometry, material);
-	scene_add(ctx->scene, square);
+ 	square_obj = new_object(new_mesh(geometry, material));
+	scene_add(ctx->scene, square_obj);
 
 	geometry = new_cube(25, 500, 25);
 	material = new_material(0x00ff00);
-	square = new_mesh(geometry, material);
-	scene_add(ctx->scene, square);
+ 	square_obj = new_object(new_mesh(geometry, material));
+	scene_add(ctx->scene, square_obj);
 
 	geometry = new_cube(25, 25, 500);
 	material = new_material(0x0000ff);
-	square = new_mesh(geometry, material);
-	scene_add(ctx->scene, square);
-*/
+ 	square_obj = new_object(new_mesh(geometry, material));
+	scene_add(ctx->scene, square_obj);
+
+
 	geometry = new_cube(400, 400, 400);
 	material = new_material(0xffffff);
-	square = new_mesh(geometry, material);
-	scene_add(ctx->scene, square);
+ 	square_obj = new_object(new_mesh(geometry, material));
+	scene_add(ctx->scene, square_obj);
 
 
+/*GRID*/
+	t_object	*grid;
+	t_object	*grid_x;
+	t_object	*grid_y;
+	t_object	*grid_z;
 
-	geometry = new_surface(200, 200, 2, 2);
+ 	grid = new_object(NULL);
+	scene_add(ctx->scene, grid);
+
+	t_vector3 v;
+
+	v.x = 100;
+	v.y = 0;
+	v.z = 0;
+
+//	matrice_rotation_x(&grid->matrice, TO_RAD(45));
+//	matrice_rotation_y(&grid->matrice, TO_RAD(45));
+	matrice_rotation_z(&grid->matrice, TO_RAD(45));
+
+	geometry = new_surface(200, 200, 10, 10);
 	material = new_material(0x0000ff);
-	square = new_mesh(geometry, material);
-	square->matrice = matrice_rotation_z(square->matrice, TO_RAD(90));
-	scene_add(ctx->scene, square);
+ 	grid_z = new_object(new_mesh(geometry, material));
+	object_add_child(grid, grid_z);
 
-	geometry = new_surface(200, 200, 3, 3);
-	material = new_material(0xff0000);
-	square = new_mesh(geometry, material);
-	square->matrice = matrice_rotation_y(square->matrice, TO_RAD(90));
-	scene_add(ctx->scene, square);
 
-	geometry = new_surface(200, 200, 5, 5);
 	material = new_material(0x00ff00);
-	square = new_mesh(geometry, material);
-	square->matrice = matrice_rotation_x(square->matrice, TO_RAD(90));
-	scene_add(ctx->scene, square);
+ 	grid_y = new_object(new_mesh(geometry, material));
+	matrice_rotation_x(&grid_y->mesh->matrice, TO_RAD(90));
+	object_add_child(grid, grid_y);
 
-	
+	material = new_material(0xff0000);
+ 	grid_x = new_object(new_mesh(geometry, material));
+	matrice_rotation_y(&grid_x->mesh->matrice, TO_RAD(90));
+//	matrice_translation(&grid_x->matrice, &v);
+	object_add_child(grid, grid_x);
+
+
 
 /*---IMG----------------------------------------------------------------------*/
 

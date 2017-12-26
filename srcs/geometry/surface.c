@@ -35,18 +35,23 @@ static t_edge		**surface_edges(t_vector3 **vertices, int subx, int suby)
 		j = 0;
 		while (j < subx)
 		{
-			edges[(i * subx * 3 + (i * 1)) + j * 3 + 0] = new_edge(vertices[(i * (suby + 1)) + j], vertices[(i * (suby + 1)) + j + 1]);
-			edges[(i * subx * 3 + (i * 1)) + j * 3 + 1] = new_edge(vertices[(i * (suby + 1)) + j], vertices[((i + 1) * (suby + 1)) + j]);
-			edges[(i * subx * 3 + (i * 1)) + j * 3 + 2] = new_edge(vertices[(i * (suby + 1)) + j], vertices[((i + 1) * (suby + 1)) + j + 1]);
+			edges[(i * subx * 3 + (i * 1)) + j * 3 + 0] =
+				new_edge(vertices[(i * (suby + 1)) + j], vertices[(i * (suby + 1)) + j + 1]);
+			edges[(i * subx * 3 + (i * 1)) + j * 3 + 1] =
+				new_edge(vertices[(i * (suby + 1)) + j], vertices[((i + 1) * (suby + 1)) + j]);
+			edges[(i * subx * 3 + (i * 1)) + j * 3 + 2] =
+				new_edge(vertices[(i * (suby + 1)) + j], vertices[((i + 1) * (suby + 1)) + j + 1]);
 			j++;
 		}
-		edges[(i * subx * 3 + (i * 1)) + j * 3 + 0] = new_edge(vertices[(i * (suby + 1)) + j], vertices[((i + 1) * (suby + 1)) + j ]);
+		edges[(i * subx * 3 + (i * 1)) + j * 3 + 0] =
+			new_edge(vertices[(i * (suby + 1)) + j], vertices[((i + 1) * (suby + 1)) + j ]);
 		i++;
 	}
 	j = 0;
 	while (j < subx)
 	{
-		edges[(i * subx * 3 + (i * 1)) + j ] = new_edge(vertices[(i * (suby + 1)) + j], vertices[(i * (suby + 1)) + j + 1]);
+		edges[(i * subx * 3 + (i * 1)) + j ] =
+			new_edge(vertices[(i * (suby + 1)) + j], vertices[(i * (suby + 1)) + j + 1]);
 		j++;
 	}
 	edges[(subx * suby * 3) + (subx + suby)] = NULL;

@@ -1,5 +1,6 @@
 #ifndef GEOMETRY_H
 # define GEOMETRY_H
+# include <stdlib.h>
 # include "vector.h"
 
 typedef struct	s_geometry

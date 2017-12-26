@@ -1,6 +1,7 @@
 #ifndef CTX_H
 # define CTX_H
 # include "scene.h"
+# include "object.h"
 
 # define PI 3.14159265
 # define RAD PI / 180
