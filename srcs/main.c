@@ -17,8 +17,11 @@
 #include "surface.h"
 #include "material.h"
 
-int		close_fdf()
+int		close_fdf(t_ctx *ctx)
 {
+	ctx->mlx = NULL;
+	ctx->screen = NULL;
+	ctx->scene = NULL;
 	ft_putstr("EXIT PROGRAMME");
 	while (1)
 	{}
@@ -96,7 +99,7 @@ int		main()
 
 	t_vector3 v;
 
-	v.x = 100;
+	v.x = 300;
 	v.y = 0;
 	v.z = 0;
 
@@ -107,6 +110,7 @@ int		main()
 	geometry = new_surface(200, 200, 10, 10);
 	material = new_material(0x0000ff);
  	grid_z = new_object(new_mesh(geometry, material));
+
 	object_add_child(grid, grid_z);
 
 
@@ -118,9 +122,9 @@ int		main()
 	material = new_material(0xff0000);
  	grid_x = new_object(new_mesh(geometry, material));
 	matrice_rotation_y(&grid_x->mesh->matrice, TO_RAD(90));
-//	matrice_translation(&grid_x->matrice, &v);
 	object_add_child(grid, grid_x);
 
+	matrice_translation(&grid->matrice, &v);
 
 
 /*---IMG----------------------------------------------------------------------*/

@@ -35,6 +35,6 @@ typedef	struct	s_ctx
 	int			frame;
 }				t_ctx;
 
-int				close_fdf();
+int				close_fdf(t_ctx *ctx);
 
 #endif

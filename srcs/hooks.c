@@ -6,13 +6,11 @@
 #include "vector.h"
 #include "draw.h"
 
-int		key_release(int keycode, void *ctx)
+int		key_release(int keycode, t_ctx *ctx)
 {
 	ft_putstr("Key Release : ");
 	ft_putnbr(keycode);
 	ft_putstr("\n");
-	if (keycode == 53)
-		close_fdf();
 	return (1);	
 }
 
@@ -22,7 +20,7 @@ int		key_press(int keycode, void *ctx)
 	ft_putnbr(keycode);
 	ft_putstr("\n");
 	if (keycode == 53)
-		close_fdf();
+		close_fdf(ctx);
 	return (1);	
 }
 
@@ -55,7 +53,7 @@ int		expose_hook(void *ctx)
 int		loop_hook(t_ctx *ctx)
 {
 //	mlx_clear_window(ctx->mlx, ctx->screen->win);
-//	update_all(ctx);
+	update_all(ctx, ctx->scene->objects);
 	render(ctx);
 	return (1);	
 }
