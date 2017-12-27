@@ -8,5 +8,6 @@ typedef struct	s_material
 }				t_material;
 
 t_material	*new_material(int color);
+void		destroy_material(t_material *material);
 
 #endif

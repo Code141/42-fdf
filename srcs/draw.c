@@ -47,7 +47,7 @@ void	draw_vertices(t_ctx *ctx, t_object *object, t_matrice4 *m)
 	t_matrice4	m3;
 
 	mesh = object->mesh;
-	matrice_product(&mesh->matrice, m, &m3);
+	matrice_product(m, &mesh->matrice, &m3);
 	i = 0;
 	while (mesh->geometry->vertices[i])
 	{
@@ -72,7 +72,7 @@ void	draw_edges(t_ctx *ctx, t_object *object, t_matrice4 *m)
 	t_matrice4	m3;
 
 	mesh = object->mesh;
-	matrice_product(&mesh->matrice, m, &m3);
+	matrice_product(m, &mesh->matrice, &m3);
 	i = 0;
 	while (mesh->geometry->edges[i])
 	{
@@ -101,7 +101,7 @@ void	draw_all(t_ctx *ctx, t_list *elements, t_matrice4 *m1)
 	while (elements)
 	{
 		object =  (t_object*)elements->content;
-		matrice_product(m1, &object->matrice, &m2);
+		matrice_product(&object->matrice, m1, &m2);
 		mesh = object->mesh;
 		if (mesh)
 			draw_object(ctx, object, &m2);
@@ -116,9 +116,7 @@ void	draw_all(t_ctx *ctx, t_list *elements, t_matrice4 *m1)
 
 void	update_all(t_ctx *ctx, t_list *object)
 {
-	//----------
-	//----------
-	//----------
+	
 }
 
 void	render(t_ctx *ctx)

@@ -12,3 +12,10 @@ t_mesh	*new_mesh(t_geometry *geometry, t_material *material)
 	matrice4_init(&mesh->matrice);
 	return (mesh);
 }
+
+void	destroy_mesh(t_mesh *mesh)
+{
+	destroy_geometry(mesh->geometry);	
+	destroy_material(mesh->material);	
+	free(mesh);
+}

@@ -14,5 +14,6 @@ typedef struct	s_scene
 
 t_scene			*new_scene();
 void			scene_add(t_scene *scene, t_object *object);
+void			destroy_scene(t_scene *scene);
 
 #endif

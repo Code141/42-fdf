@@ -26,5 +26,6 @@ struct				s_object
 
 t_object	*new_object(t_mesh *object);
 void		object_add_child(t_object *obj1, t_object *obj2);
+void		destroy_objects(void **objects);
 
 #endif

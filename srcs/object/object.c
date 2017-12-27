@@ -9,7 +9,6 @@ t_object	*new_object(t_mesh *mesh)
 	obj->parent = NULL;
 	obj->children = NULL;
 	obj->mesh = mesh;
-
 	vector3_set(&obj->pos, 0, 0, 0);
 	vector3_set(&obj->rot, 0, 0, 0);
 	matrice4_init(&obj->matrice);
@@ -22,3 +21,15 @@ void		object_add_child(t_object *obj1, t_object *obj2)
 	obj2->parent = obj1;
 }
 
+void	destroy_objects(void **objects)
+{
+	t_object	*object;
+
+	object =  (t_object*)objects;
+
+	if (object->mesh)
+		destroy_mesh(object->mesh);
+	if (object->children)
+		ft_lstdel(&object->children, &destroy_objects);
+	free(object);
+}

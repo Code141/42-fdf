@@ -15,6 +15,7 @@ typedef struct	s_mesh
 	t_matrice4	matrice;
 }				t_mesh;
 
-t_mesh			*new_mesh(t_geometry *geometry, t_material *material);
+t_mesh		*new_mesh(t_geometry *geometry, t_material *material);
+void		destroy_mesh(t_mesh *mesh);
 
 #endif

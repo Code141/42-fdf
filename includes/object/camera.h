@@ -12,5 +12,6 @@ typedef struct	s_camera
 }				t_camera;
 
 t_camera		*new_camera();
+void			destroy_camera(t_camera *cam);
 
 #endif

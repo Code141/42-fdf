@@ -13,3 +13,8 @@ t_camera	*new_camera()
 	camera->far = 0;
 	return (camera);
 }
+
+void	destroy_camera(t_camera *cam)
+{
+	free(cam);
+}

@@ -52,7 +52,6 @@ int		expose_hook(void *ctx)
 
 int		loop_hook(t_ctx *ctx)
 {
-//	mlx_clear_window(ctx->mlx, ctx->screen->win);
 	update_all(ctx, ctx->scene->objects);
 	render(ctx);
 	return (1);	

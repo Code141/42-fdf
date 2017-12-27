@@ -9,3 +9,8 @@ t_material	*new_material(int color)
 	material->color.hex = color;
 	return (material);
 }
+
+void	destroy_material(t_material *material)
+{
+	free(material);
+}

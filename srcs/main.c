@@ -19,9 +19,10 @@
 
 int		close_fdf(t_ctx *ctx)
 {
-	ctx->mlx = NULL;
-	ctx->screen = NULL;
-	ctx->scene = NULL;
+	free(ctx->screen->canevas);
+	free(ctx->screen);
+	destroy_scene(ctx->scene);
+	free(ctx);
 	ft_putstr("EXIT PROGRAMME");
 	while (1)
 	{}
@@ -81,14 +82,13 @@ int		main()
  	square_obj = new_object(new_mesh(geometry, material));
 	scene_add(ctx->scene, square_obj);
 
-
 	geometry = new_cube(400, 400, 400);
 	material = new_material(0xffffff);
  	square_obj = new_object(new_mesh(geometry, material));
 	scene_add(ctx->scene, square_obj);
 
-
 /*GRID*/
+
 	t_object	*grid;
 	t_object	*grid_x;
 	t_object	*grid_y;
@@ -96,35 +96,26 @@ int		main()
 
  	grid = new_object(NULL);
 	scene_add(ctx->scene, grid);
-
-	t_vector3 v;
-
-	v.x = 300;
-	v.y = 0;
-	v.z = 0;
-
-//	matrice_rotation_x(&grid->matrice, TO_RAD(45));
-//	matrice_rotation_y(&grid->matrice, TO_RAD(45));
-	matrice_rotation_z(&grid->matrice, TO_RAD(45));
-
+	matrice_rotation_x(&grid->matrice, TO_RAD(10));
+	matrice_rotation_y(&grid->matrice, TO_RAD(10));
+	matrice_rotation_z(&grid->matrice, TO_RAD(10));
 	geometry = new_surface(200, 200, 10, 10);
 	material = new_material(0x0000ff);
  	grid_z = new_object(new_mesh(geometry, material));
-
 	object_add_child(grid, grid_z);
 
-
+	geometry = new_surface(200, 200, 10, 10);
 	material = new_material(0x00ff00);
  	grid_y = new_object(new_mesh(geometry, material));
 	matrice_rotation_x(&grid_y->mesh->matrice, TO_RAD(90));
 	object_add_child(grid, grid_y);
 
+	geometry = new_surface(200, 200, 10, 10);
 	material = new_material(0xff0000);
  	grid_x = new_object(new_mesh(geometry, material));
 	matrice_rotation_y(&grid_x->mesh->matrice, TO_RAD(90));
 	object_add_child(grid, grid_x);
 
-	matrice_translation(&grid->matrice, &v);
 
 
 /*---IMG----------------------------------------------------------------------*/
