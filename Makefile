@@ -1,4 +1,3 @@
-
 NAME	=	FdF
 
 CC		=	gcc
@@ -15,6 +14,7 @@ LIBS	=	-L./lib/mlx -lmlx			\
 
 SRCS	=	./srcs/main.c				\
 			./srcs/hooks.c				\
+			./srcs/screen.c				\
 			./srcs/math/pixel.c			\
 			./srcs/math/vector.c		\
 			./srcs/math/matrice4.c		\

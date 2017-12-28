@@ -56,11 +56,6 @@ int		loop_hook(t_ctx *ctx)
 	render(ctx);
 	return (1);	
 }
-int		hook_focus()
-{
-	printf("FOCUS 1");
-	return (1);
-}
 
 int		hooks(t_ctx *ctx)
 {

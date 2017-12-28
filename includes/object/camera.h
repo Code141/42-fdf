@@ -11,7 +11,7 @@ typedef struct	s_camera
 	float		far;
 }				t_camera;
 
-t_camera		*new_camera();
-void			destroy_camera(t_camera *cam);
+t_camera	*new_camera(float angle, float near, float far);
+void		destroy_camera(t_camera *cam);
 
 #endif
