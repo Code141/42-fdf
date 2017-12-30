@@ -13,7 +13,10 @@ static t_vector3	**surface_vertices(int x, int y, int subx, int suby)
 		j = 0;
 		while (j < subx + 1)
 		{
-			vertices[(i * (suby + 1)) + j] = new_vector3(x / subx * j - x / 2, y / suby * i - y / 2, 0);
+			vertices[(i * (subx + 1)) + j] = new_vector3(
+				x / subx * j - x / 2,
+				y / suby * i - y / 2,
+				0);
 			j++;
 		}
 		i++;
@@ -29,30 +32,25 @@ static t_edge		**surface_edges(t_vector3 **vertices, int subx, int suby)
 	int		j;
 
  	edges = (t_edge**)malloc(sizeof(t_edge*) * ((subx * suby * 3) + (subx + suby) + 1));
+
 	i = 0;
-	while (i < suby)
+	while (i < suby + 1)
 	{
 		j = 0;
-		while (j < subx)
+		while (j < subx + 1)
 		{
-			edges[(i * subx * 3 + (i * 1)) + j * 3 + 0] =
-				new_edge(vertices[(i * (suby + 1)) + j], vertices[(i * (suby + 1)) + j + 1]);
-			edges[(i * subx * 3 + (i * 1)) + j * 3 + 1] =
-				new_edge(vertices[(i * (suby + 1)) + j], vertices[((i + 1) * (suby + 1)) + j]);
-			edges[(i * subx * 3 + (i * 1)) + j * 3 + 2] =
-				new_edge(vertices[(i * (suby + 1)) + j], vertices[((i + 1) * (suby + 1)) + j + 1]);
+			if (j < subx)
+				edges[i * subx + j] =
+					new_edge(vertices[i * (subx + 1) + j], vertices[i * (subx + 1) + j + 1]);
+			if (i < suby)
+				edges[((suby + 1) * subx) + (i * (subx + 1)) + j] =
+					new_edge(vertices[i * (subx + 1) + j], vertices[(i + 1) * (subx + 1) + j]);
+			if (i < suby && j < subx)
+				edges[((suby + 1) * subx) + (suby * (subx + 1)) + (i * subx + j)] =
+					new_edge(vertices[i * (subx + 1) + j], vertices[(i + 1) * (subx + 1) + j + 1]);
 			j++;
 		}
-		edges[(i * subx * 3 + (i * 1)) + j * 3 + 0] =
-			new_edge(vertices[(i * (suby + 1)) + j], vertices[((i + 1) * (suby + 1)) + j ]);
 		i++;
-	}
-	j = 0;
-	while (j < subx)
-	{
-		edges[(i * subx * 3 + (i * 1)) + j ] =
-			new_edge(vertices[(i * (suby + 1)) + j], vertices[(i * (suby + 1)) + j + 1]);
-		j++;
 	}
 	edges[(subx * suby * 3) + (subx + suby)] = NULL;
 	return (edges);

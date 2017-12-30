@@ -13,6 +13,7 @@ LIBS	=	-L./lib/mlx -lmlx			\
 			-L./lib/libft -lft
 
 SRCS	=	./srcs/main.c				\
+			./srcs/input.c				\
 			./srcs/hooks.c				\
 			./srcs/screen.c				\
 			./srcs/math/pixel.c			\

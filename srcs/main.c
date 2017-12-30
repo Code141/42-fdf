@@ -3,6 +3,7 @@
 #include "libft.h"
 
 #include "ctx.h"
+#include "input.h"
 #include "hooks.h"
 #include "vector.h"
 #include "matrice4.h"
@@ -56,15 +57,28 @@ t_object	*grid_orientation(int x, int y, int subx, int suby)
 	return(obj);
 }
 
-	// PROTECTION DES MALLOCS !
+// PROTECTION DES MALLOCS !
 
-int		main()
+int		main(int argc, char **argv)
 {
+
+/*--- INPUT ------------------------------------------------------------------*/
+	argc--;
+	argv++;
+
+	t_fdf_map	*map;
+	if (argc)
+	{
+		map = parse_fdf_file(*argv);
+	}
+
+
+/*--- INIT -------------------------------------------------------------------*/
+
 	t_ctx	*ctx;
 	int		width;
 	int		height;
 
-	
 	ctx = (t_ctx*)malloc(sizeof(t_ctx));
 	ctx->mlx = mlx_init();
 
@@ -75,6 +89,7 @@ int		main()
 
 	ctx->scene = new_scene();
 
+	//SORTIRE LA CAMERA DE LA SCENE ??
 	ctx->scene->camera = new_camera(TO_RAD(120), 10, 2000);
 	ctx->scene->camera->pos.z = -500;
 
@@ -83,7 +98,7 @@ int		main()
 	t_geometry	*geometry;
 	t_material	*material;
 	t_object	*square_obj;
-
+/*
 	geometry = new_cube(500, 25, 25);
 	material = new_material(0xff0000);
  	square_obj = new_object(new_mesh(geometry, material));
@@ -103,10 +118,29 @@ int		main()
 	material = new_material(0xffffff);
  	square_obj = new_object(new_mesh(geometry, material));
 	scene_add(ctx->scene, square_obj);
-
+*/
 /*GRID*/
+	t_object	*grid;
 
-//	scene_add(ctx->scene, grid_orientation(700, 700, 10, 10));
+	int	x;
+	int	y;
+	int	size;
+
+	x = 3;
+	y = 3;
+	size = 100;
+
+	geometry = new_surface(x * size, y * size, x, y);
+	material = new_material(0x00ff00);
+	grid = new_object(new_mesh(geometry, material));
+	grid->mesh->geometry->vertices[5]->z = 100;
+	grid->mesh->geometry->vertices[6]->z = 100;
+	grid->mesh->geometry->vertices[9]->z = 100;
+	grid->mesh->geometry->vertices[10]->z = 100;
+	matrice_rotation_x(&grid->matrice, TO_RAD(45));
+	matrice_rotation_z(&grid->mesh->matrice, TO_RAD(45));
+
+	scene_add(ctx->scene, grid);
 
 /*--- LOOP -------------------------------------------------------------------*/
 

@@ -37,6 +37,8 @@ SRCS +=	ft_lstnew.c			ft_lstdelone.c			ft_lstdel.c				\
 SRCS +=	ft_atoi_base.c	ft_sqrt.c		ft_factorial.c	ft_power.c			\
 		ft_putnbr_base.c
 
+SRCS +=	ft_get_next_line.c
+
 INC =	libft.h
 
 OBJS = $(SRCS:.c=.o)
