@@ -7,9 +7,11 @@
 
 typedef struct	s_fdf_map
 {
-	char	*mapname;
+	char	*name;
 	int		width;
 	int		height;
+	int		min;
+	int		max;
 	int		delta;
 	int		**map;
 	int		**color_map;

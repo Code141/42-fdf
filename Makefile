@@ -23,6 +23,7 @@ SRCS	=	./srcs/main.c				\
 			./srcs/object/scene.c		\
 			./srcs/object/camera.c		\
 			./srcs/object/mesh.c		\
+			./srcs/object/fdf_map.c		\
 			./srcs/geometry/geometry.c	\
 			./srcs/geometry/cube.c		\
 			./srcs/geometry/plane.c		\

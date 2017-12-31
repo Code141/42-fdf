@@ -29,6 +29,8 @@ SRCS = 	ft_atoi.c		ft_bzero.c		ft_isalnum.c	ft_isalpha.c		\
 		ft_strnstr.c	ft_strrchr.c	ft_strsplit.c	ft_strstr.c			\
 		ft_strsub.c		ft_strtrim.c	ft_tolower.c	ft_toupper.c
 
+SRCS +=	ft_array_int_push.c
+
 SRCS +=	ft_lstnew.c			ft_lstdelone.c			ft_lstdel.c				\
 		ft_lstiter.c		ft_lstmap.c				ft_lst_push_front.c		\
 		ft_lst_push_back.c	ft_lst_weight.c			ft_lst_fold.c			\

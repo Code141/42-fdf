@@ -21,6 +21,7 @@ struct				s_object
 	// draw vertices
 	// draw edges
 	// anim
+	
 	// must refresh flag (and children)
 };
 

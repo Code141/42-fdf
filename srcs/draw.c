@@ -87,9 +87,11 @@ void	draw_edges(t_ctx *ctx, t_object *object, t_matrice4 *m)
 
 void	draw_object(t_ctx *ctx, t_object *object, t_matrice4 *m)
 {
-
+	matrice_rotation_x(&object->matrice, TO_RAD(1));
+	matrice_rotation_y(&object->matrice, TO_RAD(2));
+	matrice_rotation_z(&object->matrice, TO_RAD(3));
 	draw_edges(ctx, object, m);
-	draw_vertices(ctx, object, m);
+//	draw_vertices(ctx, object, m);
 }
 
 void	draw_all(t_ctx *ctx, t_list *elements, t_matrice4 *m1)
