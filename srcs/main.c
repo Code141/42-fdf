@@ -13,6 +13,7 @@
 #include "camera.h"
 #include "mesh.h"
 #include "fdf_map.h"
+#include "map.h"
 #include "geometry.h"
 #include "plane.h"
 #include "cube.h"
@@ -24,6 +25,7 @@ int		close_fdf(t_ctx *ctx)
 	free(ctx->screen->canevas);
 	free(ctx->screen);
 	destroy_scene(ctx->scene);
+	destroy_map(ctx->map);
 	free(ctx);
 	ft_putstr("EXIT PROGRAMME");
 	while (1)
@@ -63,20 +65,6 @@ t_object	*grid_orientation(int x, int y, int subx, int suby)
 int		main(int argc, char **argv)
 {
 
-/*--- INPUT ------------------------------------------------------------------*/
-	argc--;
-	argv++;
-
-	t_fdf_map	*map;
-	t_object	*fdf_map;
-
-	map = NULL;
-	if (argc)
-	{
-		map = parse_fdf_file(*argv);
-	}
-
-
 /*--- INIT -------------------------------------------------------------------*/
 
 	t_ctx	*ctx;
@@ -89,37 +77,36 @@ int		main(int argc, char **argv)
 	ctx->screen = new_screen(ctx->mlx, 1024, 786);
 	ctx->screen->canevas = new_canevas(ctx->mlx, 1024, 786);
 
+/*--- INPUT ------------------------------------------------------------------*/
+
+	argc--;
+	argv++;
+
+	t_fdf_map	*map;
+	t_object	*fdf_map;
+
+	ctx->map = NULL;
+	if (argc)
+	{
+		ctx->map = parse_fdf_file(*argv);
+	}
+
 /*--- SCENE / CAMERA ---------------------------------------------------------*/
 
 	ctx->scene = new_scene();
-
 	//SORTIRE LA CAMERA DE LA SCENE ??
 	ctx->scene->camera = new_camera(TO_RAD(120), 10, 2000);
 	ctx->scene->camera->pos.z = -500;
 
 /*--- GEOMETRY ---------------------------------------------------------------*/
 
-
-	if (map)
+	if (ctx->map)
 	{
-		printf("NAME : %s\nH : %d	W : %d\n", map->name, map->height, map->width);
-		fdf_map = new_fdf_map(map, 0xff0000);
-		matrice_rotation_x(&fdf_map->matrice, TO_RAD(45));
-		matrice_rotation_z(&fdf_map->mesh->matrice, TO_RAD(45));
-		matrice_rotation_y(&fdf_map->mesh->matrice, TO_RAD(90));
-		scene_add(ctx->scene, fdf_map);
-
-		fdf_map = new_fdf_map(map, 0x0000ff);
-		matrice_rotation_x(&fdf_map->matrice, TO_RAD(45));
-		matrice_rotation_z(&fdf_map->mesh->matrice, TO_RAD(45));
-		matrice_rotation_x(&fdf_map->mesh->matrice, TO_RAD(90));
-		scene_add(ctx->scene, fdf_map);
-	
-		fdf_map = new_fdf_map(map, 0x00ff00);
+		printf("NAME : %s\nH : %d	W : %d\n", ctx->map->name, ctx->map->height, ctx->map->width);
+		fdf_map = new_fdf_map(ctx->map, 0xffffff);
 		matrice_rotation_x(&fdf_map->matrice, TO_RAD(45));
 		matrice_rotation_z(&fdf_map->mesh->matrice, TO_RAD(45));
 		scene_add(ctx->scene, fdf_map);
-	
 	}
 
 /*--- LOOP -------------------------------------------------------------------*/

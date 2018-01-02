@@ -14,6 +14,7 @@ LIBS	=	-L./lib/mlx -lmlx			\
 
 SRCS	=	./srcs/main.c				\
 			./srcs/input.c				\
+			./srcs/map.c				\
 			./srcs/hooks.c				\
 			./srcs/screen.c				\
 			./srcs/math/pixel.c			\

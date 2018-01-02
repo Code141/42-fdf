@@ -18,7 +18,7 @@ int			**ft_array_int_push(int **array, int size, int *new_elem)
 	return (new_array);
 }
 
-int			*strtab_to_inttab(char **strtab, int size)
+int			*strtab_to_inttab(char **strtab, int size, t_fdf_map *map)
 {
 	int i;
 	int	*tab;
@@ -28,7 +28,8 @@ int			*strtab_to_inttab(char **strtab, int size)
 	while (i < size)
 	{
 		tab[i] = ft_atoi(strtab[i]);
-		i++;
+		free(strtab[i]);
+	i++;
 	}
 	return (tab);
 }
@@ -43,19 +44,35 @@ int			ft_str_tab_length(char **strtab)
 	return (i);
 }
 
-t_fdf_map	*new_map(char *file_name)
+int			new_line(char *line, t_fdf_map *map)
 {
-	t_fdf_map	*map;
+	char		**splited_line;
+	int			*new_line;
+	int			**n_map;
+	int			size;
+	int			i;
 
-	map = (t_fdf_map*)malloc(sizeof(t_fdf_map));
-	map->name = file_name;
-	map->width = 0;
-	map->height = 0;
-	map->min = 2147483647;
-	map->max = -2147483648;
-	map->delta = 0;
-	map->map = NULL;
-	return (map);
+	splited_line = ft_strsplit(line, ' ');
+	size = ft_str_tab_length(splited_line);
+	if (!map->width)
+		map->width = size;
+	else if (map->width != size)
+	{
+		ft_putstr("Found wrong line length. Exiting.\n");
+		free(splited_line);
+		return (0);
+	}
+	new_line = strtab_to_inttab(splited_line, map->width, map);
+	free(splited_line);
+	if (new_line)
+	{
+		n_map = ft_array_int_push(map->map, map->height, new_line);		
+		if (map->map)
+			free(map->map);
+		map->map = n_map;
+		map->height++;
+	}		
+	return (1);
 }
 
 t_fdf_map	*parse_fdf_file(char *file_name)
@@ -63,41 +80,19 @@ t_fdf_map	*parse_fdf_file(char *file_name)
 	t_fdf_map	*map;
 	int			fd;
 	char		*line;
-	char		**splited_line;
-	int			size;
-	int			*new_line;
-	int			**n_map;
 
-	map =  new_map(file_name);
-
+	map = NULL;
 	fd = open(file_name, O_RDONLY);
-	while (ft_get_next_line(fd, &line))
+	if (fd > 0)
 	{
-		splited_line = ft_strsplit(line, ' ');
-		free(line);
-
-		if (!map->width)
-			map->width = ft_str_tab_length(splited_line);
-		else if (map->width != ft_str_tab_length(splited_line))
+		map =  new_map(file_name);
+		while (ft_get_next_line(fd, &line))
 		{
-			ft_putstr("Found wrong line length. Exiting.\n");
-			free(splited_line);
-			return (0);
+			new_line(line, map);
+			free(line);
 		}
-
-		new_line = strtab_to_inttab(splited_line, map->width);
-
-		if (new_line)
-		{
-			n_map = ft_array_int_push(map->map, map->height, new_line);		
-			if (map->map)
-				free(map->map);
-			map->map = n_map;
-		}		
-		free(splited_line);
-		map->height++;
+		free(line);
 	}
 	close(fd);
 	return (map);
 }
-

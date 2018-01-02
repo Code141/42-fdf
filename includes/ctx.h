@@ -3,6 +3,7 @@
 # include "scene.h"
 # include "object.h"
 # include "screen.h"
+# include "map.h"
 
 # define PI 3.14159265
 # define RAD PI / 180
@@ -14,6 +15,7 @@ typedef	struct	s_ctx
 	void		*mlx;
 	t_screen	*screen;
 	t_scene		*scene;
+	t_fdf_map	*map;
 	int			timestamp;
 	int			fps;
 	int			frame;
