@@ -79,12 +79,10 @@ int		main(int argc, char **argv)
 
 /*--- INPUT ------------------------------------------------------------------*/
 
+	t_fdf_map	*map;
+	
 	argc--;
 	argv++;
-
-	t_fdf_map	*map;
-	t_object	*fdf_map;
-
 	ctx->map = NULL;
 	if (argc)
 	{
@@ -99,6 +97,7 @@ int		main(int argc, char **argv)
 	ctx->scene->camera->pos.z = -500;
 
 /*--- GEOMETRY ---------------------------------------------------------------*/
+	t_object	*fdf_map;
 
 	if (ctx->map)
 	{
