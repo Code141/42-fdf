@@ -19,5 +19,6 @@ typedef struct	s_fdf_map
 
 t_fdf_map	*new_map(char *file_name);
 void		destroy_map(t_fdf_map *map);
+void		map_delta(t_fdf_map *map);
 
 #endif

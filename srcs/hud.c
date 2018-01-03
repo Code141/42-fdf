@@ -13,6 +13,6 @@ void	hud(t_ctx *ctx)
 		ctx->frame = 0;
 	}
 	str = ft_itoa(ctx->fps);
-	mlx_string_put(ctx->mlx, ctx->screen->win, 10, 10, 0xff0000, str);
+	mlx_string_put(ctx->mlx, ctx->screen->win, 5, 0, 0xff0000, str);
 	free(str);
 }

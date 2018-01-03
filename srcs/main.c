@@ -98,13 +98,25 @@ int		main(int argc, char **argv)
 
 /*--- GEOMETRY ---------------------------------------------------------------*/
 	t_object	*fdf_map;
+	float		diag;
+	float		size;
 
 	if (ctx->map)
 	{
-		printf("NAME : %s\nH : %d	W : %d\n", ctx->map->name, ctx->map->height, ctx->map->width);
 		fdf_map = new_fdf_map(ctx->map, 0xffffff);
-		matrice_rotation_x(&fdf_map->matrice, TO_RAD(45));
-		matrice_rotation_z(&fdf_map->mesh->matrice, TO_RAD(45));
+
+
+		diag = hypot(ctx->map->width, ctx->map->height);
+		size = ctx->screen->width / diag / 1.2;
+
+		fdf_map->mesh->matrice.m[0] *= size;
+		fdf_map->mesh->matrice.m[5] *= size;
+		fdf_map->mesh->matrice.m[10] *= size / 4;
+
+//		fdf_map->mesh->matrice.m[10] *= 100;
+
+		matrice_rotation_x(&fdf_map->matrice, TO_RAD(60));
+		matrice_rotation_z(&fdf_map->mesh->matrice, TO_RAD(60));
 		scene_add(ctx->scene, fdf_map);
 	}
 

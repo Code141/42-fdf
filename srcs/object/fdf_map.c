@@ -20,7 +20,6 @@ void		fdf_map_elevation(t_fdf_map *map, t_mesh *mesh)
 		}
 		i++;
 	}
-
 }
 
 t_object	*new_fdf_map(t_fdf_map *map, int color)
@@ -34,9 +33,8 @@ t_object	*new_fdf_map(t_fdf_map *map, int color)
 
 	x = map->width - 1;
 	y = map->height - 1;
-	size = 50;
 
-	geometry = new_surface(x * size, y * size, x, y);
+	geometry = new_surface(x, y, x, y);
 	material = new_material(color);
 	obj = new_object(new_mesh(geometry, material));
 

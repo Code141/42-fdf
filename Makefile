@@ -1,4 +1,4 @@
-NAME	=	FdF
+NAME	=	fdf
 
 CC		=	gcc
 CFLAGS	=#	-Wall -Wextra -Werror
