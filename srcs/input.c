@@ -63,12 +63,12 @@ int			new_line(char *line, t_fdf_map *map)
 		return (0);
 	}
 	new_line = strtab_to_inttab(splited_line, map->width, map);
-//	free(splited_line);
+	free(splited_line);
 	if (new_line)
 	{
 		n_map = ft_array_int_push(map->map, map->height, new_line);		
-//		if (map->map)
-//			free(map->map);
+		if (map->map)
+			free(map->map);
 		map->map = n_map;
 		map->height++;
 	}		
@@ -89,12 +89,13 @@ t_fdf_map	*parse_fdf_file(char *file_name)
 		while (ft_get_next_line(fd, &line))
 		{
 			new_line(line, map);
-//			free(line);
+			free(line);
 			line = NULL;
 		}
+
 		map_delta(map);
-//		if (line)
-//			free(line);
+		if (line)
+			free(line);
 	}
 	close(fd);
 	return (map);

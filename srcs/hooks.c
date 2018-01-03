@@ -34,6 +34,10 @@ int		motion(int x, int y, t_ctx *ctx)
 int		button_pressed(int button, int x, int y, t_ctx *ctx)
 {
 	printf("Mouse Button Pressed  : %d		X : %d	Y : %d\n", button, x, y);
+	if (button == 4)
+		ctx->map_obj->mesh->matrice.m[10] -= 0.1;
+	if (button == 5)
+		ctx->map_obj->mesh->matrice.m[10] += 0.1;
 	return (1);
 }
 

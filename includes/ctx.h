@@ -16,6 +16,7 @@ typedef	struct	s_ctx
 	t_screen	*screen;
 	t_scene		*scene;
 	t_fdf_map	*map;
+	t_object	*map_obj;
 	int			timestamp;
 	int			fps;
 	int			frame;

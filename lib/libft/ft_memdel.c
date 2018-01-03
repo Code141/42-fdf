@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 12:16:20 by gelambin          #+#    #+#             */
-/*   Updated: 2017/11/13 14:18:02 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/01/03 19:29:13 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,5 @@ void	ft_memdel(void **ap)
 	if (!ap)
 		return ;
 	free(ap);
-	*ap = NULL;
+//	*ap = NULL;
 }
