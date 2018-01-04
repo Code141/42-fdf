@@ -33,22 +33,18 @@ void	draw_line(t_img *canevas, t_vector2 v1, t_vector2 v2, t_color color)
 	int x;
 	int y;
 
+	dx = v2.x - v1.x;
+	dy = v2.y - v1.y;
 
-	t_vector2 v3;
 	if (v1.x > v2.x)
 	{
-		v3 = v1;
-		v1 = v2;
-		v2 = v3;	
+		dx = v1.x - v2.x;
 	}
 	if (v1.y > v2.y)
 	{
-		v3 = v1;
-		v1 = v2;
-		v2 = v3;	
+
+		dy = v1.y - v2.y;
 	}
-	dx = v2.x - v1.x;
-	dy = v2.y - v1.y;
 	if (dx > dy)
 	{	
 		x = v1.x;
@@ -70,5 +66,4 @@ void	draw_line(t_img *canevas, t_vector2 v1, t_vector2 v2, t_color color)
 		}
 	
 	}
-
 }

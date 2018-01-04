@@ -1,4 +1,5 @@
 #include "draw.h"
+#include "bresenham_line.h"
 
 float	scalaire(float x, float y)
 {
@@ -49,15 +50,19 @@ void	draw_vertices(t_ctx *ctx, t_object *object, t_matrice4 *m)
 	mesh = object->mesh;
 	matrice_product(m, &mesh->matrice, &m3);
 	i = 0;
-	while (mesh->geometry->vertices[i])
+/******************/
+		v1 = matrice_apply(&m3, mesh->geometry->vertices[0]);
+		v2 = projection(ctx, &v1, mesh);
+		draw_point(ctx->screen->canevas, v2, 10, mesh->material->color);
+/******************/
+/*	while (mesh->geometry->vertices[i])
 	{
-		
 		v1 = matrice_apply(&m3, mesh->geometry->vertices[i]);
 		v2 = projection(ctx, &v1, mesh);
 		draw_point(ctx->screen->canevas, v2, 5, mesh->material->color);
 		i++;
 	}
-
+*/
 }
 
 void	draw_edges(t_ctx *ctx, t_object *object, t_matrice4 *m)
@@ -80,6 +85,8 @@ void	draw_edges(t_ctx *ctx, t_object *object, t_matrice4 *m)
 		v1b = matrice_apply(&m3, mesh->geometry->edges[i]->vertices[1]);
 		v2a = projection(ctx, &v1a, mesh);
 		v2b = projection(ctx, &v1b, mesh);
+
+				
 		draw_line(ctx->screen->canevas, v2a, v2b, mesh->material->color);
 		i++;
 	}
@@ -89,9 +96,9 @@ void	draw_object(t_ctx *ctx, t_object *object, t_matrice4 *m)
 {
 //	matrice_rotation_x(&object->matrice, TO_RAD(1));
 //	matrice_rotation_y(&object->matrice, TO_RAD(2));
-	matrice_rotation_z(&object->matrice, TO_RAD(1));
+	matrice_rotation_z(&object->matrice, TO_RAD(0.5));
 	draw_edges(ctx, object, m);
-//	draw_vertices(ctx, object, m);
+	draw_vertices(ctx, object, m);
 }
 
 void	draw_all(t_ctx *ctx, t_list *elements, t_matrice4 *m1)
@@ -118,6 +125,36 @@ void	draw_all(t_ctx *ctx, t_list *elements, t_matrice4 *m1)
 
 void	update_all(t_ctx *ctx, t_list *object)
 {
+	t_color color;
+
+	color.hex = 0xff0000;
+	t_vector2 v1;
+	t_vector2 v2;
+
+	v1.x = 100;
+	v1.y = 100;
+
+	v2.x = 200;
+	v2.y = 100;
+	line(ctx->screen->canevas, v1, v2, color);
+	v2.x = 200;
+	v2.y = 200;
+	line(ctx->screen->canevas, v1, v2, color);
+	v2.x = 100;
+	v2.y = 200;
+	line(ctx->screen->canevas, v1, v2, color);
+	v2.x = 0;
+	v2.y = 100;
+	line(ctx->screen->canevas, v1, v2, color);
+	v2.x = 100;
+	v2.y = 0;
+	line(ctx->screen->canevas, v1, v2, color);
+	v2.x = 100;
+	v2.y = 100;
+	line(ctx->screen->canevas, v1, v2, color);
+	v2.x = 100;
+	v2.y = 100;
+	line(ctx->screen->canevas, v1, v2, color);
 	
 }
 
@@ -127,6 +164,7 @@ void	render(t_ctx *ctx)
 
 	matrice4_init(&m);
 	ft_bzero(ctx->screen->canevas->data, ctx->screen->canevas->width * ctx->screen->canevas->height * 4);
+	update_all(ctx, ctx->scene->objects);
 	draw_all(ctx, ctx->scene->objects, &m);
 	mlx_put_image_to_window (ctx->mlx, ctx->screen->win, ctx->screen->canevas->id, 0, 0);	
 	hud(ctx);

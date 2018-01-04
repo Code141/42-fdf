@@ -18,6 +18,7 @@
 #include "plane.h"
 #include "cube.h"
 #include "surface.h"
+#include "surface2.h"
 #include "material.h"
 
 int		close_fdf(t_ctx *ctx)
@@ -111,8 +112,8 @@ int		main(int argc, char **argv)
 		fdf_map->mesh->matrice.m[5] *= size;
 		fdf_map->mesh->matrice.m[10] *= size / 4;
 
-		matrice_rotation_x(&fdf_map->matrice, TO_RAD(60));
-		matrice_rotation_z(&fdf_map->mesh->matrice, TO_RAD(60));
+	//	matrice_rotation_x(&fdf_map->matrice, TO_RAD(60));
+	//	matrice_rotation_z(&fdf_map->mesh->matrice, TO_RAD(60));
 
 		scene_add(ctx->scene, fdf_map);
 		ctx->map_obj = fdf_map;

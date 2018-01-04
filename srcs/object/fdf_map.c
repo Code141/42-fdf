@@ -1,4 +1,4 @@
-# include "fdf_map.h"
+#include "fdf_map.h"
 
 void		fdf_map_elevation(t_fdf_map *map, t_mesh *mesh)
 {
@@ -34,7 +34,7 @@ t_object	*new_fdf_map(t_fdf_map *map, int color)
 	x = map->width - 1;
 	y = map->height - 1;
 
-	geometry = new_surface(x, y, x, y);
+	geometry = new_surface2(x, y, x, y);
 	material = new_material(color);
 	obj = new_object(new_mesh(geometry, material));
 
