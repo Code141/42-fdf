@@ -75,6 +75,8 @@ int		main(int argc, char **argv)
 	ctx = (t_ctx*)malloc(sizeof(t_ctx));
 	ctx->mlx = mlx_init();
 
+	ctx->stats = new_stats();
+
 	ctx->screen = new_screen(ctx->mlx, 1024, 786);
 	ctx->screen->canevas = new_canevas(ctx->mlx, 1024, 786);
 
@@ -112,8 +114,8 @@ int		main(int argc, char **argv)
 		fdf_map->mesh->matrice.m[5] *= size;
 		fdf_map->mesh->matrice.m[10] *= size / 4;
 
-	//	matrice_rotation_x(&fdf_map->matrice, TO_RAD(60));
-	//	matrice_rotation_z(&fdf_map->mesh->matrice, TO_RAD(60));
+		matrice_rotation_x(&fdf_map->matrice, TO_RAD(60));
+		matrice_rotation_z(&fdf_map->mesh->matrice, TO_RAD(60));
 
 		scene_add(ctx->scene, fdf_map);
 		ctx->map_obj = fdf_map;

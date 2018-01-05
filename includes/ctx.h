@@ -4,6 +4,7 @@
 # include "object.h"
 # include "screen.h"
 # include "map.h"
+# include "stats.h"
 
 # define PI 3.14159265
 # define RAD PI / 180
@@ -17,9 +18,7 @@ typedef	struct	s_ctx
 	t_scene		*scene;
 	t_fdf_map	*map;
 	t_object	*map_obj;
-	int			timestamp;
-	int			fps;
-	int			frame;
+	t_stats		*stats;
 }				t_ctx;
 
 int				close_fdf(t_ctx *ctx);

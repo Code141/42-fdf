@@ -6,6 +6,7 @@ CPPFLAGS=	-I./lib/mlx/				\
 			-I./lib/libft/includes/		\
 			-I./includes/math/			\
 			-I./includes/draw/			\
+			-I./includes/hud/			\
 			-I./includes/object/		\
 			-I./includes/geometry/		\
 			-I./includes/
@@ -15,12 +16,14 @@ LIBS	=	-L./lib/mlx -lmlx			\
 
 SRCS	=	./srcs/main.c				\
 			./srcs/input.c				\
+			./srcs/stats.c				\
 			./srcs/map.c				\
 			./srcs/hooks.c				\
 			./srcs/screen.c				\
 			./srcs/math/pixel.c			\
 			./srcs/math/vector.c		\
 			./srcs/math/matrice4.c		\
+			./srcs/draw/draw.c			\
 			./srcs/draw/bresenham_line.c\
 			./srcs/object/object.c		\
 			./srcs/object/scene.c		\
@@ -33,8 +36,7 @@ SRCS	=	./srcs/main.c				\
 			./srcs/geometry/surface.c	\
 			./srcs/geometry/surface2.c	\
 			./srcs/material.c			\
-			./srcs/hud.c				\
-			./srcs/draw.c
+			./srcs/hud/hud.c
 
 OBJS	=	$(SRCS:.c=.o)
 
