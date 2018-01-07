@@ -33,6 +33,18 @@ int		close_fdf(t_ctx *ctx)
 	{}
 	exit (0);
 }
+void		main_loop(t_ctx *ctx)
+{
+	update_all(ctx, ctx->scene->objects);
+
+	ft_bzero(ctx->screen->canevas->data, ctx->screen->canevas->width * ctx->screen->canevas->height * 4);
+	render(ctx);
+
+	refresh_stats(ctx->stats);
+	draw_hud(ctx);
+	mlx_put_image_to_window (ctx->mlx, ctx->screen->win, ctx->screen->canevas->id, 0, 0);	
+	
+}
 
 t_object	*grid_orientation(int x, int y, int subx, int suby)
 {
@@ -76,6 +88,12 @@ int		main(int argc, char **argv)
 	ctx->mlx = mlx_init();
 
 	ctx->stats = new_stats();
+
+	ctx->hud = new_hud();
+
+	ctx->hud->graphs[0] = *new_graph(100, 60);
+
+
 
 	ctx->screen = new_screen(ctx->mlx, 1024, 786);
 	ctx->screen->canevas = new_canevas(ctx->mlx, 1024, 786);
@@ -122,7 +140,7 @@ int		main(int argc, char **argv)
 	}
 
 /*--- LOOP -------------------------------------------------------------------*/
-
+	ft_putstr("- LOOP -");
 	hooks(ctx);
 	mlx_loop(ctx->mlx);
 	return (0);

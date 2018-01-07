@@ -2,6 +2,8 @@
 # define STATS_H
 # include <time.h>
 # include <stdlib.h>
+# include "libft.h"
+
 
 typedef	struct	s_stats
 {

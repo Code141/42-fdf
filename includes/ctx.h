@@ -5,6 +5,8 @@
 # include "screen.h"
 # include "map.h"
 # include "stats.h"
+# include "hud.h"
+# include "graph.h"
 
 # define PI 3.14159265
 # define RAD PI / 180
@@ -19,6 +21,7 @@ typedef	struct	s_ctx
 	t_fdf_map	*map;
 	t_object	*map_obj;
 	t_stats		*stats;
+	t_hud		*hud;
 }				t_ctx;
 
 int				close_fdf(t_ctx *ctx);

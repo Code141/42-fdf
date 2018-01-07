@@ -58,14 +58,7 @@ int		expose_hook(void *ctx)
 
 int		loop_hook(t_ctx *ctx)
 {
-	update_all(ctx, ctx->scene->objects);
-
-	ft_bzero(ctx->screen->canevas->data, ctx->screen->canevas->width * ctx->screen->canevas->height * 4);
-	render(ctx);
-	mlx_put_image_to_window (ctx->mlx, ctx->screen->win, ctx->screen->canevas->id, 0, 0);	
-
-	refresh_stats(ctx->stats);
-	hud(ctx);
+	main_loop();
 	return (1);	
 }
 

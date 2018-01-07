@@ -1,10 +1,13 @@
 #ifndef HUD_H
 # define HUD_H
-# include "mlx.h"
-# include "ctx.h"
 # include "stats.h"
-# include "bresenham_line.h"
+# include "graph.h"
 
-void	hud(t_ctx *ctx);
+typedef struct	s_hud
+{
+	t_graph	graphs[2];
+}				t_hud;
+
+t_hud	*new_hud();
 
 #endif

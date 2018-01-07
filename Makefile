@@ -17,6 +17,8 @@ LIBS	=	-L./lib/mlx -lmlx			\
 SRCS	=	./srcs/main.c				\
 			./srcs/input.c				\
 			./srcs/stats.c				\
+			./srcs/hud/hud.c			\
+			./srcs/hud/graph.c			\
 			./srcs/map.c				\
 			./srcs/hooks.c				\
 			./srcs/screen.c				\
@@ -35,8 +37,7 @@ SRCS	=	./srcs/main.c				\
 			./srcs/geometry/plane.c		\
 			./srcs/geometry/surface.c	\
 			./srcs/geometry/surface2.c	\
-			./srcs/material.c			\
-			./srcs/hud/hud.c
+			./srcs/material.c
 
 OBJS	=	$(SRCS:.c=.o)
 
