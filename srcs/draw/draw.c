@@ -100,30 +100,24 @@ void	render(t_ctx *ctx)
 	draw_all(ctx, ctx->scene->objects, &m);
 }
 
-void	draw_graph(t_graph *graph, t_img *canevas, t_stats *stats)
+void	draw_graph(t_graph *graph, t_img *canevas, int	*data)
 {
 	t_vector2	v1;
 	t_vector2	v2;
 	t_color		color;	
 	int			i;
 	int			c;
-	int			fps;
 
 	i = 0;
 	color.hex = 0x0000;
 	while (i < graph->length)
 	{
-		fps = stats->fps[i];
-		if (stats->fps[i] > graph->height)
-			fps = graph->height;
-
 		v1.x = graph->length - i;
-		v1.y = graph->height - fps;
+		v1.y = graph->height - data[i];
 		v2.x = graph->length - i;
 		v2.y = graph->height;
-	
-		color.c.g = fps * 255 / 60;
-		color.c.r = 255 - fps * 255 / 60;
+		color.c.g = data[i] * 255 / 60;
+		color.c.r = 255 - data[i] * 255 / 60;
 		line(canevas, v1, v2, color);
 		i++;
 	}
@@ -131,5 +125,5 @@ void	draw_graph(t_graph *graph, t_img *canevas, t_stats *stats)
 
 void	draw_hud(t_ctx *ctx)
 {
-	draw_graph(&ctx->hud->graphs[0], ctx->screen->canevas, ctx->stats);
+	draw_graph(&ctx->hud->graphs[0], ctx->screen->canevas, ctx->stats->fps);
 }
