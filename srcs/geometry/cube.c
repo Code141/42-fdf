@@ -46,6 +46,7 @@ static t_edge	**cube_edges(t_vector3 **vertices)
 
 static t_face **cube_faces(t_edge **edges)
 {
+	(void)edges;
 	t_face	**faces;
 
 	faces = (t_face**)malloc(sizeof(t_face*) * 3);

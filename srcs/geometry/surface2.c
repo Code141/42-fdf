@@ -55,6 +55,9 @@ static t_edge		**surface_edges(t_vector3 **vertices, int subx, int suby)
 
 static t_face		**surface_faces(t_edge **edges, int subx, int suby)
 {
+	(void)edges;
+	(void)subx;
+	(void)suby;
 	t_face **faces; 
 
 	faces = (t_face**)malloc(sizeof(t_face*) * 3);

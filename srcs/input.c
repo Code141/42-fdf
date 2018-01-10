@@ -18,7 +18,7 @@ int			**ft_array_int_push(int **array, int size, int *new_elem)
 	return (new_array);
 }
 
-int			*strtab_to_inttab(char **strtab, int size, t_fdf_map *map)
+int			*strtab_to_inttab(char **strtab, int size)
 {
 	int i;
 	int	*tab;
@@ -50,7 +50,6 @@ int			new_line(char *line, t_fdf_map *map)
 	int			*new_line;
 	int			**n_map;
 	int			size;
-	int			i;
 
 	splited_line = ft_strsplit(line, ' ');
 	size = ft_str_tab_length(splited_line);
@@ -62,7 +61,7 @@ int			new_line(char *line, t_fdf_map *map)
 		free(splited_line);
 		return (0);
 	}
-	new_line = strtab_to_inttab(splited_line, map->width, map);
+	new_line = strtab_to_inttab(splited_line, map->width);
 	free(splited_line);
 	if (new_line)
 	{

@@ -37,7 +37,8 @@ int		close_fdf(t_ctx *ctx)
 	{}
 	exit (0);
 }
-void		main_loop(t_ctx *ctx)
+
+int		loop(t_ctx *ctx)
 {
 	update_all(ctx, ctx->scene->objects);
 
@@ -47,7 +48,7 @@ void		main_loop(t_ctx *ctx)
 	refresh_stats(ctx->stats);
 	draw_hud(ctx);
 	mlx_put_image_to_window (ctx->mlx, ctx->screen->win, ctx->screen->canevas->id, 0, 0);	
-	
+	return (1);	
 }
 
 t_object	*grid_orientation(int x, int y, int subx, int suby)
@@ -85,18 +86,16 @@ int		main(int argc, char **argv)
 /*--- INIT -------------------------------------------------------------------*/
 
 	t_ctx	*ctx;
-	int		width;
-	int		height;
 
 	ctx = (t_ctx*)malloc(sizeof(t_ctx));
 	ctx->mlx = mlx_init();
 
 	ctx->screen = new_screen(ctx->mlx, 1024, 786);
-	ctx->screen->canevas = new_canevas(ctx->mlx, 1024, 786);
 
 /*--- STATS / HUD ------------------------------------------------------------*/
 
 	ctx->stats = new_stats();
+
 	ctx->hud = new_hud();
 	ctx->hud->graphs[0] = new_graph(100, 60, ctx->stats->fps);
 	ctx->hud->graphs[1] = new_graph(100, 60, ctx->stats->ms);
@@ -110,8 +109,6 @@ int		main(int argc, char **argv)
 	ctx->scene->camera->pos.z = -500;
 
 /*--- INPUT ------------------------------------------------------------------*/
-
-	t_fdf_map	*map;
 	
 	argc--;
 	argv++;

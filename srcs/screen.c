@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 17:50:43 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/10 17:51:02 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/01/10 20:51:44 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_screen	*new_screen(void *mlx, int width, int height)
 	screen->height = height;
 	screen->ar = width / height;
 	screen->win = mlx_new_window(mlx, width, height, "FdF");
+	screen->canevas = new_canevas(mlx, width, height);
 	return (screen);
 }
 

@@ -3,9 +3,8 @@
 
 t_vector2	projection(t_ctx *ctx, t_vector3 *v1, t_mesh *mesh)
 {
+	(void)mesh;
 	t_vector2	v2;
-	float		hypo;
-	t_vector3	angle;
 
 	v2.x = v1->x;
 	v2.y = v1->y;
@@ -38,6 +37,7 @@ void	draw_all(t_ctx *ctx, t_list *elements, t_matrice4 *m1)
 
 void	update_all(t_ctx *ctx, t_list *object)
 {
+	(void)object;
 	int	delta_x;
 	int	delta_y;
 

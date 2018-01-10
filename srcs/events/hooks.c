@@ -12,6 +12,7 @@
 
 int		key_release(int keycode, t_ctx *ctx)
 {
+	(void)ctx;
 	ft_putstr("Key Release : ");
 	ft_putnbr(keycode);
 	ft_putstr("\n");
@@ -20,6 +21,7 @@ int		key_release(int keycode, t_ctx *ctx)
 
 int		key_press(int keycode, void *ctx)
 {
+	(void)ctx;
 	ft_putstr("Key Press : ");
 	ft_putnbr(keycode);
 	ft_putstr("\n");
@@ -37,7 +39,7 @@ int		mouse_move(int x, int y, t_ctx *ctx)
 	return (1);
 }
 
-int		button_pressed(int button, int x, int y, t_ctx *ctx)
+int		button_press(int button, int x, int y, t_ctx *ctx)
 {
 	if (y >= 0)
 	{
@@ -59,6 +61,8 @@ int		button_pressed(int button, int x, int y, t_ctx *ctx)
 
 int		button_release(int button, int x, int y, t_ctx *ctx)
 {
+	(void)x;
+	(void)y;
 	if (button == 1)
 		ctx->mouse.button_right = 0;
 	if (button == 2)
@@ -68,39 +72,15 @@ int		button_release(int button, int x, int y, t_ctx *ctx)
 
 /*--- MLX --------------------------------------------------------------------*/
 
-int		expose_hook(void *ctx)
-{
-	ft_putstr("Expose_Hook\n");
-	return (1);	
-}
-
-int		loop_hook(t_ctx *ctx)
-{
-	main_loop();
-	return (1);	
-}
-
 int		hooks(t_ctx *ctx)
 {
-	mlx_hook(ctx->screen->win, KeyPress, KeyPressMask, &key_press, ctx);
-	mlx_hook(ctx->screen->win, KeyRelease, KeyReleaseMask, &key_release, ctx);
+	mlx_hook(ctx->screen->win, KEYPRESS, 0, &key_press, ctx);
+	mlx_hook(ctx->screen->win, KEYRELEASE, 0, &key_release, ctx);
 
+	mlx_hook(ctx->screen->win, MOUSEMOVE, 0, &mouse_move, ctx);
+	mlx_hook(ctx->screen->win, MOUSEPRESS, 0, &button_press, ctx);
+	mlx_hook(ctx->screen->win, MOUSERELEASE, 0, &button_release, ctx);
 
-
-	mlx_hook(ctx->screen->win, ButtonRelease, ButtonReleaseMask, &button_release, ctx);
-	mlx_hook(ctx->screen->win, ButtonPress, ButtonPressMask, &button_pressed, ctx);
-	mlx_hook(ctx->screen->win, MotionNotify, PointerMotionMask, &mouse_move, ctx);
-
-
-
-
-
-
-
-//	mlx_mouse_hook (ctx->screen->win, &button_pressed, ctx);
-	mlx_expose_hook (ctx->screen->win, &expose_hook, ctx);
-	mlx_loop_hook (ctx->mlx, &loop_hook, ctx);
-
-
+	mlx_loop_hook (ctx->mlx, &loop, ctx);
 	return (1);
 }

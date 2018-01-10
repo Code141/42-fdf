@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 17:51:21 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/10 17:52:02 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/01/10 20:54:25 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ t_fdf_map	*new_map(char *file_name)
 
 void		destroy_map(t_fdf_map *map)
 {
-	int	x;
 	int	y;
 
 	y = 0;

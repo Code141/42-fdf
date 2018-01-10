@@ -1,7 +1,7 @@
 NAME	=	fdf
 
 CC		=	gcc
-CFLAGS	=#	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror
 CPPFLAGS=	-I./lib/mlx/				\
 			-I./lib/libft/includes/		\
 			-I./includes/				\

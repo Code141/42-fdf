@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 17:52:59 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/10 17:53:00 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/01/10 20:59:55 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	draw_graph(t_graph *graph, t_img *canevas)
 	t_vector2	v2;
 	t_color		color;
 	int			i;
-	int			c;
 
 	i = 0;
 	color.hex = 0x0000;
