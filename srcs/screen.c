@@ -1,8 +1,20 @@
-# include "mlx.h"
-# include "screen.h"
-# include "ctx.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   screen.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/10 17:50:43 by gelambin          #+#    #+#             */
+/*   Updated: 2018/01/10 17:51:02 by gelambin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-t_screen	*new_screen(void *mlx, int width, int height)	
+#include "mlx.h"
+#include "screen.h"
+#include "ctx.h"
+
+t_screen	*new_screen(void *mlx, int width, int height)
 {
 	t_screen *screen;
 
@@ -14,8 +26,7 @@ t_screen	*new_screen(void *mlx, int width, int height)
 	return (screen);
 }
 
-
-t_img	*new_canevas(void *mlx, int width, int height)
+t_img		*new_canevas(void *mlx, int width, int height)
 {
 	t_img	*canevas;
 	int		bpp;

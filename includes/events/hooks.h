@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   surface.h                                          :+:      :+:    :+:   */
+/*   hooks.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/10 17:55:29 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/10 17:55:30 by gelambin         ###   ########.fr       */
+/*   Created: 2018/01/10 17:55:07 by gelambin          #+#    #+#             */
+/*   Updated: 2018/01/10 18:00:21 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SURFACE_H
-# define SURFACE_H
-# include <stdlib.h>
-# include "geometry.h"
+#ifndef HOOKS_H
+# define HOOKS_H
+# include "ctx.h"
+# include "x11_events.h"
 
-t_geometry	*new_surface(int x, int y, int subx, int suby);
+int		hooks(t_ctx *ctx);
 
 #endif

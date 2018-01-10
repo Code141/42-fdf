@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mesh.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/10 17:38:45 by gelambin          #+#    #+#             */
+/*   Updated: 2018/01/10 17:38:55 by gelambin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "mesh.h"
 
 t_mesh	*new_mesh(t_geometry *geometry, t_material *material)
@@ -15,7 +27,7 @@ t_mesh	*new_mesh(t_geometry *geometry, t_material *material)
 
 void	destroy_mesh(t_mesh *mesh)
 {
-	destroy_geometry(mesh->geometry);	
-	destroy_material(mesh->material);	
+	destroy_geometry(mesh->geometry);
+	destroy_material(mesh->material);
 	free(mesh);
 }

@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   matrice4.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/10 17:49:15 by gelambin          #+#    #+#             */
+/*   Updated: 2018/01/10 17:49:34 by gelambin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 #include <math.h>
 #include "matrice4.h"
 #include "vector.h"
 
-void	matrice4_init(t_matrice4 *m)
+void		matrice4_init(t_matrice4 *m)
 {
 	m->m[0] = 1;
 	m->m[1] = 0;
@@ -30,11 +42,10 @@ t_vector3	matrice_apply(t_matrice4 *m, t_vector3 *p)
 	p2.x = p->x * m->m[0] + p->y * m->m[1] + p->z * m->m[2] + m->m[3];
 	p2.y = p->x * m->m[4] + p->y * m->m[5] + p->z * m->m[6] + m->m[7];
 	p2.z = p->x * m->m[8] + p->y * m->m[9] + p->z * m->m[10] + m->m[11];
-//	p2.w = p->x * m->m[12] + p->y * m->m[13] + p->z * m->m[14] + m->m[15];
 	return (p2);
 }
 
-void	matrice_product(t_matrice4 *m1, t_matrice4 *m2, t_matrice4 *m3)
+void		matrice_product(t_matrice4 *m1, t_matrice4 *m2, t_matrice4 *m3)
 {
 	int			i;
 	t_matrice4	m4;
@@ -51,35 +62,22 @@ void	matrice_product(t_matrice4 *m1, t_matrice4 *m2, t_matrice4 *m3)
 	*m3 = m4;
 }
 
-void	matrice_multiply(t_matrice4 *m1, t_matrice4 *m2)
-{
-	int			i;
-	t_matrice4	*m3;
-
-	i = 0;
-	while (i < 16)
-	{
-		m1->m[i] *= m2->m[i];
-		i++;
-	}
-}
-
-void	matrice_add(t_matrice4 *m1, t_matrice4 *m2)
+void		matrice_multiply(t_matrice4 *m1, float factor)
 {
 	int			i;
 
 	i = 0;
 	while (i < 16)
 	{
-		m1->m[i] +=  m2->m[i];
+		m1->m[i] *= factor;
 		i++;
 	}
 }
 
-void	matrice_translation(t_matrice4 *m1, t_vector3 *v)
+void		matrice_translation(t_matrice4 *m1, t_vector3 *v)
 {
 	t_matrice4	m2;
-	
+
 	matrice4_init(&m2);
 	m2.m[3] = v->x;
 	m2.m[7] = v->y;
@@ -87,7 +85,7 @@ void	matrice_translation(t_matrice4 *m1, t_vector3 *v)
 	matrice_product(m1, &m2, m1);
 }
 
-void	matrice_rotation_x(t_matrice4 *m1, float angle)
+void		matrice_rotation_x(t_matrice4 *m1, float angle)
 {
 	t_matrice4 m2;
 
@@ -99,7 +97,7 @@ void	matrice_rotation_x(t_matrice4 *m1, float angle)
 	matrice_product(m1, &m2, m1);
 }
 
-void	matrice_rotation_y(t_matrice4 *m1, float angle)
+void		matrice_rotation_y(t_matrice4 *m1, float angle)
 {
 	t_matrice4 m2;
 
@@ -111,7 +109,7 @@ void	matrice_rotation_y(t_matrice4 *m1, float angle)
 	matrice_product(m1, &m2, m1);
 }
 
-void	matrice_rotation_z(t_matrice4 *m1, float angle)
+void		matrice_rotation_z(t_matrice4 *m1, float angle)
 {
 	t_matrice4 m2;
 
@@ -122,4 +120,3 @@ void	matrice_rotation_z(t_matrice4 *m1, float angle)
 	m2.m[5] = cos(angle);
 	matrice_product(m1, &m2, m1);
 }
-

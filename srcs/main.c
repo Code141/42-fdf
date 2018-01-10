@@ -20,6 +20,7 @@
 #include "surface.h"
 #include "surface2.h"
 #include "material.h"
+#include "draw_hud.h"
 
 int		close_fdf(t_ctx *ctx)
 {
@@ -27,6 +28,9 @@ int		close_fdf(t_ctx *ctx)
 	free(ctx->screen);
 	destroy_scene(ctx->scene);
 	destroy_map(ctx->map);
+	destroy_hud(ctx->hud);
+	
+	free(ctx->stats);
 	free(ctx);
 	ft_putstr("EXIT PROGRAMME");
 	while (1)
@@ -87,16 +91,23 @@ int		main(int argc, char **argv)
 	ctx = (t_ctx*)malloc(sizeof(t_ctx));
 	ctx->mlx = mlx_init();
 
-	ctx->stats = new_stats();
-
-	ctx->hud = new_hud();
-
-	ctx->hud->graphs[0] = *new_graph(100, 60);
-
-
-
 	ctx->screen = new_screen(ctx->mlx, 1024, 786);
 	ctx->screen->canevas = new_canevas(ctx->mlx, 1024, 786);
+
+/*--- STATS / HUD ------------------------------------------------------------*/
+
+	ctx->stats = new_stats();
+	ctx->hud = new_hud();
+	ctx->hud->graphs[0] = new_graph(100, 60, ctx->stats->fps);
+	ctx->hud->graphs[1] = new_graph(100, 60, ctx->stats->ms);
+	ctx->hud->graphs[1]->x = 102;
+
+/*--- SCENE / CAMERA ---------------------------------------------------------*/
+
+	ctx->scene = new_scene();
+	//SORTIRE LA CAMERA DE LA SCENE ??
+	ctx->scene->camera = new_camera(TO_RAD(120), 10, 2000);
+	ctx->scene->camera->pos.z = -500;
 
 /*--- INPUT ------------------------------------------------------------------*/
 
@@ -109,13 +120,6 @@ int		main(int argc, char **argv)
 	{
 		ctx->map = parse_fdf_file(*argv);
 	}
-
-/*--- SCENE / CAMERA ---------------------------------------------------------*/
-
-	ctx->scene = new_scene();
-	//SORTIRE LA CAMERA DE LA SCENE ??
-	ctx->scene->camera = new_camera(TO_RAD(120), 10, 2000);
-	ctx->scene->camera->pos.z = -500;
 
 /*--- GEOMETRY ---------------------------------------------------------------*/
 	t_object	*fdf_map;
@@ -134,12 +138,13 @@ int		main(int argc, char **argv)
 
 		matrice_rotation_x(&fdf_map->matrice, TO_RAD(60));
 		matrice_rotation_z(&fdf_map->mesh->matrice, TO_RAD(60));
-
+	
 		scene_add(ctx->scene, fdf_map);
 		ctx->map_obj = fdf_map;
 	}
 
 /*--- LOOP -------------------------------------------------------------------*/
+
 	ft_putstr("- LOOP -");
 	hooks(ctx);
 	mlx_loop(ctx->mlx);

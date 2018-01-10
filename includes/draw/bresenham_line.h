@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bresenham_line.h                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/10 17:54:46 by gelambin          #+#    #+#             */
+/*   Updated: 2018/01/10 17:54:47 by gelambin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef BRESENHAM_LINE_H
 # define BRESENHAM_LINE_H
 # include "pixel.h"
 
-void	bresenham_line(t_img *canevas, int x1, int y1, int x2, int y2, t_color color);
 void	line(t_img *canevas, t_vector2 v1, t_vector2 v2, t_color color);
 
 #endif

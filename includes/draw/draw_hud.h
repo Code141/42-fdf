@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   surface.h                                          :+:      :+:    :+:   */
+/*   draw_hud.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/10 17:55:29 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/10 17:55:30 by gelambin         ###   ########.fr       */
+/*   Created: 2018/01/10 17:54:56 by gelambin          #+#    #+#             */
+/*   Updated: 2018/01/10 17:54:57 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SURFACE_H
-# define SURFACE_H
-# include <stdlib.h>
-# include "geometry.h"
+#ifndef DRAW_HUD_H
+# define DRAW_HUD_H
+# include "ctx.h"
+# include "draw.h"
 
-t_geometry	*new_surface(int x, int y, int subx, int suby);
+void	draw_hud(t_ctx *ctx);
 
 #endif

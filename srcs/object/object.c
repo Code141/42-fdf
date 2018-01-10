@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   object.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/10 17:39:16 by gelambin          #+#    #+#             */
+/*   Updated: 2018/01/10 17:40:15 by gelambin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "object.h"
 
 t_object	*new_object(t_mesh *mesh)
@@ -5,7 +17,6 @@ t_object	*new_object(t_mesh *mesh)
 	t_object	*obj;
 
 	obj = (t_object*)malloc(sizeof(t_object));
-
 	obj->parent = NULL;
 	obj->children = NULL;
 	obj->mesh = mesh;
@@ -21,15 +32,13 @@ void		object_add_child(t_object *obj1, t_object *obj2)
 	obj2->parent = obj1;
 }
 
-void	destroy_objects(void **objects)
+void		destroy_objects(void **objects)
 {
 	t_object	*object;
 
-	object =  (t_object*)objects;
-
+	object = (t_object*)objects;
 	if (object->mesh)
 		destroy_mesh(object->mesh);
 	if (object->children)
 		ft_lstdel(&object->children, &destroy_objects);
-//	free(object);
 }

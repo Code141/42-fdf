@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mesh.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/10 17:57:04 by gelambin          #+#    #+#             */
+/*   Updated: 2018/01/10 17:57:10 by gelambin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MESH_H
 # define MESH_H
 # include <stdlib.h>
@@ -15,7 +27,7 @@ typedef struct	s_mesh
 	t_matrice4	matrice;
 }				t_mesh;
 
-t_mesh		*new_mesh(t_geometry *geometry, t_material *material);
-void		destroy_mesh(t_mesh *mesh);
+t_mesh			*new_mesh(t_geometry *geometry, t_material *material);
+void			destroy_mesh(t_mesh *mesh);
 
 #endif

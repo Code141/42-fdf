@@ -26,9 +26,10 @@ int		key_press(int keycode, void *ctx)
 	return (1);	
 }
 
-
-int		motion(int x, int y, t_ctx *ctx)
+int		mouse_move(int x, int y, t_ctx *ctx)
 {
+	ctx->mouse.x = x;
+	ctx->mouse.y = y;
 	printf("Mouse X:%d	Y:%d\n", x, y);
 	return (1);
 }
@@ -36,19 +37,32 @@ int		motion(int x, int y, t_ctx *ctx)
 int		button_pressed(int button, int x, int y, t_ctx *ctx)
 {
 	printf("Mouse Button Pressed  : %d		X : %d	Y : %d\n", button, x, y);
+	if (button == 1)
+		ctx->mouse.button_right = 1;
+	if (button == 2)
+		ctx->mouse.button_left = 1;
+
+	ctx->mouse.x = x;
+	ctx->mouse.y = y;
+	ctx->mouse.last_x = x;
+	ctx->mouse.last_y = y;
+
 	if (button == 4)
-		ctx->map_obj->mesh->matrice.m[10] -= 0.1;
+		matrice_multiply(&ctx->map_obj->mesh->matrice, 1.1);
 	if (button == 5)
-		ctx->map_obj->mesh->matrice.m[10] += 0.1;
+		matrice_multiply(&ctx->map_obj->mesh->matrice, 0.9);
 	return (1);
 }
 
 int		button_release(int button, int x, int y, t_ctx *ctx)
 {
+	if (button == 1)
+		ctx->mouse.button_right = 0;
+	if (button == 2)
+		ctx->mouse.button_left = 0;
 	printf("Mouse Button Released : %d		X : %d	Y : %d\n", button, x, y);
 	return (1);
 }
-
 
 int		expose_hook(void *ctx)
 {
@@ -70,8 +84,7 @@ int		hooks(t_ctx *ctx)
 	mlx_loop_hook (ctx->mlx, &loop_hook, ctx);
 
 	mlx_hook(ctx->screen->win, KeyPress, KeyPressMask, &key_press, ctx);
-	mlx_hook(ctx->screen->win, MotionNotify, PointerMotionMask, &motion, ctx);
+	mlx_hook(ctx->screen->win, MotionNotify, PointerMotionMask, &mouse_move, ctx);
 	mlx_hook(ctx->screen->win, ButtonRelease, ButtonReleaseMask, &button_release, ctx);
 	return (1);
 }
-

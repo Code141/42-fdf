@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/10 17:51:21 by gelambin          #+#    #+#             */
+/*   Updated: 2018/01/10 17:52:02 by gelambin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "map.h"
 
 t_fdf_map	*new_map(char *file_name)
@@ -45,9 +57,9 @@ void		map_delta(t_fdf_map *map)
 		{
 			if (map->map[y][x] > map->max)
 				map->max = map->map[y][x];
-			if (map->map[y][x] < map->min)		
+			if (map->map[y][x] < map->min)
 				map->min = map->map[y][x];
-				x++;
+			x++;
 		}
 		y++;
 	}
