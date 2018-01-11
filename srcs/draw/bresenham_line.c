@@ -1,6 +1,6 @@
 #include "bresenham_line.h"
 
-void	bresenham_line1(t_img *canevas, int x1, int y1, int x2, int y2, t_color color)
+void	bresenham_line1(t_img *canevas, int x1, int y1, int x2, int y2, t_color_rgba color)
 {
 	int	dx;
 	int dy;
@@ -42,7 +42,7 @@ void	bresenham_line1(t_img *canevas, int x1, int y1, int x2, int y2, t_color col
 	}
 }
 
-void	bresenham_line2(t_img *canevas, int x1, int y1, int x2, int y2, t_color color)
+void	bresenham_line2(t_img *canevas, int x1, int y1, int x2, int y2, t_color_rgba color)
 {
 	int	dx;
 	int dy;
@@ -84,7 +84,7 @@ void	bresenham_line2(t_img *canevas, int x1, int y1, int x2, int y2, t_color col
 	}
 }
 
-void	line(t_img *canevas, t_vector2 v1, t_vector2 v2, t_color color)
+void	line(t_img *canevas, t_vector2 v1, t_vector2 v2, t_color_rgba color)
 {
 	if (v1.x <= v2.x)
 		if (v1.y < v2.y)

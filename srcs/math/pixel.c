@@ -6,21 +6,21 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 17:42:38 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/10 17:48:00 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/01/11 14:40:07 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "pixel.h"
 
-void	put_pixel(t_img *canevas, int x, int y, t_color color)
+void	put_pixel(t_img *canevas, int x, int y, t_color_rgba color)
 {
 	if ((y < 0 || y >= canevas->height) || (x < 0 || x >= canevas->width))
 		return ;
 	((unsigned int*)canevas->data)[(y * canevas->width) + x] = color.hex;
 }
 
-void	draw_point(t_img *canevas, t_vector2 v, int size, t_color color)
+void	draw_point(t_img *canevas, t_vector2 v, int size, t_color_rgba color)
 {
 	int x;
 	int y;

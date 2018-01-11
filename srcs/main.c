@@ -50,7 +50,7 @@ int		loop(t_ctx *ctx)
 	mlx_put_image_to_window (ctx->mlx, ctx->screen->win, ctx->screen->canevas->id, 0, 0);	
 	return (1);	
 }
-
+/*
 t_object	*grid_orientation(int x, int y, int subx, int suby)
 {
 	t_object	*obj;
@@ -77,7 +77,7 @@ t_object	*grid_orientation(int x, int y, int subx, int suby)
 	object_add_child(obj, grid);
 	return(obj);
 }
-
+*/
 // PROTECTION DES MALLOCS !
 
 int		main(int argc, char **argv)
@@ -119,13 +119,29 @@ int		main(int argc, char **argv)
 	}
 
 /*--- GEOMETRY ---------------------------------------------------------------*/
-	t_object	*fdf_map;
-	float		diag;
-	float		size;
+	t_object		*fdf_map;
+	float			diag;
+	float			size;
+	t_color_hsl		c1;
+	t_color_rgba	c2;	
 
 	if (ctx->map)
 	{
-		fdf_map = new_fdf_map(ctx->map, 0xffffff);
+		color_set_hsl(60, 50, 50, &c1);
+		c2 = color_hsl_to_rgb(c1);
+
+//		printf("H:%f	S:%f	L:%f\nTo ->\n", c1.h, c1.s, c1.l);	
+//		printf("R:%d	G:%d	B:%d\n", c2.c.r, c2.c.g, c2.c.b);	
+//		printf("|---------------------------------------------|\n");	
+
+		color_set_rvb(64, 128, 128, &c2);
+		c1 = color_rgb_to_hsl(c2);
+
+printf("-H:%d	S:%f	L:%f-\n", c1.h, c1.s, c1.l);	
+//		printf("R:%d	G:%d	B:%d\nTo ->\n", c2.c.r, c2.c.g, c2.c.b);	
+//		printf("H:%f	S:%f	L:%f\n", c1.h, c1.s, c1.l);	
+
+		fdf_map = new_fdf_map(ctx->map, c2);
 		diag = hypot(ctx->map->width, ctx->map->height);
 		size = ctx->screen->width / diag / 1.2;
 
@@ -135,7 +151,7 @@ int		main(int argc, char **argv)
 
 		matrice_rotation_x(&fdf_map->matrice, TO_RAD(60));
 		matrice_rotation_z(&fdf_map->mesh->matrice, TO_RAD(60));
-	
+
 		scene_add(ctx->scene, fdf_map);
 		ctx->map_obj = fdf_map;
 	}

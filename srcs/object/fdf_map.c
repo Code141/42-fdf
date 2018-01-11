@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 17:40:40 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/10 17:42:08 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/01/11 17:09:14 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void		fdf_map_elevation(t_fdf_map *map, t_mesh *mesh)
 	}
 }
 
-t_object	*new_fdf_map(t_fdf_map *map, int color)
+t_object	*new_fdf_map(t_fdf_map *map, t_color_rgba color)
 {
 	t_geometry	*geometry;
 	t_material	*material;
