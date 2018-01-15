@@ -4,7 +4,7 @@
 
 #include "ctx.h"
 #include "input.h"
-#include "hooks.h"
+#include "events.h"
 #include "vector.h"
 #include "matrice4.h"
 #include "draw.h"
@@ -119,6 +119,7 @@ int		main(int argc, char **argv)
 	}
 
 /*--- GEOMETRY ---------------------------------------------------------------*/
+
 	t_object		*fdf_map;
 	float			diag;
 	float			size;
@@ -127,9 +128,10 @@ int		main(int argc, char **argv)
 
 	if (ctx->map)
 	{
-		color_set_hsl(60, 50, 50, &c1);
+//		color_set_hsl(10, 0.5, 0.5, &c1);
 		c2 = color_hsl_to_rgb(c1);
 
+printf("-R:%d	V:%d	B:%d-\n", c2.c.r, c2.c.g, c2.c.b);	
 //		printf("H:%f	S:%f	L:%f\nTo ->\n", c1.h, c1.s, c1.l);	
 //		printf("R:%d	G:%d	B:%d\n", c2.c.r, c2.c.g, c2.c.b);	
 //		printf("|---------------------------------------------|\n");	
@@ -137,7 +139,7 @@ int		main(int argc, char **argv)
 		color_set_rvb(64, 128, 128, &c2);
 		c1 = color_rgb_to_hsl(c2);
 
-printf("-H:%d	S:%f	L:%f-\n", c1.h, c1.s, c1.l);	
+		printf("-H:%d	S:%f	L:%f-\n", c1.h, c1.s, c1.l);	
 //		printf("R:%d	G:%d	B:%d\nTo ->\n", c2.c.r, c2.c.g, c2.c.b);	
 //		printf("H:%f	S:%f	L:%f\n", c1.h, c1.s, c1.l);	
 
@@ -150,7 +152,7 @@ printf("-H:%d	S:%f	L:%f-\n", c1.h, c1.s, c1.l);
 		fdf_map->mesh->matrice.m[10] *= size / 4;
 
 		matrice_rotation_x(&fdf_map->matrice, TO_RAD(60));
-		matrice_rotation_z(&fdf_map->mesh->matrice, TO_RAD(60));
+		matrice_rotation_z(&fdf_map->mesh->matrice, TO_RAD(45));
 
 		scene_add(ctx->scene, fdf_map);
 		ctx->map_obj = fdf_map;

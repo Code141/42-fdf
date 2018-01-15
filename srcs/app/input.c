@@ -1,5 +1,5 @@
 #include "input.h"
-
+// REVERSE FREE EN CAS DE MALLOC ERROR<
 int			**ft_array_int_push(int **array, int size, int *new_elem)
 {
 	int	**new_array;

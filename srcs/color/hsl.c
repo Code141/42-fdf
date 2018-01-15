@@ -49,7 +49,7 @@ t_color_rgba	color_hsl_to_rgb(t_color_hsl c1)
 {
 	t_color_rgba	c2;
 	float			c;
-	int				h;
+	float			h;
 	float			x;
 	
 	c = ((1 - fabs(2 * c1.l - 1)) * c1.s);
