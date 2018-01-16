@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 17:55:52 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/11 18:34:10 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/01/16 18:10:23 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ typedef struct		s_color_hsl
 	float	l;
 }					t_color_hsl;
 
-void			color_set_hsl(float h, float s, float l, t_color_hsl *c1);
 void			color_set_rvb(int r, int v, int b, t_color_rgba *c);
-t_color_hsl		color_rgb_to_hsl(t_color_rgba c1);
-t_color_rgba	color_hsl_to_rgb(t_color_hsl c1);
+t_color_rgba	color_blend(t_color_rgba *ca, t_color_rgba *cb, float balance);
 
 #endif

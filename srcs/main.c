@@ -78,7 +78,25 @@ t_object	*grid_orientation(int x, int y, int subx, int suby)
 	return(obj);
 }
 */
+
 // PROTECTION DES MALLOCS !
+t_ctx	*ctx_init()
+{
+	t_ctx	*ctx;
+
+	ctx = (t_ctx*)malloc(sizeof(t_ctx));
+	ctx->mlx = mlx_init();
+	ctx->screen = new_screen(ctx->mlx, 800, 600);
+	ctx->stats = new_stats();
+	ctx->hud = new_hud();
+	ctx->hud->graphs[0] = new_graph(100, 60, ctx->stats->fps);
+	ctx->hud->graphs[1] = new_graph(100, 60, ctx->stats->ms);
+	ctx->hud->graphs[1]->x = 102;
+	ctx->scene = new_scene();
+	ctx->scene->camera = new_camera(TO_RAD(120), 10, 2000);
+	ctx->scene->camera->pos.z = -500;
+	return (ctx);
+}
 
 int		main(int argc, char **argv)
 {
@@ -87,26 +105,7 @@ int		main(int argc, char **argv)
 
 	t_ctx	*ctx;
 
-	ctx = (t_ctx*)malloc(sizeof(t_ctx));
-	ctx->mlx = mlx_init();
-
-	ctx->screen = new_screen(ctx->mlx, 1024, 786);
-
-/*--- STATS / HUD ------------------------------------------------------------*/
-
-	ctx->stats = new_stats();
-
-	ctx->hud = new_hud();
-	ctx->hud->graphs[0] = new_graph(100, 60, ctx->stats->fps);
-	ctx->hud->graphs[1] = new_graph(100, 60, ctx->stats->ms);
-	ctx->hud->graphs[1]->x = 102;
-
-/*--- SCENE / CAMERA ---------------------------------------------------------*/
-
-	ctx->scene = new_scene();
-	//SORTIRE LA CAMERA DE LA SCENE ??
-	ctx->scene->camera = new_camera(TO_RAD(120), 10, 2000);
-	ctx->scene->camera->pos.z = -500;
+	ctx = ctx_init();
 
 /*--- INPUT ------------------------------------------------------------------*/
 	
@@ -123,27 +122,13 @@ int		main(int argc, char **argv)
 	t_object		*fdf_map;
 	float			diag;
 	float			size;
-	t_color_hsl		c1;
-	t_color_rgba	c2;	
+	t_color_rgba	c1;
 
 	if (ctx->map)
 	{
-//		color_set_hsl(10, 0.5, 0.5, &c1);
-		c2 = color_hsl_to_rgb(c1);
+		c1.hex = 0xffffff;
+		fdf_map = new_fdf_map(ctx->map, c1);
 
-printf("-R:%d	V:%d	B:%d-\n", c2.c.r, c2.c.g, c2.c.b);	
-//		printf("H:%f	S:%f	L:%f\nTo ->\n", c1.h, c1.s, c1.l);	
-//		printf("R:%d	G:%d	B:%d\n", c2.c.r, c2.c.g, c2.c.b);	
-//		printf("|---------------------------------------------|\n");	
-
-		color_set_rvb(64, 128, 128, &c2);
-		c1 = color_rgb_to_hsl(c2);
-
-		printf("-H:%d	S:%f	L:%f-\n", c1.h, c1.s, c1.l);	
-//		printf("R:%d	G:%d	B:%d\nTo ->\n", c2.c.r, c2.c.g, c2.c.b);	
-//		printf("H:%f	S:%f	L:%f\n", c1.h, c1.s, c1.l);	
-
-		fdf_map = new_fdf_map(ctx->map, c2);
 		diag = hypot(ctx->map->width, ctx->map->height);
 		size = ctx->screen->width / diag / 1.2;
 
