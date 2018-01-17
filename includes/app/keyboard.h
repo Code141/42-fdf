@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene.h                                            :+:      :+:    :+:   */
+/*   keyboard.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/10 17:57:30 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/17 14:54:24 by gelambin         ###   ########.fr       */
+/*   Created: 2018/01/17 15:02:11 by gelambin          #+#    #+#             */
+/*   Updated: 2018/01/17 18:43:52 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCENE_H
-# define SCENE_H
+#ifndef KEYBOARD_H
+# define KEYBOARD_H
+# include <stdlib.h>
 # include "libft.h"
-# include "vector.h"
-# include "mesh.h"
-# include "object.h"
 
-typedef struct	s_scene
+typedef struct	s_keyboard
 {
-	t_list		*objects;
-}				t_scene;
+	char	key[300];
+}				t_keyboard;
 
-t_scene			*new_scene();
-void			scene_add(t_scene *scene, t_object *object);
-void			destroy_scene(t_scene *scene);
+int			key_release(int keycode, t_keyboard *keyboard);
+int			key_press(int keycode, t_keyboard *keyboard);
+t_keyboard	*new_keyboard(void);
+void		destroy_keyboard(t_keyboard *keyboard);
 
 #endif

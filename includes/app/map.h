@@ -1,29 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene.h                                            :+:      :+:    :+:   */
+/*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/10 17:57:30 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/17 14:54:24 by gelambin         ###   ########.fr       */
+/*   Created: 2018/01/10 18:05:15 by gelambin          #+#    #+#             */
+/*   Updated: 2018/01/17 14:40:51 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCENE_H
-# define SCENE_H
+#ifndef MAP_H
+# define MAP_H
+# include <fcntl.h>
+# include <stdlib.h>
+# include <unistd.h>
 # include "libft.h"
-# include "vector.h"
-# include "mesh.h"
-# include "object.h"
 
-typedef struct	s_scene
+typedef struct	s_fdf_map
 {
-	t_list		*objects;
-}				t_scene;
+	char	*name;
+	int		width;
+	int		height;
+	int		min;
+	int		max;
+	int		delta;
+	int		**map;
+	int		**color_map;
+}				t_fdf_map;
 
-t_scene			*new_scene();
-void			scene_add(t_scene *scene, t_object *object);
-void			destroy_scene(t_scene *scene);
+t_fdf_map		*new_map(char *file_name);
+void			destroy_map(t_fdf_map *map);
+void			map_delta(t_fdf_map *map);
 
 #endif

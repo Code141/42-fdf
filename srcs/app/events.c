@@ -1,85 +1,25 @@
-#include "mlx.h"
-#include "libft.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   events.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/17 15:01:12 by gelambin          #+#    #+#             */
+/*   Updated: 2018/01/17 19:38:21 by gelambin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "events.h"
-
-#include "ctx.h"
-#include "vector.h"
-#include "draw.h"
-#include "stats.h"
-#include "hud.h"
-
-/*--- KEYBOARD ---------------------------------------------------------------*/
-
-int		key_release(int keycode, t_ctx *ctx)
-{
-	(void)ctx;
-	ft_putstr("Key Release : ");
-	ft_putnbr(keycode);
-	ft_putstr("\n");
-	return (1);	
-}
-
-int		key_press(int keycode, void *ctx)
-{
-	(void)ctx;
-	ft_putstr("Key Press : ");
-	ft_putnbr(keycode);
-	ft_putstr("\n");
-	if (keycode == 53)
-		close_fdf(ctx);
-	return (1);	
-}
-
-/*--- MOUSE ------------------------------------------------------------------*/
-
-int		mouse_move(int x, int y, t_ctx *ctx)
-{
-	ctx->mouse.x = x;
-	ctx->mouse.y = y;
-	return (1);
-}
-
-int		button_press(int button, int x, int y, t_ctx *ctx)
-{
-	if (y >= 0)
-	{
-		if (button == 1)
-			ctx->mouse.button_right = 1;
-		if (button == 2)
-			ctx->mouse.button_left = 1;
-		ctx->mouse.x = x;
-		ctx->mouse.y = y;
-		ctx->mouse.last_x = x;
-		ctx->mouse.last_y = y;
-		if (button == 4)
-			matrice_multiply(&ctx->map_obj->mesh->matrice, 1.1);
-		if (button == 5)
-			matrice_multiply(&ctx->map_obj->mesh->matrice, 0.9);
-	}
-	return (1);
-}
-
-int		button_release(int button, int x, int y, t_ctx *ctx)
-{
-	(void)x;
-	(void)y;
-	if (button == 1)
-		ctx->mouse.button_right = 0;
-	if (button == 2)
-		ctx->mouse.button_left = 0;
-	return (1);
-}
-
-/*--- MLX --------------------------------------------------------------------*/
 
 int		hooks(t_ctx *ctx)
 {
-	mlx_hook(ctx->screen->win, KEYPRESS, 0, &key_press, ctx);
-	mlx_hook(ctx->screen->win, KEYRELEASE, 0, &key_release, ctx);
+	mlx_hook(ctx->screen->win, KEYPRESS, 0, &key_press, ctx->keyboard);
+	mlx_hook(ctx->screen->win, KEYRELEASE, 0, &key_release, ctx->keyboard);
 
-	mlx_hook(ctx->screen->win, MOUSEMOVE, 0, &mouse_move, ctx);
-	mlx_hook(ctx->screen->win, MOUSEPRESS, 0, &button_press, ctx);
-	mlx_hook(ctx->screen->win, MOUSERELEASE, 0, &button_release, ctx);
+	mlx_hook(ctx->screen->win, MOUSEMOVE, 0, &mouse_move, ctx->mouse);
+	mlx_hook(ctx->screen->win, MOUSEPRESS, 0, &button_press, ctx->mouse);
+	mlx_hook(ctx->screen->win, MOUSERELEASE, 0, &button_release, ctx->mouse);
 
 	mlx_loop_hook (ctx->mlx, &loop, ctx);
 	return (1);

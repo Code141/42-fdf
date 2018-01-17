@@ -20,36 +20,9 @@
 #include "surface.h"
 #include "surface2.h"
 #include "material.h"
-#include "draw_hud.h"
+#include "mouse.h"
+#include "keyboard.h"
 
-int		close_fdf(t_ctx *ctx)
-{
-	free(ctx->screen->canevas);
-	free(ctx->screen);
-	destroy_scene(ctx->scene);
-	destroy_map(ctx->map);
-	destroy_hud(ctx->hud);
-	
-	free(ctx->stats);
-	free(ctx);
-	ft_putstr("EXIT PROGRAMME");
-	while (1)
-	{}
-	exit (0);
-}
-
-int		loop(t_ctx *ctx)
-{
-	update_all(ctx, ctx->scene->objects);
-
-	ft_bzero(ctx->screen->canevas->data, ctx->screen->canevas->width * ctx->screen->canevas->height * 4);
-	render(ctx);
-
-	refresh_stats(ctx->stats);
-	draw_hud(ctx);
-	mlx_put_image_to_window (ctx->mlx, ctx->screen->win, ctx->screen->canevas->id, 0, 0);	
-	return (1);	
-}
 /*
 t_object	*grid_orientation(int x, int y, int subx, int suby)
 {
@@ -80,6 +53,26 @@ t_object	*grid_orientation(int x, int y, int subx, int suby)
 */
 
 // PROTECTION DES MALLOCS !
+
+int		close_fdf(t_ctx *ctx)
+{
+	free(ctx->screen->canevas);
+	free(ctx->screen);
+	destroy_scene(ctx->scene);
+	destroy_map(ctx->map);
+	destroy_hud(ctx->hud);
+	destroy_camera(ctx->camera);
+	destroy_mouse(ctx->mouse);
+	destroy_keyboard(ctx->keyboard);
+	
+	free(ctx->stats);
+	free(ctx);
+	ft_putstr("EXIT PROGRAMME");
+	while (1)
+	{}
+	exit (0);
+}
+
 t_ctx	*ctx_init()
 {
 	t_ctx	*ctx;
@@ -91,41 +84,27 @@ t_ctx	*ctx_init()
 	ctx->hud = new_hud();
 	ctx->hud->graphs[0] = new_graph(100, 60, ctx->stats->fps);
 	ctx->hud->graphs[1] = new_graph(100, 60, ctx->stats->ms);
+	ctx->hud->graphs[1]->color_min.hex = 0x00ffff;
+	ctx->hud->graphs[1]->color_max.hex = 0xff0000;
 	ctx->hud->graphs[1]->x = 102;
 	ctx->scene = new_scene();
-	ctx->scene->camera = new_camera(TO_RAD(120), 10, 2000);
-	ctx->scene->camera->pos.z = -500;
+	ctx->camera = new_camera(TO_RAD(120), 10, 2000);
+	ctx->camera->pos.z = -500;
+	
+	ctx->mouse = new_mouse();
+	ctx->keyboard = new_keyboard();
+
+	ctx->map = NULL;
 	return (ctx);
 }
 
-int		main(int argc, char **argv)
+void		load_map(t_ctx *ctx)
 {
+		t_object		*fdf_map;
+		float			diag;
+		float			size;
+		t_color_rgba	c1;
 
-/*--- INIT -------------------------------------------------------------------*/
-
-	t_ctx	*ctx;
-
-	ctx = ctx_init();
-
-/*--- INPUT ------------------------------------------------------------------*/
-	
-	argc--;
-	argv++;
-	ctx->map = NULL;
-	if (argc)
-	{
-		ctx->map = parse_fdf_file(*argv);
-	}
-
-/*--- GEOMETRY ---------------------------------------------------------------*/
-
-	t_object		*fdf_map;
-	float			diag;
-	float			size;
-	t_color_rgba	c1;
-
-	if (ctx->map)
-	{
 		c1.hex = 0xffffff;
 		fdf_map = new_fdf_map(ctx->map, c1);
 
@@ -138,14 +117,22 @@ int		main(int argc, char **argv)
 
 		matrice_rotation_x(&fdf_map->matrice, TO_RAD(60));
 		matrice_rotation_z(&fdf_map->mesh->matrice, TO_RAD(45));
-
+	
 		scene_add(ctx->scene, fdf_map);
 		ctx->map_obj = fdf_map;
-	}
+}
 
-/*--- LOOP -------------------------------------------------------------------*/
+int		main(int argc, char **argv)
+{
+	t_ctx	*ctx;
 
-	ft_putstr("- LOOP -");
+	ctx = ctx_init();
+	argc--;
+	argv++;
+	if (argc)
+		ctx->map = parse_fdf_file(*argv);
+	if (ctx->map)
+		load_map(ctx);
 	hooks(ctx);
 	mlx_loop(ctx->mlx);
 	return (0);

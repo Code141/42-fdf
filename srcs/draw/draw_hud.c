@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 17:52:59 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/16 18:16:45 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/01/17 19:41:03 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	draw_graph(t_graph *graph, t_img *canevas)
 	int				data;
 
 	i = 0;
-	color.hex = 0x0000;
+	color.hex = 0x000000;
 	while (i < graph->length)
 	{
 		data = graph->data[i]; 
@@ -30,9 +30,7 @@ void	draw_graph(t_graph *graph, t_img *canevas)
 		v1.y = graph->y + graph->height - data;
 		v2.x = graph->x + graph->length - i;
 		v2.y = graph->y + graph->height;
-		color = color_blend(&graph->color_min, &graph->color_max, data / 60); 
-//		color.c.g = data * 255 / graph->height;
-//		color.c.r = 255 - data * 255 / graph->height;
+		color = color_blend(&graph->color_min, &graph->color_max, (float)data / graph->height); 
 		line(canevas, v1, v2, color);
 		i++;
 	}

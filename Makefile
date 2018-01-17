@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2018/01/17 12:32:21 by gelambin          #+#    #+#              #
+#    Updated: 2018/01/17 17:11:04 by gelambin         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME	=	fdf
 
 CC		=	gcc
@@ -5,6 +17,7 @@ CFLAGS	=#	-Wall -Wextra -Werror
 CPPFLAGS=	-I./lib/mlx/					\
 			-I./lib/libft/includes/			\
 			-I./includes/					\
+			-I./includes/events/			\
 			-I./includes/math/				\
 			-I./includes/draw/				\
 			-I./includes/hud/				\
@@ -22,6 +35,10 @@ SRCS	=	./srcs/main.c					\
 			./srcs/app/map.c				\
 			./srcs/app/events.c				\
 			./srcs/app/screen.c				\
+			./srcs/app/loop.c				\
+			\
+			./srcs/events/mouse.c			\
+			./srcs/events/keyboard.c		\
 			\
 			./srcs/hud/hud.c				\
 			./srcs/hud/stats.c				\
@@ -44,7 +61,7 @@ SRCS	=	./srcs/main.c					\
 			\
 			./srcs/material/material.c		\
 			\
-			./srcs/color/hsl.c				\
+			./srcs/color/rgba.c				\
 			\
 			./srcs/object/object.c			\
 			./srcs/object/scene.c			\

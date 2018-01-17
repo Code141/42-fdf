@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene.h                                            :+:      :+:    :+:   */
+/*   mouse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/10 17:57:30 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/17 14:54:24 by gelambin         ###   ########.fr       */
+/*   Created: 2018/01/17 15:02:10 by gelambin          #+#    #+#             */
+/*   Updated: 2018/01/17 18:15:02 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCENE_H
-# define SCENE_H
+#ifndef MOUSE_H
+# define MOUSE_H
+# include <stdlib.h>
 # include "libft.h"
-# include "vector.h"
-# include "mesh.h"
-# include "object.h"
 
-typedef struct	s_scene
+typedef struct	s_mouse
 {
-	t_list		*objects;
-}				t_scene;
+	int	button[10];
+	int	x;
+	int	y;
+	int	last_x;
+	int last_y;
+}				t_mouse;
 
-t_scene			*new_scene();
-void			scene_add(t_scene *scene, t_object *object);
-void			destroy_scene(t_scene *scene);
+int		button_release(int button, int x, int y, t_mouse *mouse);
+int		button_press(int button, int x, int y, t_mouse *mouse);
+int		mouse_move(int x, int y, t_mouse *mouse);
+t_mouse	*new_mouse(void);
+void	destroy_mouse(t_mouse *mouse);
 
 #endif
