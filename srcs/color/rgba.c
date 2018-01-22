@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 12:55:39 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/17 14:00:27 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/01/22 17:30:09 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ t_color_rgba	color_blend(t_color_rgba *ca, t_color_rgba *cb, float ratio)
 	c3.c.r = (unsigned char)((cb->c.r - ca->c.r) * ratio + ca->c.r);
 	c3.c.g = (unsigned char)((cb->c.g - ca->c.g) * ratio + ca->c.g);
 	c3.c.b = (unsigned char)((cb->c.b - ca->c.b) * ratio + ca->c.b);
+	c3.c.a = (unsigned char)0;
 	return (c3);	
 }

@@ -63,7 +63,7 @@ t_ctx	*ctx_init()
 	ctx->hud->graphs[1]->x = 102;
 
 	ctx->scene = new_scene();
-	ctx->camera = new_camera(TO_RAD(120), 1, 100);
+	ctx->camera = new_camera(TO_RAD(120), 10, 100);
 	ctx->camera->pos.z = 0;
 
 	ctx->mouse = new_mouse();
@@ -90,16 +90,16 @@ void		load_map(t_ctx *ctx)
 	fdf_map->mesh->matrice.m[5] *= size;
 	fdf_map->mesh->matrice.m[10] *= size / 4;
 
-	matrice_rotation_x(&fdf_map->matrice, TO_RAD(60));
-	matrice_rotation_z(&fdf_map->mesh->matrice, TO_RAD(45));
-
 	t_vector4 v;
-
 	v.x = 0;
-	v.y = 300;
-	v.z = 300;
+	v.y = 0;
+	v.z = 600;
 	v.w = 0;
 	matrice_translation(&fdf_map->matrice, &v);
+
+	matrice_rotation_x(&fdf_map->matrice, TO_RAD(-60));
+	matrice_rotation_z(&fdf_map->mesh->matrice, TO_RAD(45));
+
 
 	scene_add(ctx->scene, fdf_map);
 	ctx->map_obj = fdf_map;

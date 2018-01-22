@@ -36,7 +36,6 @@ void	draw_all(t_ctx *ctx, t_list *elements, t_matrice4 *m1)
 	while (elements)
 	{
 		object = (t_object*)elements->content;
-
 		matrice_product(&object->matrice, m1, &m2);
 		mesh = object->mesh;
 		if (mesh)

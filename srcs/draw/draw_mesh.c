@@ -22,27 +22,31 @@ void	draw_vertices(t_ctx *ctx, t_object *object, t_matrice4 *m)
 
 void	draw_edges(t_ctx *ctx, t_object *object, t_matrice4 *m)
 {
-	int			i;
-	t_vector4	v1a;
-	t_vector4	v1b;
-	t_vector2	v2a;
-	t_vector2	v2b;
-	t_mesh		*mesh;
-	t_matrice4	m3;
+	int				i;
+	t_vector4		v1a;
+	t_vector4		v1b;
+	t_vector2		v2a;
+	t_vector2		v2b;
+	t_mesh			*mesh;
+	t_matrice4		m3;
+	t_color_rgba	color;
 
 	mesh = object->mesh;
 	matrice_product(m, &mesh->matrice, &m3);
 	i = 0;
 	while (mesh->geometry->edges[i])
 	{
+		color.hex = 0x000000;
 		v1a = matrice_apply(&m3, mesh->geometry->edges[i]->vertices[0]);
 		v1b = matrice_apply(&m3, mesh->geometry->edges[i]->vertices[1]);
 		//CLIPING
-		if (v1a.z > 0 && v1b.z > 0)
+		if (v1a.z > ctx->camera->near && v1b.z > ctx->camera->near)
+//			&& v1a.z < ctx->camera->far && v1b.z < ctx->camera->far)
 		{
 			v2a = projection(ctx, &v1a, mesh);
 			v2b = projection(ctx, &v1b, mesh);
-			line(ctx->screen->canevas, v2a, v2b, mesh->material->color);
+			color = color_blend(&mesh->material->color, &color, v1a.z / 1000); 
+			line(ctx->screen->canevas, v2a, v2b, color);
 		}
 		i++;
 	}

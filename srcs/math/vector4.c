@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 15:24:41 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/19 15:45:32 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/01/22 16:19:23 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@ void		vector4_clear(t_vector4 *v)
 	v->y = 0;
 	v->z = 0;
 	v->w = 0;
+}
+
+void		vector4_multiply(t_vector4 *v, float factor)
+{
+	v->x *= factor;
+	v->y *= factor;
+	v->z *= factor;
 }
 
 void		vector4_normalise(t_vector4 *v)
