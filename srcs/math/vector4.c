@@ -1,43 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector.c                                           :+:      :+:    :+:   */
+/*   vector4.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/10 17:44:18 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/19 16:52:04 by gelambin         ###   ########.fr       */
+/*   Created: 2018/01/19 15:24:41 by gelambin          #+#    #+#             */
+/*   Updated: 2018/01/19 15:45:32 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <math.h>
-#include "vector.h"
+#include "vector4.h"
 
-t_vector4	*new_point(float x, float y, float z)
+t_vector4	*new_vector4(float x, float y, float z, float w)
 {
-	return (new_vector4(x, y, z, 1));
+	t_vector4	*v;
+
+	v = (t_vector4*)malloc(sizeof(t_vector4));
+	v->x = x;
+	v->y = y;
+	v->z = z;
+	v->w = w;
+	return (v);
 }
 
-t_vector4	*new_angle(float x, float y, float z)
+void		vector4_clear(t_vector4 *v)
 {
-	return (new_vector4(x, y, z, 0));
+	v->x = 0;
+	v->y = 0;
+	v->z = 0;
+	v->w = 0;
 }
 
-void		set_point(float x, float y, float z, t_vector4 *v)
+void		vector4_normalise(t_vector4 *v)
 {
-	v->x =  x;
-	v->y =  y;
-	v->z =  z;
-	v->w =  1;
+	float	size;
+
+	size = sqrt((v->x * v->x) + (v->y * v->y) + (v->z * v->z));
+	v->x = v->x / size;
+	v->y = v->z / size;
+	v->z = v->z / size;
 }
-
-void		set_angle(float x, float y, float z, t_vector4 *v)
-{
-	v->x =  x;
-	v->y =  y;
-	v->z =  z;
-	v->w =  0;
-}
-
-

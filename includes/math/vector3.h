@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mouse.h                                            :+:      :+:    :+:   */
+/*   vector3.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/17 15:02:10 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/18 09:46:28 by gelambin         ###   ########.fr       */
+/*   Created: 2018/01/19 15:23:15 by gelambin          #+#    #+#             */
+/*   Updated: 2018/01/19 15:23:21 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MOUSE_H
-# define MOUSE_H
-# include <stdlib.h>
-# include "libft.h"
+#ifndef VECTOR3_H
+# define VECTOR3_H
 
-typedef struct	s_mouse
+typedef	struct	s_vector3
 {
-	int		button[10];
-	int		x;
-	int		y;
-	int		last_x;
-	int		last_y;
-}				t_mouse;
+	float	x;
+	float	y;
+	float	z;
+}				t_vector3;
 
-int		button_release(int button, int x, int y, t_mouse *mouse);
-int		button_press(int button, int x, int y, t_mouse *mouse);
-int		mouse_move(int x, int y, t_mouse *mouse);
-t_mouse	*new_mouse(void);
-void	destroy_mouse(t_mouse *mouse);
+t_vector3		*new_vector3(float x, float y, float z);
+void			vector3_set(t_vector3 *v, float x, float y, float z);
+void			vect3_normalise(t_vector3 *v);
 
 #endif

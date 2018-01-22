@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 17:57:04 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/10 17:57:10 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/01/19 15:38:35 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ typedef struct	s_mesh
 {
 	t_geometry	*geometry;
 	t_material	*material;
-	t_vector3	pos;
-	t_vector3	rot;
+	t_vector4	pos;
+	t_vector4	rot;
+	t_vector4	scale;
 	t_matrice4	matrice;
 }				t_mesh;
 

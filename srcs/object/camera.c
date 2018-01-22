@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 17:37:05 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/10 17:37:21 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/01/22 15:16:16 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ t_camera	*new_camera(float angle, float near, float far)
 	t_camera *camera;
 
 	camera = (t_camera*)malloc(sizeof(t_camera));
-	vector3_set(&camera->pos, 0, 0, 0);
-	vector3_set(&camera->rot, 0, 0, 0);
+	set_point(0, 0, 0, &camera->pos);
+	set_angle(0, 0, 0, &camera->rot);
 	camera->angle = angle;
 	camera->near = near;
 	camera->far = far;

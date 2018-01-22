@@ -1,6 +1,6 @@
 #include "geometry.h"
 
-t_edge		*new_edge(t_vector3 *v1, t_vector3 *v2)
+t_edge		*new_edge(t_vector4 *v1, t_vector4 *v2)
 {
 	t_edge	*edge;
 

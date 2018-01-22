@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mouse.h                                            :+:      :+:    :+:   */
+/*   vector4.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/17 15:02:10 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/18 09:46:28 by gelambin         ###   ########.fr       */
+/*   Created: 2018/01/19 15:23:44 by gelambin          #+#    #+#             */
+/*   Updated: 2018/01/19 15:44:51 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MOUSE_H
-# define MOUSE_H
-# include <stdlib.h>
-# include "libft.h"
+#ifndef VECTOR4_H
+# define VECTOR4_H
 
-typedef struct	s_mouse
+typedef	struct	s_vector4
 {
-	int		button[10];
-	int		x;
-	int		y;
-	int		last_x;
-	int		last_y;
-}				t_mouse;
+	float	x;
+	float	y;
+	float	z;
+	float	w;
+}				t_vector4;
 
-int		button_release(int button, int x, int y, t_mouse *mouse);
-int		button_press(int button, int x, int y, t_mouse *mouse);
-int		mouse_move(int x, int y, t_mouse *mouse);
-t_mouse	*new_mouse(void);
-void	destroy_mouse(t_mouse *mouse);
+t_vector4		*new_vector4(float x, float y, float z, float w);
+void			vector4_clear(t_vector4 *v);
+void			vector4_normalise(t_vector4 *v);
 
 #endif

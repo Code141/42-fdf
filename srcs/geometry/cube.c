@@ -1,23 +1,23 @@
 #include "cube.h"
 
-static t_vector3	**cube_vertices(int x, int y, int z)
+static t_vector4	**cube_vertices(int x, int y, int z)
 {
-	t_vector3	**vertices;
+	t_vector4	**vertices;
 
-	vertices = (t_vector3**)malloc(sizeof(t_vector3*) * 9);
-	vertices[0] = new_vector3(-x / 2, -y / 2, z / 2);
-	vertices[1] = new_vector3(-x / 2, y / 2, z / 2);
-	vertices[2] = new_vector3(x / 2, -y / 2, z / 2);
-	vertices[3] = new_vector3(x / 2, y / 2, z / 2);
-	vertices[4] = new_vector3(-x / 2, -y / 2, -z / 2);
-	vertices[5] = new_vector3(-x / 2, y / 2, -z / 2);
-	vertices[6] = new_vector3(x / 2, -y / 2, -z / 2);
-	vertices[7] = new_vector3(x / 2, y / 2, -z / 2);
+	vertices = (t_vector4**)malloc(sizeof(t_vector4*) * 9);
+	vertices[0] = new_point(-x / 2, -y / 2, z / 2);
+	vertices[1] = new_point(-x / 2, y / 2, z / 2);
+	vertices[2] = new_point(x / 2, -y / 2, z / 2);
+	vertices[3] = new_point(x / 2, y / 2, z / 2);
+	vertices[4] = new_point(-x / 2, -y / 2, -z / 2);
+	vertices[5] = new_point(-x / 2, y / 2, -z / 2);
+	vertices[6] = new_point(x / 2, -y / 2, -z / 2);
+	vertices[7] = new_point(x / 2, y / 2, -z / 2);
 	vertices[8] = NULL;
 	return (vertices);
 }
 
-static t_edge	**cube_edges(t_vector3 **vertices)
+static t_edge	**cube_edges(t_vector4 **vertices)
 {
 	t_edge	**edges;
 

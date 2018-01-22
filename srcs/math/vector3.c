@@ -1,43 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector.c                                           :+:      :+:    :+:   */
+/*   vector3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/10 17:44:18 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/19 16:52:04 by gelambin         ###   ########.fr       */
+/*   Created: 2018/01/19 15:22:34 by gelambin          #+#    #+#             */
+/*   Updated: 2018/01/19 15:22:43 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <math.h>
-#include "vector.h"
+#include "vector3.h"
 
-t_vector4	*new_point(float x, float y, float z)
+t_vector3	*new_vector3(float x, float y, float z)
 {
-	return (new_vector4(x, y, z, 1));
+	t_vector3	*v;
+
+	v = (t_vector3*)malloc(sizeof(t_vector3));
+	v->x = x;
+	v->y = y;
+	v->z = z;
+	return (v);
 }
 
-t_vector4	*new_angle(float x, float y, float z)
+void		vector3_set(t_vector3 *v, float x, float y, float z)
 {
-	return (new_vector4(x, y, z, 0));
+	v->x = x;
+	v->y = y;
+	v->z = z;
 }
 
-void		set_point(float x, float y, float z, t_vector4 *v)
+void		vect3_normalise(t_vector3 *v)
 {
-	v->x =  x;
-	v->y =  y;
-	v->z =  z;
-	v->w =  1;
+	float	size;
+
+	size = sqrt((v->x * v->x) + (v->y * v->y) + (v->z * v->z));
+	v->x = v->x / size;
+	v->y = v->z / size;
+	v->z = v->z / size;
 }
-
-void		set_angle(float x, float y, float z, t_vector4 *v)
-{
-	v->x =  x;
-	v->y =  y;
-	v->z =  z;
-	v->w =  0;
-}
-
-

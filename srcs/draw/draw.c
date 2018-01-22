@@ -1,17 +1,27 @@
 #include "draw.h"
 #include "bresenham_line.h"
 
-t_vector2	projection(t_ctx *ctx, t_vector3 *v1, t_mesh *mesh)
+t_vector2	projection(t_ctx *ctx, t_vector4 *v1, t_mesh *mesh)
+{
+	(void)mesh;
+	t_vector2	v2;
+	float		normal_z;
+	
+	normal_z = v1->z / (ctx->camera->far - ctx->camera->near);
+	v2.x = ctx->camera->near * v1->x / normal_z;
+	v2.y = ctx->camera->near * v1->y / normal_z; 
+	v2.x += (ctx->screen->width / 2);
+	v2.y += (ctx->screen->height / 2);
+	return (v2);	
+}
+
+t_vector2	iso_projection(t_ctx *ctx, t_vector4 *v1, t_mesh *mesh)
 {
 	(void)mesh;
 	t_vector2	v2;
 
 	v2.x = v1->x;
 	v2.y = v1->y;
-
-//	v2.x *= v1->z / 100; calculer le ratio NEAR FAR de la camera, et la position du Z dans ce ratio
-//	v2.y *= v1->z / 100;
-
 	v2.x += (ctx->screen->width / 2);
 	v2.y += (ctx->screen->height / 2);
 	return (v2);	
@@ -26,15 +36,13 @@ void	draw_all(t_ctx *ctx, t_list *elements, t_matrice4 *m1)
 	while (elements)
 	{
 		object = (t_object*)elements->content;
+
 		matrice_product(&object->matrice, m1, &m2);
 		mesh = object->mesh;
 		if (mesh)
 			draw_mesh(ctx, object, &m2);
 		if (object->children)
-		{
-			matrice_product(m1, &object->matrice, &m2);
 			draw_all(ctx, object->children, &m2);
-		}
 		elements = elements->next;
 	}
 }

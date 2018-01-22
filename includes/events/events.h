@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 17:55:07 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/17 16:11:50 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/01/18 09:31:52 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "x11_events.h"
 # include "keyboard.h"
 # include "mouse.h"
-
+# include "loop.h"
 
 int		hooks(t_ctx *ctx);
 

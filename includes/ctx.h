@@ -6,15 +6,15 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 17:54:13 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/17 16:04:14 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/01/19 19:45:39 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CTX_H
 # define CTX_H
 # include "scene.h"
-# include "object.h"
 # include "screen.h"
+# include "object.h"
 # include "map.h"
 # include "stats.h"
 # include "hud.h"
@@ -33,17 +33,16 @@ typedef	struct	s_ctx
 {
 	void		*mlx;
 	t_screen	*screen;
-	t_scene		*scene;
-	t_camera	*camera;
-	t_fdf_map	*map;
-	t_object	*map_obj;
 	t_stats		*stats;
 	t_hud		*hud;
 	t_mouse		*mouse;
 	t_keyboard	*keyboard;
+	t_scene		*scene;
+	t_camera	*camera;
+	t_fdf_map	*map;
+	t_object	*map_obj;
 }				t_ctx;
 
 int				close_fdf(t_ctx *ctx);
-int				loop(t_ctx *ctx);
 
 #endif

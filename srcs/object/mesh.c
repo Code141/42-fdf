@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 17:38:45 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/10 17:38:55 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/01/19 15:56:48 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ t_mesh	*new_mesh(t_geometry *geometry, t_material *material)
 	mesh = (t_mesh*)malloc(sizeof(t_mesh));
 	mesh->geometry = geometry;
 	mesh->material = material;
-	vector3_set(&mesh->pos, 0, 0, 0);
-	vector3_set(&mesh->rot, 0, 0, 0);
+	set_point(0, 0, 0, &mesh->pos);
+	set_angle(0, 0, 0, &mesh->rot);
 	matrice4_init(&mesh->matrice);
 	return (mesh);
 }

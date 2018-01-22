@@ -1,19 +1,19 @@
 #include "surface.h"
 
-static t_vector3	**surface_vertices(int x, int y, int subx, int suby)
+static t_vector4	**surface_vertices(int x, int y, int subx, int suby)
 {
-	t_vector3	**vertices;
+	t_vector4	**vertices;
 	int			i;
 	int			j;
 	
-	vertices = (t_vector3**)malloc(sizeof(t_vector3*) * ((subx + 1) * (suby + 1) + 1));
+	vertices = (t_vector4**)malloc(sizeof(t_vector4*) * ((subx + 1) * (suby + 1) + 1));
 	i = 0;
 	while (i < suby + 1)
 	{
 		j = 0;
 		while (j < subx + 1)
 		{
-			vertices[(i * (subx + 1)) + j] = new_vector3(
+			vertices[(i * (subx + 1)) + j] = new_point(
 				x / subx * j - x / 2,
 				y / suby * i - y / 2,
 				0);
@@ -25,7 +25,7 @@ static t_vector3	**surface_vertices(int x, int y, int subx, int suby)
 	return (vertices);
 }
 
-static t_edge		**surface_edges(t_vector3 **vertices, int subx, int suby)
+static t_edge		**surface_edges(t_vector4 **vertices, int subx, int suby)
 {
 	t_edge	**edges;
 	int		i;

@@ -4,7 +4,7 @@ void	draw_vertices(t_ctx *ctx, t_object *object, t_matrice4 *m)
 {
 	int			i;
 	t_mesh		*mesh;
-	t_vector3	v1;
+	t_vector4	v1;
 	t_vector2	v2;
 	t_matrice4	m3;
 
@@ -23,8 +23,8 @@ void	draw_vertices(t_ctx *ctx, t_object *object, t_matrice4 *m)
 void	draw_edges(t_ctx *ctx, t_object *object, t_matrice4 *m)
 {
 	int			i;
-	t_vector3	v1a;
-	t_vector3	v1b;
+	t_vector4	v1a;
+	t_vector4	v1b;
 	t_vector2	v2a;
 	t_vector2	v2b;
 	t_mesh		*mesh;
@@ -37,9 +37,13 @@ void	draw_edges(t_ctx *ctx, t_object *object, t_matrice4 *m)
 	{
 		v1a = matrice_apply(&m3, mesh->geometry->edges[i]->vertices[0]);
 		v1b = matrice_apply(&m3, mesh->geometry->edges[i]->vertices[1]);
-		v2a = projection(ctx, &v1a, mesh);
-		v2b = projection(ctx, &v1b, mesh);
-		line(ctx->screen->canevas, v2a, v2b, mesh->material->color);
+		//CLIPING
+		if (v1a.z > 0 && v1b.z > 0)
+		{
+			v2a = projection(ctx, &v1a, mesh);
+			v2b = projection(ctx, &v1b, mesh);
+			line(ctx->screen->canevas, v2a, v2b, mesh->material->color);
+		}
 		i++;
 	}
 }

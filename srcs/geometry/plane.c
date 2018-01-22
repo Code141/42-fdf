@@ -1,19 +1,19 @@
 #include "plane.h"
 
-static t_vector3	**plane_vertices(int x, int y)
+static t_vector4	**plane_vertices(int x, int y)
 {
-	t_vector3 **vertices;
+	t_vector4 **vertices;
 	
-	vertices = (t_vector3**)malloc(sizeof(t_vector3*) * 5);
-	vertices[0] = new_vector3(-x / 2, -y / 2, 0);
-	vertices[1] = new_vector3(-x / 2, y / 2, 0);
-	vertices[2] = new_vector3(x / 2, -y / 2, 0);
-	vertices[3] = new_vector3(x / 2, y / 2, 0);
+	vertices = (t_vector4**)malloc(sizeof(t_vector4*) * 5);
+	vertices[0] = new_point(-x / 2, -y / 2, 0);
+	vertices[1] = new_point(-x / 2, y / 2, 0);
+	vertices[2] = new_point(x / 2, -y / 2, 0);
+	vertices[3] = new_point(x / 2, y / 2, 0);
 	vertices[4] = NULL;
 	return (vertices);
 }
 
-static t_edge		**plane_edges(t_vector3 **vertices)
+static t_edge		**plane_edges(t_vector4 **vertices)
 {
 	t_edge **edges;
  

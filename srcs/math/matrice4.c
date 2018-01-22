@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 17:49:15 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/10 17:49:34 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/01/22 12:40:11 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,14 @@ void		matrice4_init(t_matrice4 *m)
 	m->m[15] = 1;
 }
 
-t_vector3	matrice_apply(t_matrice4 *m, t_vector3 *p)
+t_vector4	matrice_apply(t_matrice4 *m, t_vector4 *p)
 {
-	t_vector3	p2;
+	t_vector4	p2;
 
 	p2.x = p->x * m->m[0] + p->y * m->m[1] + p->z * m->m[2] + m->m[3];
 	p2.y = p->x * m->m[4] + p->y * m->m[5] + p->z * m->m[6] + m->m[7];
 	p2.z = p->x * m->m[8] + p->y * m->m[9] + p->z * m->m[10] + m->m[11];
+	p2.w = p->x * m->m[12] + p->y * m->m[13] + p->z * m->m[14] + m->m[15];
 	return (p2);
 }
 
@@ -74,7 +75,7 @@ void		matrice_multiply(t_matrice4 *m1, float factor)
 	}
 }
 
-void		matrice_translation(t_matrice4 *m1, t_vector3 *v)
+void		matrice_translation(t_matrice4 *m1, t_vector4 *v)
 {
 	t_matrice4	m2;
 

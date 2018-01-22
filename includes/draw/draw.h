@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 17:54:50 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/17 14:50:13 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/01/19 16:13:30 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include "draw_mesh.h"
 # include "bresenham_line.h"
 
-t_vector2	projection(t_ctx *ctx, t_vector3 *v1, t_mesh *mesh);
+t_vector2	projection(t_ctx *ctx, t_vector4 *v1, t_mesh *mesh);
 void		draw_all(t_ctx *ctx, t_list *elements, t_matrice4 *m);
 void		render(t_ctx *ctx);
 void		draw_hud(t_ctx *ctx);

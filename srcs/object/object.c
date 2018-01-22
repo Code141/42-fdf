@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 17:39:16 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/10 17:40:15 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/01/19 15:57:02 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ t_object	*new_object(t_mesh *mesh)
 	obj->parent = NULL;
 	obj->children = NULL;
 	obj->mesh = mesh;
-	vector3_set(&obj->pos, 0, 0, 0);
-	vector3_set(&obj->rot, 0, 0, 0);
+	set_point(0, 0, 0, &obj->pos);
+	set_angle(0, 0, 0, &obj->rot);
+	vector4_clear(&obj->scale);
 	matrice4_init(&obj->matrice);
 	return (obj);
 }

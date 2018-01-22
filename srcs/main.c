@@ -23,35 +23,6 @@
 #include "mouse.h"
 #include "keyboard.h"
 
-/*
-t_object	*grid_orientation(int x, int y, int subx, int suby)
-{
-	t_object	*obj;
-	t_object	*grid;
-	t_geometry	*geometry;
-	t_material	*material;
-	
-	obj = new_object(NULL);
-	geometry = new_surface(x, y, subx, suby);
-	material = new_material(0x0000ff);
-	grid = new_object(new_mesh(geometry, material));
-	object_add_child(obj, grid);
-
-	geometry = new_surface(x, y, subx, suby);
-	material = new_material(0x00ff00);
-	grid = new_object(new_mesh(geometry, material));
-	matrice_rotation_x(&grid->mesh->matrice, TO_RAD(90));
-	object_add_child(obj, grid);
-
-	geometry = new_surface(x, y, subx, suby);
-	material = new_material(0xff0000);
-	grid = new_object(new_mesh(geometry, material));
-	matrice_rotation_y(&grid->mesh->matrice, TO_RAD(90));
-	object_add_child(obj, grid);
-	return(obj);
-}
-*/
-
 // PROTECTION DES MALLOCS !
 
 int		close_fdf(t_ctx *ctx)
@@ -79,18 +50,22 @@ t_ctx	*ctx_init()
 
 	ctx = (t_ctx*)malloc(sizeof(t_ctx));
 	ctx->mlx = mlx_init();
+
 	ctx->screen = new_screen(ctx->mlx, 800, 600);
+
 	ctx->stats = new_stats();
+
 	ctx->hud = new_hud();
 	ctx->hud->graphs[0] = new_graph(100, 60, ctx->stats->fps);
 	ctx->hud->graphs[1] = new_graph(100, 60, ctx->stats->ms);
 	ctx->hud->graphs[1]->color_min.hex = 0x00ffff;
 	ctx->hud->graphs[1]->color_max.hex = 0xff0000;
 	ctx->hud->graphs[1]->x = 102;
+
 	ctx->scene = new_scene();
-	ctx->camera = new_camera(TO_RAD(120), 10, 2000);
-	ctx->camera->pos.z = -500;
-	
+	ctx->camera = new_camera(TO_RAD(120), 1, 100);
+	ctx->camera->pos.z = 0;
+
 	ctx->mouse = new_mouse();
 	ctx->keyboard = new_keyboard();
 
@@ -100,31 +75,51 @@ t_ctx	*ctx_init()
 
 void		load_map(t_ctx *ctx)
 {
-		t_object		*fdf_map;
-		float			diag;
-		float			size;
-		t_color_rgba	c1;
+	t_object		*fdf_map;
+	float			diag;
+	float			size;
+	t_color_rgba	c1;
 
-		c1.hex = 0xffffff;
-		fdf_map = new_fdf_map(ctx->map, c1);
+	c1.hex = 0xffffff;
+	fdf_map = new_fdf_map(ctx->map, c1);
 
-		diag = hypot(ctx->map->width, ctx->map->height);
-		size = ctx->screen->width / diag / 1.2;
+	diag = hypot(ctx->map->width, ctx->map->height);
+	size = ctx->screen->width / diag / 1.2;
 
-		fdf_map->mesh->matrice.m[0] *= size;
-		fdf_map->mesh->matrice.m[5] *= size;
-		fdf_map->mesh->matrice.m[10] *= size / 4;
+	fdf_map->mesh->matrice.m[0] *= size;
+	fdf_map->mesh->matrice.m[5] *= size;
+	fdf_map->mesh->matrice.m[10] *= size / 4;
 
-		matrice_rotation_x(&fdf_map->matrice, TO_RAD(60));
-		matrice_rotation_z(&fdf_map->mesh->matrice, TO_RAD(45));
-	
-		scene_add(ctx->scene, fdf_map);
-		ctx->map_obj = fdf_map;
+	matrice_rotation_x(&fdf_map->matrice, TO_RAD(60));
+	matrice_rotation_z(&fdf_map->mesh->matrice, TO_RAD(45));
+
+	t_vector4 v;
+
+	v.x = 0;
+	v.y = 300;
+	v.z = 300;
+	v.w = 0;
+	matrice_translation(&fdf_map->matrice, &v);
+
+	scene_add(ctx->scene, fdf_map);
+	ctx->map_obj = fdf_map;
+}
+
+void		show_usage()
+{
+	ft_putstr("usage: fdf");
+	ft_putendl(" [-R [-H | -L | -P]] [-fi | -n] [-apvX] target_file\n");
 }
 
 int		main(int argc, char **argv)
 {
 	t_ctx	*ctx;
+
+	if (argc == 1)
+	{
+		show_usage();
+		exit (0);
+	}
 
 	ctx = ctx_init();
 	argc--;

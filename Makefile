@@ -6,14 +6,14 @@
 #    By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/17 12:32:21 by gelambin          #+#    #+#              #
-#    Updated: 2018/01/17 21:39:33 by gelambin         ###   ########.fr        #
+#    Updated: 2018/01/22 13:14:08 by gelambin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	fdf
 
 CC		=	gcc
-CFLAGS	=#	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror
 CPPFLAGS=	-I./lib/mlx/					\
 			-I./lib/libft/includes/			\
 			-I./includes/					\
@@ -46,6 +46,8 @@ SRCS	=	./srcs/main.c					\
 			\
 			./srcs/math/pixel.c				\
 			./srcs/math/vector.c			\
+			./srcs/math/vector3.c			\
+			./srcs/math/vector4.c			\
 			./srcs/math/matrice4.c			\
 			\
 			./srcs/draw/draw.c				\
@@ -63,6 +65,7 @@ SRCS	=	./srcs/main.c					\
 			\
 			./srcs/color/rgba.c				\
 			\
+			./srcs/object/orientation_grid.c\
 			./srcs/object/object.c			\
 			./srcs/object/scene.c			\
 			./srcs/object/camera.c			\
