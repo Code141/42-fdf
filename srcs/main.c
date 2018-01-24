@@ -51,7 +51,7 @@ t_ctx	*ctx_init()
 	ctx = (t_ctx*)malloc(sizeof(t_ctx));
 	ctx->mlx = mlx_init();
 
-	ctx->screen = new_screen(ctx->mlx, 800, 600);
+	ctx->screen = new_screen(ctx->mlx, 1800, 1080);
 
 	ctx->stats = new_stats();
 
@@ -93,7 +93,7 @@ void		load_map(t_ctx *ctx)
 	t_vector4 v;
 	v.x = 0;
 	v.y = 0;
-	v.z = 600;
+	v.z = 800;
 	v.w = 0;
 	matrice_translation(&fdf_map->matrice, &v);
 

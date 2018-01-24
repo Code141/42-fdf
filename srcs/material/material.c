@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "material.h"
 
-t_material	*new_material(t_color_rgba color)
+t_material		*new_material(t_color_rgba color)
 {
 	t_material	*material;
 
@@ -10,7 +10,15 @@ t_material	*new_material(t_color_rgba color)
 	return (material);
 }
 
-void	destroy_material(t_material *material)
+t_color_rgba	material_get_color()
+{
+	t_color_rgba	c;
+
+	c.hex = 0x000000;
+	return (c);
+}
+
+void			destroy_material(t_material *material)
 {
 	free(material);
 }

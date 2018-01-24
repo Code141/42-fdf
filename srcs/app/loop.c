@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 11:37:39 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/22 19:41:17 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/01/24 18:25:35 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	refresh_input_devices(t_ctx *ctx)
 	{
 		delta_x = ctx->mouse->last_x - ctx->mouse->x;
 		delta_y = ctx->mouse->last_y - ctx->mouse->y;
-		matrice_rotation_z(&ctx->map_obj->mesh->matrice, TO_RAD(delta_x)/5);
-		matrice_rotation_x_from_world(&ctx->map_obj->mesh->matrice, TO_RAD(delta_y)/5);
+		matrice_rotation_z(&ctx->map_obj->matrice, TO_RAD(delta_x)/5);
+		matrice_rotation_x_from_world(&ctx->map_obj->matrice, -TO_RAD(delta_y)/5);
 		ctx->mouse->last_x = ctx->mouse->x;
 		ctx->mouse->last_y = ctx->mouse->y;
 	}

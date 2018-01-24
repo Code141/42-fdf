@@ -40,13 +40,17 @@ void	draw_edges(t_ctx *ctx, t_object *object, t_matrice4 *m)
 		v1a = matrice_apply(&m3, mesh->geometry->edges[i]->vertices[0]);
 		v1b = matrice_apply(&m3, mesh->geometry->edges[i]->vertices[1]);
 		//CLIPING
-		if (v1a.z > ctx->camera->near && v1b.z > ctx->camera->near)
-//			&& v1a.z < ctx->camera->far && v1b.z < ctx->camera->far)
+		if (v1a.z > ctx->camera->near && v1b.z > ctx->camera->near
+			&& v1a.z < ctx->camera->far * 10 && v1b.z < ctx->camera->far * 10)
 		{
 			v2a = projection(ctx, &v1a, mesh);
 			v2b = projection(ctx, &v1b, mesh);
-			color = color_blend(&mesh->material->color, &color, v1a.z / 1000); 
-			line(ctx->screen->canevas, v2a, v2b, color);
+			if (!(v2a.x < 0 && v2b.x < 0) && !(v2a.x > ctx->screen->width && v2b.x > ctx->screen->width)
+			&& !(v2a.y < 0 && v2b.y < 0) && !(v2a.y > ctx->screen->height && v2b.y > ctx->screen->height))
+			{
+				color = color_blend(&mesh->material->color, &color, v1a.z / 1000); 
+				line(ctx->screen->canevas, v2a, v2b, color);
+			}	
 		}
 		i++;
 	}

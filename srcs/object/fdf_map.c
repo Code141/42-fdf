@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 17:40:40 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/11 17:09:14 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/01/24 17:47:47 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void		fdf_map_elevation(t_fdf_map *map, t_mesh *mesh)
 		j = 0;
 		while (j < x)
 		{
-			mesh->geometry->vertices[(i * x) + j]->z = map->map[i][j];
+			mesh->geometry->vertices[(i * x) + j]->z = -map->map[i][j];
 			j++;
 		}
 		i++;
