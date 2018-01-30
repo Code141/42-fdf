@@ -46,10 +46,20 @@ void	draw_all(t_ctx *ctx, t_list *elements, t_matrice4 *m1)
 	}
 }
 
+void	draw_obj(t_ctx *ctx, t_object *object)
+{
+	t_mesh		*mesh;
+
+	mesh = object->mesh;
+	if (mesh)
+		draw_mesh(ctx, object, &object->matrice);
+}
+
 void	render(t_ctx *ctx)
 {
 	t_matrice4	m;
 
 	matrice4_init(&m);
-	draw_all(ctx, ctx->scene->objects, &m);
+	draw_obj(ctx, ctx->map_obj);
+	//draw_all(ctx, ctx->scene->objects, &m);
 }

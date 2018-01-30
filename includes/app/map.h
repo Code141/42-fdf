@@ -16,6 +16,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include "libft.h"
+# include "geometry.h"
+# include "object.h"
+# include "surface2.h"
 
 typedef struct	s_fdf_map
 {
@@ -29,6 +32,7 @@ typedef struct	s_fdf_map
 	int		**color_map;
 }				t_fdf_map;
 
+t_object		*new_fdf_map(t_fdf_map *map, t_color_rgba color);
 t_fdf_map		*new_map(char *file_name);
 void			destroy_map(t_fdf_map *map);
 void			map_delta(t_fdf_map *map);

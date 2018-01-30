@@ -42,4 +42,5 @@ void		destroy_objects(void **objects)
 		destroy_mesh(object->mesh);
 	if (object->children)
 		ft_lstdel(&object->children, &destroy_objects);
+	free(object);
 }

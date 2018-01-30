@@ -12,7 +12,6 @@
 #include "scene.h"
 #include "camera.h"
 #include "mesh.h"
-#include "fdf_map.h"
 #include "map.h"
 #include "geometry.h"
 #include "plane.h"
@@ -29,13 +28,14 @@ int		close_fdf(t_ctx *ctx)
 {
 	free(ctx->screen->canevas);
 	free(ctx->screen);
-	destroy_scene(ctx->scene);
+//	destroy_scene(ctx->scene);
 	destroy_map(ctx->map);
+	
 	destroy_hud(ctx->hud);
 	destroy_camera(ctx->camera);
 	destroy_mouse(ctx->mouse);
 	destroy_keyboard(ctx->keyboard);
-	
+
 	free(ctx->stats);
 	free(ctx);
 	ft_putstr("EXIT PROGRAMME");
@@ -51,7 +51,7 @@ t_ctx	*ctx_init()
 	ctx = (t_ctx*)malloc(sizeof(t_ctx));
 	ctx->mlx = mlx_init();
 
-	ctx->screen = new_screen(ctx->mlx, 1800, 1080);
+	ctx->screen = new_screen(ctx->mlx, 1024, 786);
 
 	ctx->stats = new_stats();
 
@@ -62,7 +62,7 @@ t_ctx	*ctx_init()
 	ctx->hud->graphs[1]->color_max.hex = 0xff0000;
 	ctx->hud->graphs[1]->x = 102;
 
-	ctx->scene = new_scene();
+//	ctx->scene = new_scene();
 	ctx->camera = new_camera(TO_RAD(120), 10, 100);
 	ctx->camera->pos.z = 0;
 
@@ -93,15 +93,14 @@ void		load_map(t_ctx *ctx)
 	t_vector4 v;
 	v.x = 0;
 	v.y = 0;
-	v.z = 800;
+	v.z = 400;
 	v.w = 0;
 	matrice_translation(&fdf_map->matrice, &v);
 
-	matrice_rotation_x(&fdf_map->matrice, TO_RAD(-60));
-	matrice_rotation_z(&fdf_map->mesh->matrice, TO_RAD(45));
+	matrice_rotation_z_from_world(&fdf_map->mesh->matrice, TO_RAD(45));
+	matrice_rotation_x_from_world(&fdf_map->mesh->matrice, TO_RAD(-60));
 
-
-	scene_add(ctx->scene, fdf_map);
+//	scene_add(ctx->scene, fdf_map);
 	ctx->map_obj = fdf_map;
 }
 

@@ -69,8 +69,7 @@ SRCS	=	./srcs/main.c					\
 			./srcs/object/object.c			\
 			./srcs/object/scene.c			\
 			./srcs/object/camera.c			\
-			./srcs/object/mesh.c			\
-			./srcs/object/fdf_map.c
+			./srcs/object/mesh.c
 
 OBJS	=	$(SRCS:.c=.o)
 

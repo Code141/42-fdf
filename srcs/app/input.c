@@ -91,7 +91,6 @@ t_fdf_map	*parse_fdf_file(char *file_name)
 			free(line);
 			line = NULL;
 		}
-
 		map_delta(map);
 		if (line)
 			free(line);
