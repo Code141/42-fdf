@@ -1,5 +1,5 @@
 #include "input.h"
-// REVERSE FREE EN CAS DE MALLOC ERROR<
+
 int			**ft_array_int_push(int **array, int size, int *new_elem)
 {
 	int	**new_array;
@@ -52,12 +52,16 @@ int			new_line(char *line, t_fdf_map *map)
 	int			size;
 
 	splited_line = ft_strsplit(line, ' ');
+	if (!splited_line)
+		return (0);
 	size = ft_str_tab_length(splited_line);
 	if (!map->width)
 		map->width = size;
 	else if (map->width != size)
 	{
 		ft_putstr("Found wrong line length. Exiting.\n");
+		while (size--)
+			free(splited_line[size]);
 		free(splited_line);
 		return (0);
 	}
@@ -80,21 +84,36 @@ t_fdf_map	*parse_fdf_file(char *file_name)
 	int			fd;
 	char		*line;
 
+	ft_putstr("Loading file: ");
+	ft_putendl(file_name);
+	line = NULL;
 	map = NULL;
 	fd = open(file_name, O_RDONLY);
-	if (fd > 0)
+	if (fd < 0)
 	{
-		map =  new_map(file_name);
-		while (ft_get_next_line(fd, &line))
-		{
-			new_line(line, map);
+		perror(file_name);
+		return (NULL);
+	}
+	map = new_map(file_name);
+	while (ft_get_next_line(fd, &line))
+	{
+		if (new_line(line, map) && line)
+		{	
 			free(line);
 			line = NULL;
 		}
-		map_delta(map);
-		if (line)
+		else
+		{
 			free(line);
+			line = NULL;
+			destroy_map(map);
+			perror(file_name);
+			return (NULL);
+		}
 	}
+	map_delta(map);
+	if (line)
+		free(line);
 	close(fd);
 	return (map);
 }

@@ -26,10 +26,15 @@
 
 int		close_fdf(t_ctx *ctx)
 {
-	free(ctx->screen->canevas);
-	free(ctx->screen);
-//	destroy_scene(ctx->scene);
-	destroy_map(ctx->map);
+	if (ctx->screen)
+	{
+		if (ctx->screen->canevas)
+			free(ctx->screen->canevas);
+		mlx_destroy_window( ctx->mlx, ctx->screen->win);
+		free(ctx->screen);
+	}
+	if (ctx->map)
+		destroy_map(ctx->map);
 	
 	destroy_hud(ctx->hud);
 	destroy_camera(ctx->camera);
@@ -49,7 +54,13 @@ t_ctx	*ctx_init()
 	t_ctx	*ctx;
 
 	ctx = (t_ctx*)malloc(sizeof(t_ctx));
+	if (!ctx)
+		close_fdf(ctx);
+	ft_bzero(ctx, sizeof(t_ctx));
+
 	ctx->mlx = mlx_init();
+	if (!ctx->mlx)
+		close_fdf(ctx);	
 
 	ctx->screen = new_screen(ctx->mlx, 1024, 786);
 
@@ -62,7 +73,6 @@ t_ctx	*ctx_init()
 	ctx->hud->graphs[1]->color_max.hex = 0xff0000;
 	ctx->hud->graphs[1]->x = 102;
 
-//	ctx->scene = new_scene();
 	ctx->camera = new_camera(TO_RAD(120), 10, 100);
 	ctx->camera->pos.z = 0;
 
@@ -70,64 +80,60 @@ t_ctx	*ctx_init()
 	ctx->keyboard = new_keyboard();
 
 	ctx->map = NULL;
+	ctx->map_obj = NULL;
+	hooks(ctx);
 	return (ctx);
 }
 
-void		load_map(t_ctx *ctx)
+t_object		*load_map(t_fdf_map *map, int screen_width)
 {
 	t_object		*fdf_map;
-	float			diag;
-	float			size;
 	t_color_rgba	c1;
+	t_vector4		v;
+	float			size;
 
 	c1.hex = 0xffffff;
-	fdf_map = new_fdf_map(ctx->map, c1);
+	fdf_map = new_fdf_map(map, c1);
 
-	diag = hypot(ctx->map->width, ctx->map->height);
-	size = ctx->screen->width / diag / 1.2;
-
+	size = screen_width / hypot(map->width, map->height) / 1.2;
 	fdf_map->mesh->matrice.m[0] *= size;
 	fdf_map->mesh->matrice.m[5] *= size;
-	fdf_map->mesh->matrice.m[10] *= size / 4;
-
-	t_vector4 v;
+	fdf_map->mesh->matrice.m[10] *= size/5;
 	v.x = 0;
 	v.y = 0;
-	v.z = 400;
+	v.z = 600;
 	v.w = 0;
 	matrice_translation(&fdf_map->matrice, &v);
-
 	matrice_rotation_z_from_world(&fdf_map->mesh->matrice, TO_RAD(45));
-	matrice_rotation_x_from_world(&fdf_map->mesh->matrice, TO_RAD(-60));
-
-//	scene_add(ctx->scene, fdf_map);
-	ctx->map_obj = fdf_map;
+	matrice_rotation_x_from_world(&fdf_map->mesh->matrice, TO_RAD(-45));
+	return (fdf_map);
 }
 
 void		show_usage()
 {
 	ft_putstr("usage: fdf");
-	ft_putendl(" [-R [-H | -L | -P]] [-fi | -n] [-apvX] target_file\n");
+	ft_putstr(" target_file\n");
+	exit (0);
 }
 
 int		main(int argc, char **argv)
 {
-	t_ctx	*ctx;
+	t_ctx		*ctx;
+	t_fdf_map	*map;
 
-	if (argc == 1)
-	{
-		show_usage();
-		exit (0);
-	}
-
-	ctx = ctx_init();
 	argc--;
 	argv++;
-	if (argc)
-		ctx->map = parse_fdf_file(*argv);
-	if (ctx->map)
-		load_map(ctx);
-	hooks(ctx);
-	mlx_loop(ctx->mlx);
+	if (argc != 1)
+		show_usage();
+	ctx = ctx_init();
+	map = parse_fdf_file(*argv);
+	if (map)
+		ctx->map_obj = load_map(map, ctx->screen->width);
+	else
+		close_fdf(ctx);
+	if (ctx->map_obj)
+		mlx_loop(ctx->mlx);
+	else
+		close_fdf(ctx);
 	return (0);
 }

@@ -17,6 +17,8 @@ t_fdf_map	*new_map(char *file_name)
 	t_fdf_map	*map;
 
 	map = (t_fdf_map*)malloc(sizeof(t_fdf_map));
+	if (!map)
+		return (NULL);
 	map->name = file_name;
 	map->width = 0;
 	map->height = 0;
