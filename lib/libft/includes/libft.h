@@ -6,13 +6,16 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 12:34:20 by gelambin          #+#    #+#             */
-/*   Updated: 2017/12/15 16:40:24 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/01/31 18:39:20 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <string.h>
+# ifndef BUFF_SIZE
+#  define BUFF_SIZE 64
+# endif
 
 typedef struct	s_list
 {
@@ -21,8 +24,14 @@ typedef struct	s_list
 	struct s_list	*next;
 }				t_list;
 
-# include "ft_get_next_line.h"
+typedef struct	s_file
+{
+	int				fd;
+	int				status;
+	t_list			*save;
+}				t_file;
 
+int				ft_get_next_line(const int fd, char **line);
 void			*ft_memset(void *b, int c, size_t len);
 void			*ft_bzero(void *s, size_t n);
 void			*ft_memcpy(void *dst, const void *src, size_t n);
@@ -76,12 +85,6 @@ void			ft_putchar_fd(char c, int fd);
 void			ft_putstr_fd(char const *s, int fd);
 void			ft_putendl_fd(char const *s, int fd);
 void			ft_putnbr_fd(int n, int fd);
-
-
-
-//int				**ft_array_int_push(int **array, int size, int *new_elem);
-
-
 t_list			*ft_lstnew(void const *content, size_t content_size);
 t_list			*ft_lst_new_link(void const *content);
 void			ft_lstdelone(t_list **alst, void (*del)(void**));
@@ -91,11 +94,9 @@ void			ft_lst_push_back(t_list **alst, t_list *new);
 void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list			*ft_lst_join(t_list *alst, t_list *blist);
-
 unsigned int	ft_lst_weight(t_list *alst);
 void			*ft_lst_fold(t_list *alst);
 t_list			*ft_lst_remove(t_list **alst, t_list *elem);
-
 void			ft_putnbr_base(int nbr, char *base);
 int				ft_atoi_base(char *str, char *base);
 int				ft_factorial(int nb);

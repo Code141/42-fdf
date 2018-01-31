@@ -1,4 +1,5 @@
 #include "input.h"
+#include "ctx.h"
 
 int			**ft_array_int_push(int **array, int size, int *new_elem)
 {
@@ -7,7 +8,7 @@ int			**ft_array_int_push(int **array, int size, int *new_elem)
 
 	new_array = (int**)malloc(sizeof(*new_array) * (size + 1));
 	if (!new_array)
-		return (NULL);
+		crash("Broken malloc");
 	i = 0;
 	while (i < size)
 	{
@@ -24,12 +25,14 @@ int			*strtab_to_inttab(char **strtab, int size)
 	int	*tab;
 
 	tab = (int*)malloc(sizeof(*tab) * (size));
+	if (!tab)
+		crash("Broken malloc");
 	i = 0;
 	while (i < size)
 	{
 		tab[i] = ft_atoi(strtab[i]);
 		free(strtab[i]);
-	i++;
+		i++;
 	}
 	return (tab);
 }
@@ -53,13 +56,16 @@ int			new_line(char *line, t_fdf_map *map)
 
 	splited_line = ft_strsplit(line, ' ');
 	if (!splited_line)
-		return (0);
+	{
+		perror(map->name);
+		exit (1);
+	}	
 	size = ft_str_tab_length(splited_line);
 	if (!map->width)
 		map->width = size;
 	else if (map->width != size)
 	{
-		ft_putstr("Found wrong line length. Exiting.\n");
+		ft_putstr("Found wrong line length.\n");
 		while (size--)
 			free(splited_line[size]);
 		free(splited_line);
@@ -67,14 +73,11 @@ int			new_line(char *line, t_fdf_map *map)
 	}
 	new_line = strtab_to_inttab(splited_line, map->width);
 	free(splited_line);
-	if (new_line)
-	{
-		n_map = ft_array_int_push(map->map, map->height, new_line);		
-		if (map->map)
-			free(map->map);
-		map->map = n_map;
-		map->height++;
-	}		
+	n_map = ft_array_int_push(map->map, map->height, new_line);		
+	if (map->map)
+		free(map->map);
+	map->map = n_map;
+	map->height++;
 	return (1);
 }
 
@@ -84,8 +87,6 @@ t_fdf_map	*parse_fdf_file(char *file_name)
 	int			fd;
 	char		*line;
 
-	ft_putstr("Loading file: ");
-	ft_putendl(file_name);
 	line = NULL;
 	map = NULL;
 	fd = open(file_name, O_RDONLY);
@@ -95,6 +96,8 @@ t_fdf_map	*parse_fdf_file(char *file_name)
 		return (NULL);
 	}
 	map = new_map(file_name);
+	if (!map)
+		crash("");
 	while (ft_get_next_line(fd, &line))
 	{
 		if (new_line(line, map) && line)
@@ -103,13 +106,7 @@ t_fdf_map	*parse_fdf_file(char *file_name)
 			line = NULL;
 		}
 		else
-		{
-			free(line);
-			line = NULL;
-			destroy_map(map);
-			perror(file_name);
-			return (NULL);
-		}
+			return (0);
 	}
 	map_delta(map);
 	if (line)

@@ -6,17 +6,20 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 17:39:16 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/19 15:57:02 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/01/31 18:19:42 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "object.h"
+#include "ctx.h"
 
 t_object	*new_object(t_mesh *mesh)
 {
 	t_object	*obj;
 
 	obj = (t_object*)malloc(sizeof(t_object));
+	if (!obj)
+		crash("Broken malloc");
 	obj->parent = NULL;
 	obj->children = NULL;
 	obj->mesh = mesh;

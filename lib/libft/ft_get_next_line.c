@@ -6,14 +6,14 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/28 13:24:01 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/03 19:22:23 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/01/31 18:39:00 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include "ft_get_next_line.h"
+#include "libft.h"
 
 static t_list	*get_dial(int fd, t_list **dial)
 {
@@ -100,7 +100,7 @@ static int		send(t_file *file, char **line)
 	return (1);
 }
 
-int		ft_get_next_line(const int fd, char **line)
+int				ft_get_next_line(const int fd, char **line)
 {
 	static t_list	*dial;
 	t_list			*link_dial;

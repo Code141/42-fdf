@@ -1,3 +1,4 @@
+#include "ctx.h"
 #include "surface.h"
 
 static t_vector4	**surface_vertices(int x, int y, int subx, int suby)
@@ -7,6 +8,8 @@ static t_vector4	**surface_vertices(int x, int y, int subx, int suby)
 	int			j;
 	
 	vertices = (t_vector4**)malloc(sizeof(t_vector4*) * ((subx + 1) * (suby + 1) + 1));
+	if (!vertices)
+		crash("Broken malloc");
 	i = 0;
 	while (i < suby + 1)
 	{
@@ -32,7 +35,8 @@ static t_edge		**surface_edges(t_vector4 **vertices, int subx, int suby)
 	int		j;
 
  	edges = (t_edge**)malloc(sizeof(t_edge*) * ((subx * suby * 3) + (subx + suby) + 1));
-
+	if (!edges)
+		crash("Broken malloc");
 	i = 0;
 	while (i < suby + 1)
 	{
@@ -61,6 +65,8 @@ static t_face		**surface_faces(t_edge **edges, int subx, int suby)
 	t_face **faces; 
 
 	faces = (t_face**)malloc(sizeof(t_face*) * 3);
+	if (!faces)
+		crash("Broken malloc");
 	faces[0] = NULL;
 	return (faces);
 }
@@ -70,6 +76,8 @@ t_geometry	*new_surface2(int x, int y, int subx, int suby)
 	t_geometry	*geo;
 
 	geo = (t_geometry*)malloc(sizeof(t_geometry));
+	if (!geo)
+		crash("Broken malloc");
 	geo->vertices = surface_vertices(x, y, subx, suby);
 	geo->edges = surface_edges(geo->vertices, subx, suby);
 	geo->faces = surface_faces(geo->edges, subx, suby);

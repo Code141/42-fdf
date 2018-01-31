@@ -6,7 +6,7 @@
 #    By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/12 21:09:18 by gelambin          #+#    #+#              #
-#    Updated: 2018/01/17 12:44:59 by gelambin         ###   ########.fr        #
+#    Updated: 2018/01/31 18:38:26 by gelambin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,6 @@ SRCS = 	ft_atoi.c		ft_bzero.c		ft_isalnum.c	ft_isalpha.c		\
 		ft_strncmp.c	ft_strncpy.c	ft_strnequ.c	ft_strnew.c			\
 		ft_strnstr.c	ft_strrchr.c	ft_strsplit.c	ft_strstr.c			\
 		ft_strsub.c		ft_strtrim.c	ft_tolower.c	ft_toupper.c
-
-SRCS +=	ft_array_int_push.c
 
 SRCS +=	ft_lstnew.c			ft_lstdelone.c			ft_lstdel.c				\
 		ft_lstiter.c		ft_lstmap.c				ft_lst_push_front.c		\

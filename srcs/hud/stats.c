@@ -1,4 +1,5 @@
 #include "stats.h"
+#include "ctx.h"
 
 t_stats	*new_stats()
 {
@@ -6,6 +7,8 @@ t_stats	*new_stats()
 	struct timeval tv;
 
 	stats = (t_stats*)malloc(sizeof(t_stats));
+	if (!stats)
+		crash("Broken malloc");
 	stats->timestamp = (int)time(NULL);
 	ft_bzero(stats->fps, 100 * 4);
 	ft_bzero(stats->ms, 100 * 4);

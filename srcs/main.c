@@ -49,13 +49,21 @@ int		close_fdf(t_ctx *ctx)
 	exit (0);
 }
 
+void	crash(char *str)
+{
+	ft_putendl("========== CRASH ==========");
+	ft_putendl(str);
+	ft_putendl("===========================");
+	exit (1);	
+}
+
 t_ctx	*ctx_init()
 {
 	t_ctx	*ctx;
 
 	ctx = (t_ctx*)malloc(sizeof(t_ctx));
 	if (!ctx)
-		close_fdf(ctx);
+		crash("Broken malloc");
 	ft_bzero(ctx, sizeof(t_ctx));
 
 	ctx->mlx = mlx_init();
