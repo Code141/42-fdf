@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 17:37:05 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/31 18:20:09 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/02/01 15:19:19 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_camera	*new_camera(float angle, float near, float far)
 	camera->angle = angle;
 	camera->near = near;
 	camera->far = far;
+	camera->fog_color.hex = 0x000000;
 	return (camera);
 }
 

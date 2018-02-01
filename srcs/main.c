@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/31 18:44:58 by gelambin          #+#    #+#             */
+/*   Updated: 2018/02/01 16:15:10 by gelambin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 #include "mlx.h"
 #include "libft.h"
-
 #include "ctx.h"
 #include "input.h"
 #include "events.h"
@@ -22,42 +33,7 @@
 #include "mouse.h"
 #include "keyboard.h"
 
-// PROTECTION DES MALLOCS !
-
-int		close_fdf(t_ctx *ctx)
-{
-	if (ctx->screen)
-	{
-		if (ctx->screen->canevas)
-			free(ctx->screen->canevas);
-		mlx_destroy_window( ctx->mlx, ctx->screen->win);
-		free(ctx->screen);
-	}
-	if (ctx->map)
-		destroy_map(ctx->map);
-	
-	destroy_hud(ctx->hud);
-	destroy_camera(ctx->camera);
-	destroy_mouse(ctx->mouse);
-	destroy_keyboard(ctx->keyboard);
-
-	free(ctx->stats);
-	free(ctx);
-	ft_putstr("EXIT PROGRAMME");
-	while (1)
-	{}
-	exit (0);
-}
-
-void	crash(char *str)
-{
-	ft_putendl("========== CRASH ==========");
-	ft_putendl(str);
-	ft_putendl("===========================");
-	exit (1);	
-}
-
-t_ctx	*ctx_init()
+t_ctx		*ctx_init(void)
 {
 	t_ctx	*ctx;
 
@@ -65,35 +41,28 @@ t_ctx	*ctx_init()
 	if (!ctx)
 		crash("Broken malloc");
 	ft_bzero(ctx, sizeof(t_ctx));
-
 	ctx->mlx = mlx_init();
 	if (!ctx->mlx)
-		close_fdf(ctx);	
-
+		close_fdf(ctx);
 	ctx->screen = new_screen(ctx->mlx, 1024, 786);
-
 	ctx->stats = new_stats();
-
 	ctx->hud = new_hud();
 	ctx->hud->graphs[0] = new_graph(100, 60, ctx->stats->fps);
 	ctx->hud->graphs[1] = new_graph(100, 60, ctx->stats->ms);
 	ctx->hud->graphs[1]->color_min.hex = 0x00ffff;
 	ctx->hud->graphs[1]->color_max.hex = 0xff0000;
 	ctx->hud->graphs[1]->x = 102;
-
 	ctx->camera = new_camera(TO_RAD(120), 10, 100);
 	ctx->camera->pos.z = 0;
-
 	ctx->mouse = new_mouse();
 	ctx->keyboard = new_keyboard();
-
 	ctx->map = NULL;
 	ctx->map_obj = NULL;
 	hooks(ctx);
 	return (ctx);
 }
 
-t_object		*load_map(t_fdf_map *map, int screen_width)
+t_object	*load_map(t_fdf_map *map, int screen_width)
 {
 	t_object		*fdf_map;
 	t_color_rgba	c1;
@@ -102,11 +71,10 @@ t_object		*load_map(t_fdf_map *map, int screen_width)
 
 	c1.hex = 0xffffff;
 	fdf_map = new_fdf_map(map, c1);
-
 	size = screen_width / hypot(map->width, map->height) / 1.2;
 	fdf_map->mesh->matrice.m[0] *= size;
 	fdf_map->mesh->matrice.m[5] *= size;
-	fdf_map->mesh->matrice.m[10] *= size/5;
+	fdf_map->mesh->matrice.m[10] *= size / 5;
 	v.x = 0;
 	v.y = 0;
 	v.z = 600;
@@ -117,14 +85,7 @@ t_object		*load_map(t_fdf_map *map, int screen_width)
 	return (fdf_map);
 }
 
-void		show_usage()
-{
-	ft_putstr("usage: fdf");
-	ft_putstr(" target_file\n");
-	exit (0);
-}
-
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_ctx		*ctx;
 	t_fdf_map	*map;
@@ -136,7 +97,10 @@ int		main(int argc, char **argv)
 	ctx = ctx_init();
 	map = parse_fdf_file(*argv);
 	if (map)
-		ctx->map_obj = load_map(map, ctx->screen->width);
+		if (map->width < 2 || map->height < 2)
+			ft_putstr("Bad dimentions map.\n");
+		else
+			ctx->map_obj = load_map(map, ctx->screen->width);
 	else
 		close_fdf(ctx);
 	if (ctx->map_obj)

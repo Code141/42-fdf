@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   surface.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/02/01 11:42:18 by gelambin          #+#    #+#             */
+/*   Updated: 2018/02/01 12:14:28 by gelambin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "surface.h"
 #include "ctx.h"
 
@@ -6,8 +18,9 @@ static t_vector4	**surface_vertices(int x, int y, int subx, int suby)
 	t_vector4	**vertices;
 	int			i;
 	int			j;
-	
-	vertices = (t_vector4**)malloc(sizeof(t_vector4*) * ((subx + 1) * (suby + 1) + 1));
+
+	vertices = (t_vector4**)malloc(
+		sizeof(t_vector4*) * ((subx + 1) * (suby + 1) + 1));
 	if (!vertices)
 		crash("Broken malloc");
 	i = 0;
@@ -28,45 +41,42 @@ static t_vector4	**surface_vertices(int x, int y, int subx, int suby)
 	return (vertices);
 }
 
-static t_edge		**surface_edges(t_vector4 **vertices, int subx, int suby)
+static t_edge		**surface_edges(t_vector4 **v, int x, int y)
 {
-	t_edge	**edges;
+	t_edge	**e;
 	int		i;
 	int		j;
 
- 	edges = (t_edge**)malloc(sizeof(t_edge*) * ((subx * suby * 3) + (subx + suby) + 1));
-	if (!edges)
+	if (!(e = (t_edge**)malloc(sizeof(t_edge*) * ((x * y * 3) + (x + y) + 1))))
 		crash("Broken malloc");
-	i = 0;
-	while (i < suby + 1)
+	i = -1;
+	while (i++ < y + 1)
 	{
-		j = 0;
-		while (j < subx + 1)
+		j = -1;
+		while (j++ < x + 1)
 		{
-			if (j < subx)
-				edges[i * subx + j] =
-					new_edge(vertices[i * (subx + 1) + j], vertices[i * (subx + 1) + j + 1]);
-			if (i < suby)
-				edges[((suby + 1) * subx) + (i * (subx + 1)) + j] =
-					new_edge(vertices[i * (subx + 1) + j], vertices[(i + 1) * (subx + 1) + j]);
-			if (i < suby && j < subx)
-				edges[((suby + 1) * subx) + (suby * (subx + 1)) + (i * subx + j)] =
-					new_edge(vertices[i * (subx + 1) + j], vertices[(i + 1) * (subx + 1) + j + 1]);
-			j++;
+			if (j < x)
+				e[i * x + j] =
+					new_edge(v[i * (x + 1) + j], v[i * (x + 1) + j + 1]);
+			if (i < y)
+				e[((y + 1) * x) + (i * (x + 1)) + j] =
+					new_edge(v[i * (x + 1) + j], v[(i + 1) * (x + 1) + j]);
+			if (i < y && j < x)
+				e[((y + 1) * x) + (y * (x + 1)) + (i * x + j)] =
+					new_edge(v[i * (x + 1) + j], v[(i + 1) * (x + 1) + j + 1]);
 		}
-		i++;
 	}
-	edges[(subx * suby * 3) + (subx + suby)] = NULL;
-	return (edges);
+	e[(x * y * 3) + (x + y)] = NULL;
+	return (e);
 }
 
 static t_face		**surface_faces(t_edge **edges, int subx, int suby)
 {
+	t_face **faces;
+
 	(void)edges;
 	(void)subx;
 	(void)suby;
-	t_face **faces; 
-
 	faces = (t_face**)malloc(sizeof(t_face*) * 3);
 	if (!faces)
 		crash("Broken malloc");
@@ -74,7 +84,7 @@ static t_face		**surface_faces(t_edge **edges, int subx, int suby)
 	return (faces);
 }
 
-t_geometry	*new_surface(int x, int y, int subx, int suby)
+t_geometry			*new_surface(int x, int y, int subx, int suby)
 {
 	t_geometry	*geo;
 

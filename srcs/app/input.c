@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/31 20:10:04 by gelambin          #+#    #+#             */
+/*   Updated: 2018/02/01 16:18:35 by gelambin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "input.h"
 #include "ctx.h"
 
@@ -50,20 +62,16 @@ int			ft_str_tab_length(char **strtab)
 int			new_line(char *line, t_fdf_map *map)
 {
 	char		**splited_line;
-	int			*new_line;
 	int			**n_map;
 	int			size;
 
-	splited_line = ft_strsplit(line, ' ');
-	if (!splited_line)
-	{
+	if (!(splited_line = ft_strsplit(line, ' ')))
 		perror(map->name);
-		exit (1);
-	}	
+	if (!splited_line)
+		exit(1);
 	size = ft_str_tab_length(splited_line);
-	if (!map->width)
-		map->width = size;
-	else if (map->width != size)
+	map->width = (!map->width) ? size : map->width;
+	if (map->width != size)
 	{
 		ft_putstr("Found wrong line length.\n");
 		while (size--)
@@ -71,13 +79,12 @@ int			new_line(char *line, t_fdf_map *map)
 		free(splited_line);
 		return (0);
 	}
-	new_line = strtab_to_inttab(splited_line, map->width);
+	n_map = ft_array_int_push(map->map, map->height,
+			strtab_to_inttab(splited_line, map->width));
 	free(splited_line);
-	n_map = ft_array_int_push(map->map, map->height, new_line);		
 	if (map->map)
 		free(map->map);
 	map->map = n_map;
-	map->height++;
 	return (1);
 }
 
@@ -87,30 +94,24 @@ t_fdf_map	*parse_fdf_file(char *file_name)
 	int			fd;
 	char		*line;
 
-	line = NULL;
 	map = NULL;
+	line = NULL;
 	fd = open(file_name, O_RDONLY);
 	if (fd < 0)
-	{
 		perror(file_name);
+	if (fd < 0 || !(map = new_map(file_name)))
 		return (NULL);
-	}
-	map = new_map(file_name);
-	if (!map)
-		crash("");
 	while (ft_get_next_line(fd, &line))
 	{
-		if (new_line(line, map) && line)
-		{	
-			free(line);
-			line = NULL;
-		}
-		else
+		if (!new_line(line, map) && line)
 			return (0);
+		map->height++;
+		if (line)
+			free(line);
+		line = NULL;
 	}
-	map_delta(map);
-	if (line)
-		free(line);
+	free(line);
 	close(fd);
+	map_delta(map);
 	return (map);
 }

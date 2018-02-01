@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   plane.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/02/01 11:40:07 by gelambin          #+#    #+#             */
+/*   Updated: 2018/02/01 11:41:58 by gelambin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "plane.h"
 #include "ctx.h"
 
 static t_vector4	**plane_vertices(int x, int y)
 {
 	t_vector4 **vertices;
-	
+
 	vertices = (t_vector4**)malloc(sizeof(t_vector4*) * 5);
 	if (!vertices)
 		crash("Broken malloc");
@@ -19,7 +31,7 @@ static t_vector4	**plane_vertices(int x, int y)
 static t_edge		**plane_edges(t_vector4 **vertices)
 {
 	t_edge **edges;
- 
+
 	edges = (t_edge**)malloc(sizeof(t_edge*) * 6);
 	if (!edges)
 		crash("Broken malloc");
@@ -34,7 +46,7 @@ static t_edge		**plane_edges(t_vector4 **vertices)
 
 static t_face		**plane_faces(t_edge **edges)
 {
-	t_face **faces; 
+	t_face **faces;
 
 	faces = (t_face**)malloc(sizeof(t_face*) * 3);
 	if (!faces)
@@ -45,7 +57,7 @@ static t_face		**plane_faces(t_edge **edges)
 	return (faces);
 }
 
-t_geometry	*new_plane(int x, int y)
+t_geometry			*new_plane(int x, int y)
 {
 	t_geometry	*geo;
 

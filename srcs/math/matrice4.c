@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 17:49:15 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/24 18:33:25 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/02/01 12:28:10 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,109 +61,4 @@ void		matrice_product(t_matrice4 *m1, t_matrice4 *m2, t_matrice4 *m3)
 		i++;
 	}
 	*m3 = m4;
-}
-
-void		matrice_multiply(t_matrice4 *m1, float factor)
-{
-	int			i;
-
-	i = 0;
-	while (i < 16)
-	{
-		m1->m[i] *= factor;
-		i++;
-	}
-}
-
-void		matrice_translation(t_matrice4 *m1, t_vector4 *v)
-{
-	t_matrice4	m2;
-
-	matrice4_init(&m2);
-	m2.m[3] = v->x;
-	m2.m[7] = v->y;
-	m2.m[11] = v->z;
-	matrice_product(m1, &m2, m1);
-}
-
-void		matrice_translation_from_world(t_matrice4 *m1, t_vector4 *v)
-{
-	t_matrice4	m2;
-
-	matrice4_init(&m2);
-	m2.m[3] = v->x;
-	m2.m[7] = v->y;
-	m2.m[11] = v->z;
-	matrice_product(&m2, m1, m1);
-}
-
-void		matrice_rotation_x_from_world(t_matrice4 *m1, float angle)
-{
-	t_matrice4 m2;
-
-	matrice4_init(&m2);
-	m2.m[5] = cos(angle);
-	m2.m[6] = -sin(angle);
-	m2.m[9] = sin(angle);
-	m2.m[10] = cos(angle);
-	matrice_product(&m2, m1, m1);
-}
-
-void		matrice_rotation_y_from_world(t_matrice4 *m1, float angle)
-{
-	t_matrice4 m2;
-
-	matrice4_init(&m2);
-	m2.m[0] = cos(angle);
-	m2.m[2] = -sin(angle);
-	m2.m[8] = sin(angle);
-	m2.m[10] = cos(angle);
-	matrice_product(&m2, m1, m1);
-}
-
-void		matrice_rotation_z_from_world(t_matrice4 *m1, float angle)
-{
-	t_matrice4 m2;
-
-	matrice4_init(&m2);
-	m2.m[0] = cos(angle);
-	m2.m[1] = -sin(angle);
-	m2.m[4] = sin(angle);
-	m2.m[5] = cos(angle);
-	matrice_product(&m2, m1, m1);
-}
-void		matrice_rotation_x(t_matrice4 *m1, float angle)
-{
-	t_matrice4 m2;
-
-	matrice4_init(&m2);
-	m2.m[5] = cos(angle);
-	m2.m[6] = -sin(angle);
-	m2.m[9] = sin(angle);
-	m2.m[10] = cos(angle);
-	matrice_product(m1, &m2, m1);
-}
-
-void		matrice_rotation_y(t_matrice4 *m1, float angle)
-{
-	t_matrice4 m2;
-
-	matrice4_init(&m2);
-	m2.m[0] = cos(angle);
-	m2.m[2] = -sin(angle);
-	m2.m[8] = sin(angle);
-	m2.m[10] = cos(angle);
-	matrice_product(m1, &m2, m1);
-}
-
-void		matrice_rotation_z(t_matrice4 *m1, float angle)
-{
-	t_matrice4 m2;
-
-	matrice4_init(&m2);
-	m2.m[0] = cos(angle);
-	m2.m[1] = -sin(angle);
-	m2.m[4] = sin(angle);
-	m2.m[5] = cos(angle);
-	matrice_product(m1, &m2, m1);
 }

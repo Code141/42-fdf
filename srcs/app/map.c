@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 17:51:21 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/31 17:51:15 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/02/01 11:55:52 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_fdf_map	*new_map(char *file_name)
 
 	map = (t_fdf_map*)malloc(sizeof(t_fdf_map));
 	if (!map)
-		crash("Broken malloc");	
+		crash("Broken malloc");
 	map->name = file_name;
 	map->width = 0;
 	map->height = 0;

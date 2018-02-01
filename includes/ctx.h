@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 17:54:13 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/31 18:30:01 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/02/01 12:55:14 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef	struct	s_ctx
 }				t_ctx;
 
 int				close_fdf(t_ctx *ctx);
+void			show_usage(void);
+void			crash(char *str);
 void			crash(char *str);
 
 #endif

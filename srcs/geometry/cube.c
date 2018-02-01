@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cube.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/02/01 11:38:07 by gelambin          #+#    #+#             */
+/*   Updated: 2018/02/01 11:39:01 by gelambin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube.h"
 #include "ctx.h"
 
@@ -20,7 +32,7 @@ static t_vector4	**cube_vertices(int x, int y, int z)
 	return (vertices);
 }
 
-static t_edge	**cube_edges(t_vector4 **vertices)
+static t_edge		**cube_edges(t_vector4 **vertices)
 {
 	t_edge	**edges;
 
@@ -49,11 +61,11 @@ static t_edge	**cube_edges(t_vector4 **vertices)
 	return (edges);
 }
 
-static t_face **cube_faces(t_edge **edges)
+static t_face		**cube_faces(t_edge **edges)
 {
-	(void)edges;
 	t_face	**faces;
 
+	(void)edges;
 	faces = (t_face**)malloc(sizeof(t_face*) * 3);
 	if (!faces)
 		crash("Broken malloc");
@@ -61,7 +73,7 @@ static t_face **cube_faces(t_edge **edges)
 	return (faces);
 }
 
-t_geometry	*new_cube(int x, int y, int z)
+t_geometry			*new_cube(int x, int y, int z)
 {
 	t_geometry	*geo;
 
@@ -73,5 +85,3 @@ t_geometry	*new_cube(int x, int y, int z)
 	geo->faces = cube_faces(geo->edges);
 	return (geo);
 }
-
-
