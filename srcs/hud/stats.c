@@ -1,17 +1,32 @@
-#include "stats.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stats.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/02/01 12:22:13 by gelambin          #+#    #+#             */
+/*   Updated: 2018/02/01 12:23:35 by gelambin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-t_stats	*new_stats()
+#include "stats.h"
+#include "ctx.h"
+
+t_stats	*new_stats(void)
 {
-	t_stats	*stats;
-	struct timeval tv;
+	t_stats			*stats;
+	struct timeval	tv;
 
 	stats = (t_stats*)malloc(sizeof(t_stats));
+	if (!stats)
+		crash("Broken malloc");
 	stats->timestamp = (int)time(NULL);
 	ft_bzero(stats->fps, 100 * 4);
 	ft_bzero(stats->ms, 100 * 4);
 	gettimeofday(&tv, NULL);
 	stats->timestamp = (unsigned long long)(tv.tv_sec) * 1000
-	      + (unsigned long long)(tv.tv_usec) / 1000;
+		+ (unsigned long long)(tv.tv_usec) / 1000;
 	stats->last = stats->timestamp;
 	stats->frame = 0;
 	return (stats);
@@ -28,13 +43,12 @@ void	array_shift_right(int *array, int size)
 
 void	refresh_stats(t_stats *stats)
 {
-	struct timeval tv;
-	unsigned long long now;
+	struct timeval		tv;
+	unsigned long long	now;
 
 	gettimeofday(&tv, NULL);
-	now =	(unsigned long long)(tv.tv_sec) * 1000
-	      + (unsigned long long)(tv.tv_usec) / 1000;
-	
+	now = (unsigned long long)(tv.tv_sec) * 1000
+		+ (unsigned long long)(tv.tv_usec) / 1000;
 	stats->frame++;
 	if (stats->timestamp + 1000 < now)
 	{

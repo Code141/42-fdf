@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 17:50:43 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/10 20:51:44 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/01/31 16:59:27 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ t_screen	*new_screen(void *mlx, int width, int height)
 	t_screen *screen;
 
 	screen = (t_screen*)malloc(sizeof(t_screen));
+	if (!screen)
+		crash("Broken malloc");
 	screen->width = width;
 	screen->height = height;
 	screen->ar = width / height;
@@ -35,6 +37,8 @@ t_img		*new_canevas(void *mlx, int width, int height)
 	int		endian;
 
 	canevas = (t_img*)malloc(sizeof(t_img));
+	if (!canevas)
+		crash("Broken malloc");
 	canevas->width = width;
 	canevas->height = height;
 	size_line = width;

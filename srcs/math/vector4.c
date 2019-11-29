@@ -6,19 +6,22 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 15:24:41 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/22 16:19:23 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/01/31 18:18:23 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <math.h>
 #include "vector4.h"
+#include "ctx.h"
 
 t_vector4	*new_vector4(float x, float y, float z, float w)
 {
 	t_vector4	*v;
 
 	v = (t_vector4*)malloc(sizeof(t_vector4));
+	if (!v)
+		crash("Broken malloc");
 	v->x = x;
 	v->y = y;
 	v->z = z;

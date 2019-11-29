@@ -6,11 +6,12 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 17:51:21 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/10 20:54:25 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/02/01 11:55:52 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
+#include "ctx.h"
 
 t_fdf_map	*new_map(char *file_name)
 {
@@ -18,7 +19,7 @@ t_fdf_map	*new_map(char *file_name)
 
 	map = (t_fdf_map*)malloc(sizeof(t_fdf_map));
 	if (!map)
-		return (NULL);
+		crash("Broken malloc");
 	map->name = file_name;
 	map->width = 0;
 	map->height = 0;

@@ -6,7 +6,7 @@
 #    By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/17 12:32:21 by gelambin          #+#    #+#              #
-#    Updated: 2018/01/22 13:14:08 by gelambin         ###   ########.fr        #
+#    Updated: 2018/02/01 16:23:09 by gelambin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ LIBS	=	-L./lib/mlx -lmlx				\
 			-L./lib/libft -lft
 
 SRCS	=	./srcs/main.c					\
+			./srcs/app/closing.c			\
 			./srcs/app/input.c				\
 			./srcs/app/map.c				\
 			./srcs/app/events.c				\
@@ -49,6 +50,7 @@ SRCS	=	./srcs/main.c					\
 			./srcs/math/vector3.c			\
 			./srcs/math/vector4.c			\
 			./srcs/math/matrice4.c			\
+			./srcs/math/matrice4_rot_trans.c\
 			\
 			./srcs/draw/draw.c				\
 			./srcs/draw/draw_mesh.c			\
@@ -65,7 +67,6 @@ SRCS	=	./srcs/main.c					\
 			\
 			./srcs/color/rgba.c				\
 			\
-			./srcs/object/orientation_grid.c\
 			./srcs/object/object.c			\
 			./srcs/object/scene.c			\
 			./srcs/object/camera.c			\
@@ -81,7 +82,7 @@ all		: $(NAME)
 $(NAME) : $(OBJS)
 	cd ./lib/libft && $(MAKE)
 	cd ./lib/mlx && $(MAKE)
-	gcc $(LIBS) $(FMWS) $(OBJS) -o $(NAME)
+	gcc -O3 $(LIBS) $(FMWS) $(OBJS) -o $(NAME)
 
 clean	:
 	rm -f $(OBJS)

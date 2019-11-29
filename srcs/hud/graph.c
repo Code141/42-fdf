@@ -1,10 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   graph.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/02/01 12:21:17 by gelambin          #+#    #+#             */
+/*   Updated: 2018/02/01 12:21:19 by gelambin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "graph.h"
+#include "ctx.h"
 
 t_graph	*new_graph(int length, int height, int *data)
 {
 	t_graph	*graph;
 
 	graph = (t_graph*)malloc(sizeof(t_graph));
+	if (!graph)
+		crash("Broken malloc");
 	graph->length = length;
 	graph->height = height;
 	graph->data = data;

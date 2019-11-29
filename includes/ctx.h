@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 17:54:13 by gelambin          #+#    #+#             */
-/*   Updated: 2018/01/22 16:56:50 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/02/01 12:55:14 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 # define TO_RAD(x) ((x) * PI / 180.0)
 # define TO_DEG(x) ((x) * 180.0 / PI)
 
-
 typedef	struct	s_ctx
 {
 	void		*mlx;
@@ -44,5 +43,8 @@ typedef	struct	s_ctx
 }				t_ctx;
 
 int				close_fdf(t_ctx *ctx);
+void			show_usage(void);
+void			crash(char *str);
+void			crash(char *str);
 
 #endif
